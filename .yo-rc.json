@@ -1,0 +1,24 @@
+{
+  "generator-jhipster": {
+    "baseName": "JTrackSeries",
+    "packageName": "com.jtrackseries",
+    "packageFolder": "com/jtrackseries",
+    "authenticationType": "session",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "no",
+    "useSass": false,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "enableTranslation": false,
+    "enableSocialSignIn": false,
+    "rememberMeKey": "92aaa51e6ef9e620a54e3aae53014d4e40ba790e",
+    "testFrameworks": [
+      "gatling"
+    ]
+  }
+}
