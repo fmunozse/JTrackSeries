@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('jTrackSeriesApp')
-    .controller('SerieController', function ($scope, Serie, ParseLinks) {
+    .controller('SerieController', function ($scope, $state, $modal, Serie, ParseLinks) {
+      
         $scope.series = [];
         $scope.page = 0;
         $scope.loadAll = function() {
@@ -16,21 +17,6 @@ angular.module('jTrackSeriesApp')
         };
         $scope.loadAll();
 
-        $scope.delete = function (id) {
-            Serie.get({id: id}, function(result) {
-                $scope.serie = result;
-                $('#deleteSerieConfirmation').modal('show');
-            });
-        };
-
-        $scope.confirmDelete = function (id) {
-            Serie.delete({id: id},
-                function () {
-                    $scope.loadAll();
-                    $('#deleteSerieConfirmation').modal('hide');
-                    $scope.clear();
-                });
-        };
 
         $scope.refresh = function () {
             $scope.loadAll();

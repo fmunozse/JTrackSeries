@@ -29,7 +29,12 @@
             "fieldValidateRules": [
                 "required"
             ]
-        }
+        },
+        {
+            "fieldId": 4,
+            "fieldName": "notes",
+            "fieldType": "String"
+        }        
     ],
     "changelogDate": "20151109105931",
     "dto": "no",

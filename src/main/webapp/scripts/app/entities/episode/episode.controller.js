@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('jTrackSeriesApp')
-    .controller('EpisodeController', function ($scope, Episode, ParseLinks) {
+    .controller('EpisodeController', function ($scope, $state, $modal, Episode, ParseLinks) {
+      
         $scope.episodes = [];
         $scope.page = 0;
         $scope.loadAll = function() {
@@ -16,21 +17,6 @@ angular.module('jTrackSeriesApp')
         };
         $scope.loadAll();
 
-        $scope.delete = function (id) {
-            Episode.get({id: id}, function(result) {
-                $scope.episode = result;
-                $('#deleteEpisodeConfirmation').modal('show');
-            });
-        };
-
-        $scope.confirmDelete = function (id) {
-            Episode.delete({id: id},
-                function () {
-                    $scope.loadAll();
-                    $('#deleteEpisodeConfirmation').modal('hide');
-                    $scope.clear();
-                });
-        };
 
         $scope.refresh = function () {
             $scope.loadAll();
@@ -42,6 +28,7 @@ angular.module('jTrackSeriesApp')
                 title: null,
                 datePublish: null,
                 viewed: false,
+                notes: null,
                 id: null
             };
         };

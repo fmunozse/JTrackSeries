@@ -67,7 +67,7 @@ class SeasonGatlingTest extends Simulation {
             .exec(http("Create new season")
             .post("/api/seasons")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "title":"SAMPLE_TEXT", "orderNumber":"0"}""")).asJSON
+            .body(StringBody("""{"id":null, "title":"SAMPLE_TEXT", "orderNumber":"0", "notes":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_season_url")))
             .pause(10)

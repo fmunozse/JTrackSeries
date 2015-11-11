@@ -28,6 +28,7 @@
             <column name="viewed" type="bit">
                 <constraints nullable="false" />
             </column>
+            <column name="notes" type="varchar(255)"/>
             <column name="season_id" type="bigint"/>
         </createTable>
         

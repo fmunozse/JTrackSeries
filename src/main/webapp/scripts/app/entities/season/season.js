@@ -54,6 +54,7 @@ angular.module('jTrackSeriesApp')
                                 return {
                                     title: null,
                                     orderNumber: null,
+                                    notes: null,
                                     id: null
                                 };
                             }
@@ -76,6 +77,29 @@ angular.module('jTrackSeriesApp')
                         templateUrl: 'scripts/app/entities/season/season-dialog.html',
                         controller: 'SeasonDialogController',
                         size: 'lg',
+                        resolve: {
+                            entity: ['Season', function(Season) {
+                                return Season.get({id : $stateParams.id});
+                            }]
+                        }
+                    }).result.then(function(result) {
+                        $state.go('season', null, { reload: true });
+                    }, function() {
+                        $state.go('^');
+                    })
+                }]
+            })
+            .state('season.delete', {
+                parent: 'season',
+                url: '/{id}/delete',
+                data: {
+                    authorities: ['ROLE_USER'],
+                },
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+                    $modal.open({
+                        templateUrl: 'scripts/app/entities/season/season-delete-dialog.html',
+                        controller: 'SeasonDeleteController',
+                        size: 'md',
                         resolve: {
                             entity: ['Season', function(Season) {
                                 return Season.get({id : $stateParams.id});

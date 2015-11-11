@@ -1,6 +1,6 @@
 jhipster-dev-postgresql:
   container_name: JTrackSeries-dev-postgresql
-  image: postgres
+  image: postgres:9.4.5
   # volumes:
   # - ~/volumes/jhipster/JTrackSeries/dev-postgresql/:/var/lib/postgresql/
   environment:

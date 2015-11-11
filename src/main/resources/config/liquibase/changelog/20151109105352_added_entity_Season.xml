@@ -27,6 +27,7 @@
             <column name="order_number" type="integer">
                 <constraints nullable="false" />
             </column>
+            <column name="notes" type="varchar(255)"/>
             <column name="serie_id" type="bigint"/>
         </createTable>
         

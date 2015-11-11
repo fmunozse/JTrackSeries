@@ -89,5 +89,28 @@ angular.module('jTrackSeriesApp')
                         $state.go('^');
                     })
                 }]
+            })
+            .state('serie.delete', {
+                parent: 'serie',
+                url: '/{id}/delete',
+                data: {
+                    authorities: ['ROLE_USER'],
+                },
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+                    $modal.open({
+                        templateUrl: 'scripts/app/entities/serie/serie-delete-dialog.html',
+                        controller: 'SerieDeleteController',
+                        size: 'md',
+                        resolve: {
+                            entity: ['Serie', function(Serie) {
+                                return Serie.get({id : $stateParams.id});
+                            }]
+                        }
+                    }).result.then(function(result) {
+                        $state.go('serie', null, { reload: true });
+                    }, function() {
+                        $state.go('^');
+                    })
+                }]
             });
     });

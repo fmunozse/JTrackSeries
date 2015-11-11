@@ -1,6 +1,6 @@
 jhipster-prod-postgresql:
   container_name: JTrackSeries-prod-postgresql
-  image: postgres
+  image: postgres:9.4.5
   # volumes:
   # - ~/volumes/jhipster/JTrackSeries/prod-postgresql/:/var/lib/postgresql/
   environment:

@@ -55,6 +55,7 @@ angular.module('jTrackSeriesApp')
                                     title: null,
                                     datePublish: null,
                                     viewed: false,
+                                    notes: null,
                                     id: null
                                 };
                             }
@@ -77,6 +78,29 @@ angular.module('jTrackSeriesApp')
                         templateUrl: 'scripts/app/entities/episode/episode-dialog.html',
                         controller: 'EpisodeDialogController',
                         size: 'lg',
+                        resolve: {
+                            entity: ['Episode', function(Episode) {
+                                return Episode.get({id : $stateParams.id});
+                            }]
+                        }
+                    }).result.then(function(result) {
+                        $state.go('episode', null, { reload: true });
+                    }, function() {
+                        $state.go('^');
+                    })
+                }]
+            })
+            .state('episode.delete', {
+                parent: 'episode',
+                url: '/{id}/delete',
+                data: {
+                    authorities: ['ROLE_USER'],
+                },
+                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+                    $modal.open({
+                        templateUrl: 'scripts/app/entities/episode/episode-delete-dialog.html',
+                        controller: 'EpisodeDeleteController',
+                        size: 'md',
                         resolve: {
                             entity: ['Episode', function(Episode) {
                                 return Episode.get({id : $stateParams.id});

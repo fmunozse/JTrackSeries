@@ -33,6 +33,11 @@
                 "min"
             ],
             "fieldValidateRulesMin": "1"
+        },
+        {
+            "fieldId": 3,
+            "fieldName": "notes",
+            "fieldType": "String"
         }
     ],
     "changelogDate": "20151109105352",

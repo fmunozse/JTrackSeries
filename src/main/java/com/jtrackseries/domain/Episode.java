@@ -34,6 +34,9 @@ public class Episode implements Serializable {
     @Column(name = "viewed", nullable = false)
     private Boolean viewed;
 
+    @Column(name = "notes")
+    private String notes;
+
     @ManyToOne
     private Season season;
 
@@ -67,6 +70,14 @@ public class Episode implements Serializable {
 
     public void setViewed(Boolean viewed) {
         this.viewed = viewed;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public Season getSeason() {
@@ -105,6 +116,7 @@ public class Episode implements Serializable {
             ", title='" + title + "'" +
             ", datePublish='" + datePublish + "'" +
             ", viewed='" + viewed + "'" +
+            ", notes='" + notes + "'" +
             '}';
     }
 }

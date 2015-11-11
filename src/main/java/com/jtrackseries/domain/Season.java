@@ -32,6 +32,9 @@ public class Season implements Serializable {
     @Column(name = "order_number", nullable = false)
     private Integer orderNumber;
 
+    @Column(name = "notes")
+    private String notes;
+
     @ManyToOne
     private Serie serie;
 
@@ -62,6 +65,14 @@ public class Season implements Serializable {
 
     public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public Serie getSerie() {
@@ -107,6 +118,7 @@ public class Season implements Serializable {
             "id=" + id +
             ", title='" + title + "'" +
             ", orderNumber='" + orderNumber + "'" +
+            ", notes='" + notes + "'" +
             '}';
     }
 }

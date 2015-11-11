@@ -13,16 +13,22 @@ angular.module('jTrackSeriesApp').controller('SeasonDialogController',
             });
         };
 
-        var onSaveFinished = function (result) {
+        var onSaveSuccess = function (result) {
             $scope.$emit('jTrackSeriesApp:seasonUpdate', result);
             $modalInstance.close(result);
+            $scope.isSaving = false;
+        };
+
+        var onSaveError = function (result) {
+            $scope.isSaving = false;
         };
 
         $scope.save = function () {
+            $scope.isSaving = true;
             if ($scope.season.id != null) {
-                Season.update($scope.season, onSaveFinished);
+                Season.update($scope.season, onSaveSuccess, onSaveError);
             } else {
-                Season.save($scope.season, onSaveFinished);
+                Season.save($scope.season, onSaveSuccess, onSaveError);
             }
         };
 

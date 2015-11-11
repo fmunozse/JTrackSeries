@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('jTrackSeriesApp')
-    .controller('SeasonController', function ($scope, Season, ParseLinks) {
+    .controller('SeasonController', function ($scope, $state, $modal, Season, ParseLinks) {
+      
         $scope.seasons = [];
         $scope.page = 0;
         $scope.loadAll = function() {
@@ -16,21 +17,6 @@ angular.module('jTrackSeriesApp')
         };
         $scope.loadAll();
 
-        $scope.delete = function (id) {
-            Season.get({id: id}, function(result) {
-                $scope.season = result;
-                $('#deleteSeasonConfirmation').modal('show');
-            });
-        };
-
-        $scope.confirmDelete = function (id) {
-            Season.delete({id: id},
-                function () {
-                    $scope.loadAll();
-                    $('#deleteSeasonConfirmation').modal('hide');
-                    $scope.clear();
-                });
-        };
 
         $scope.refresh = function () {
             $scope.loadAll();
@@ -41,6 +27,7 @@ angular.module('jTrackSeriesApp')
             $scope.season = {
                 title: null,
                 orderNumber: null,
+                notes: null,
                 id: null
             };
         };

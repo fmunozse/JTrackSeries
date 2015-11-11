@@ -12,16 +12,22 @@ angular.module('jTrackSeriesApp').controller('EpisodeDialogController',
             });
         };
 
-        var onSaveFinished = function (result) {
+        var onSaveSuccess = function (result) {
             $scope.$emit('jTrackSeriesApp:episodeUpdate', result);
             $modalInstance.close(result);
+            $scope.isSaving = false;
+        };
+
+        var onSaveError = function (result) {
+            $scope.isSaving = false;
         };
 
         $scope.save = function () {
+            $scope.isSaving = true;
             if ($scope.episode.id != null) {
-                Episode.update($scope.episode, onSaveFinished);
+                Episode.update($scope.episode, onSaveSuccess, onSaveError);
             } else {
-                Episode.save($scope.episode, onSaveFinished);
+                Episode.save($scope.episode, onSaveSuccess, onSaveError);
             }
         };
 
