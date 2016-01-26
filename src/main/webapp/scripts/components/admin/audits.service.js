@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .factory('AuditsService', function ($http) {
         return {
             findAll: function () {

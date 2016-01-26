@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .factory('Auth', function Auth($rootScope, $state, $q, Principal, AuthServerProvider, Account, Register, Activate, Password, PasswordResetInit, PasswordResetFinish) {
         return {
             login: function (credentials, callback) {

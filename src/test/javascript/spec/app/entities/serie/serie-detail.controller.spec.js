@@ -1,40 +1,44 @@
 'use strict';
 
-describe('Serie Detail Controller', function() {
-    var $scope, $rootScope;
-    var MockEntity, MockSerie, MockSeason;
-    var createController;
+describe('Controller Tests', function() {
 
-    beforeEach(inject(function($injector) {
-        $rootScope = $injector.get('$rootScope');
-        $scope = $rootScope.$new();
-        MockEntity = jasmine.createSpy('MockEntity');
-        MockSerie = jasmine.createSpy('MockSerie');
-        MockSeason = jasmine.createSpy('MockSeason');
-        
+    describe('Serie Detail Controller', function() {
+        var $scope, $rootScope;
+        var MockEntity, MockSerie, MockSeason;
+        var createController;
 
-        var locals = {
-            '$scope': $scope,
-            '$rootScope': $rootScope,
-            'entity': MockEntity ,
-            'Serie': MockSerie,
-            'Season': MockSeason
-        };
-        createController = function() {
-            $injector.get('$controller')("SerieDetailController", locals);
-        };
-    }));
+        beforeEach(inject(function($injector) {
+            $rootScope = $injector.get('$rootScope');
+            $scope = $rootScope.$new();
+            MockEntity = jasmine.createSpy('MockEntity');
+            MockSerie = jasmine.createSpy('MockSerie');
+            MockSeason = jasmine.createSpy('MockSeason');
+            
+
+            var locals = {
+                '$scope': $scope,
+                '$rootScope': $rootScope,
+                'entity': MockEntity ,
+                'Serie': MockSerie,
+                'Season': MockSeason
+            };
+            createController = function() {
+                $injector.get('$controller')("SerieDetailController", locals);
+            };
+        }));
 
 
-    describe('Root Scope Listening', function() {
-        it('Unregisters root scope listener upon scope destruction', function() {
-            var eventType = 'jTrackSeriesApp:serieUpdate';
+        describe('Root Scope Listening', function() {
+            it('Unregisters root scope listener upon scope destruction', function() {
+                var eventType = 'jtrackseriesApp:serieUpdate';
 
-            createController();
-            expect($rootScope.$$listenerCount[eventType]).toEqual(1);
+                createController();
+                expect($rootScope.$$listenerCount[eventType]).toEqual(1);
 
-            $scope.$destroy();
-            expect($rootScope.$$listenerCount[eventType]).toBeUndefined();
+                $scope.$destroy();
+                expect($rootScope.$$listenerCount[eventType]).toBeUndefined();
+            });
         });
     });
+
 });

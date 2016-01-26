@@ -129,7 +129,7 @@ public class SerieResourceIntTest {
         serieRepository.saveAndFlush(serie);
 
         // Get all the series
-        restSerieMockMvc.perform(get("/api/series"))
+        restSerieMockMvc.perform(get("/api/series?sort=id,desc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(serie.getId().intValue())))

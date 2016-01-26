@@ -24,9 +24,14 @@
             <column name="title" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
+            
             <column name="external_link" type="varchar(255)"/>
+            
             <column name="description" type="varchar(255)"/>
+            
             <column name="notes" type="varchar(255)"/>
+            
+            <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         
     </changeSet>

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .factory('User', function ($resource) {
         return $resource('api/users/:login', {}, {
                 'query': {method: 'GET', isArray: true},
@@ -11,6 +11,8 @@ angular.module('jTrackSeriesApp')
                         return data;
                     }
                 },
-                'update': { method:'PUT' }
+                'save': { method:'POST' },
+                'update': { method:'PUT' },
+                'delete':{ method:'DELETE'}
             });
         });

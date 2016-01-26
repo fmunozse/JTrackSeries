@@ -26,16 +26,17 @@ public class Season implements Serializable {
     @NotNull
     @Column(name = "title", nullable = false)
     private String title;
-
+    
     @NotNull
     @Min(value = 1)
     @Column(name = "order_number", nullable = false)
     private Integer orderNumber;
-
+    
     @Column(name = "notes")
     private String notes;
-
+    
     @ManyToOne
+    @JoinColumn(name = "serie_id")
     private Serie serie;
 
     @OneToMany(mappedBy = "season")
@@ -54,7 +55,7 @@ public class Season implements Serializable {
     public String getTitle() {
         return title;
     }
-
+    
     public void setTitle(String title) {
         this.title = title;
     }
@@ -62,7 +63,7 @@ public class Season implements Serializable {
     public Integer getOrderNumber() {
         return orderNumber;
     }
-
+    
     public void setOrderNumber(Integer orderNumber) {
         this.orderNumber = orderNumber;
     }
@@ -70,7 +71,7 @@ public class Season implements Serializable {
     public String getNotes() {
         return notes;
     }
-
+    
     public void setNotes(String notes) {
         this.notes = notes;
     }
@@ -99,12 +100,11 @@ public class Season implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         Season season = (Season) o;
-
-        if ( ! Objects.equals(id, season.id)) return false;
-
-        return true;
+        if(season.id == null || id == null) {
+            return false;
+        }
+        return Objects.equals(id, season.id);
     }
 
     @Override

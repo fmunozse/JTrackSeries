@@ -11,6 +11,7 @@ import com.jtrackseries.service.MailService;
 import com.jtrackseries.service.UserService;
 import com.jtrackseries.web.rest.dto.KeyAndPasswordDTO;
 import com.jtrackseries.web.rest.dto.UserDTO;
+import com.jtrackseries.web.rest.util.HeaderUtil;
 
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -123,6 +124,10 @@ public class AccountResource {
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     public ResponseEntity<String> saveAccount(@RequestBody UserDTO userDTO) {
+        Optional<User> existingUser = userRepository.findOneByEmail(userDTO.getEmail());
+        if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(userDTO.getLogin()))) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("user-management", "emailexists", "Email already in use")).body(null);
+        }
         return userRepository
             .findOneByLogin(SecurityUtils.getCurrentUser().getUsername())
             .map(u -> {

@@ -5,12 +5,12 @@
     <parent>
         <artifactId>spring-boot-starter-parent</artifactId>
         <groupId>org.springframework.boot</groupId>
-        <version>1.3.0.RC1</version>
+        <version>1.3.1.RELEASE</version>
         <relativePath/>
     </parent>
 
     <groupId>com.jtrackseries</groupId>
-    <artifactId>j-track-series</artifactId>
+    <artifactId>jtrackseries</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>JTrackSeries</name>
@@ -45,10 +45,10 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <javax.inject.version>1</javax.inject.version>
-        <liquibase.version>3.4.1</liquibase.version>
+        <liquibase.version>3.4.2</liquibase.version>
         <liquibase-slf4j.version>1.2.1</liquibase-slf4j.version>
         <liquibase-hibernate4.version>3.5</liquibase-hibernate4.version>
-        <mapstruct.version>1.0.0.CR1</mapstruct.version>
+        <mapstruct.version>1.0.0.Final</mapstruct.version>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
         <maven-enforcer-plugin.version>1.3.1</maven-enforcer-plugin.version>
         <maven-sortpom-plugin.version>2.3.0</maven-sortpom-plugin.version>
@@ -362,6 +362,7 @@
             <artifactId>metrics-spark-reporter</artifactId>
             <version>${metrics-spark-reporter.version}</version>
         </dependency>
+        <!-- jhipster-needle-maven-add-dependency -->
     </dependencies>
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
@@ -544,7 +545,7 @@
                     <changeLogFile>src/main/resources/config/liquibase/master.xml</changeLogFile>
                     <diffChangeLogFile>src/main/resources/config/liquibase/changelog/${maven.build.timestamp}_changelog.xml</diffChangeLogFile>
                     <driver>org.postgresql.Driver</driver>
-                    <url>jdbc:postgresql://localhost/JTrackSeries</url>
+                    <url>jdbc:postgresql://localhost:5432/JTrackSeries</url>
                     <defaultSchemaName></defaultSchemaName>
                     <username>JTrackSeries</username>
                     <password></password>
@@ -581,6 +582,7 @@
                     </arguments>
                 </configuration>
             </plugin>
+            <!-- jhipster-needle-maven-add-plugin -->
         </plugins>
         <pluginManagement>
             <plugins>
@@ -698,7 +700,7 @@
                                 </goals>
                                 <configuration>
                                     <buildTool>grunt</buildTool>
-                                    <buildArgs>build --force --no-color</buildArgs>
+                                    <buildArgs>build --no-color</buildArgs>
                                 </configuration>
                             </execution>
                         </executions>
@@ -727,8 +729,7 @@
                         <groupId>org.springframework.boot</groupId>
                         <artifactId>spring-boot-maven-plugin</artifactId>
                         <configuration>
-                            <!-- this is set to false because of https://github.com/jhipster/generator-jhipster/issues/2225 -->
-                            <executable>false</executable>
+                            <executable>true</executable>
                             <arguments>
                                 <argument>--spring.profiles.active=prod</argument>
                             </arguments>
@@ -742,4 +743,15 @@
             </properties>
         </profile>
     </profiles>
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+                <version>2.19</version>
+            </plugin>
+        </plugins>
+    </reporting>
+
 </project>

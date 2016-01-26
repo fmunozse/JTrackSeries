@@ -24,12 +24,17 @@
             <column name="title" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
+            
             <column name="date_publish" type="date"/>
+            
             <column name="viewed" type="bit">
                 <constraints nullable="false" />
             </column>
+            
             <column name="notes" type="varchar(255)"/>
+            
             <column name="season_id" type="bigint"/>
+            <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         
         <addForeignKeyConstraint baseColumnNames="season_id"

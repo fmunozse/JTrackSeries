@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .controller('PasswordController', function ($scope, Auth, Principal) {
         Principal.identity().then(function(account) {
             $scope.account = account;
@@ -11,6 +11,8 @@ angular.module('jTrackSeriesApp')
         $scope.doNotMatch = null;
         $scope.changePassword = function () {
             if ($scope.password !== $scope.confirmPassword) {
+                $scope.error = null;
+                $scope.success = null;
                 $scope.doNotMatch = 'ERROR';
             } else {
                 $scope.doNotMatch = null;

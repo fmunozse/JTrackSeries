@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .factory('Account', function Account($resource) {
         return $resource('api/account', {}, {
             'get': { method: 'GET', params: {}, isArray: false,

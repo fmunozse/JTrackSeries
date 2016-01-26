@@ -1,25 +1,28 @@
 <div>
     <h2>Seasons</h2>
     <jh-alert></jh-alert>
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-4">
-                <button class="btn btn-primary" ui-sref="season.new">
-                    <span class="glyphicon glyphicon-flash"></span> <span>Create a new Season</span>
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="season.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span 
+                       >Create new Season
+                    </span>
                 </button>
             </div>
         </div>
     </div>
-
+    <br/>
     <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="jh-table table table-striped">
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Title</th>
-                    <th>OrderNumber</th>
-                    <th>Notes</th>
-                    <th>serie</th>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="title"><span>Title</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="orderNumber"><span>OrderNumber</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="notes"><span>Notes</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="serie.title"><span>serie</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -32,38 +35,33 @@
                     <td>
                         <a ui-sref="serie.detail({id:season.serie.id})">{{season.serie.title}}</a>
                     </td>
-                    <td>
-                        <button type="submit"
-                                ui-sref="season.detail({id:season.id})"
-                                class="btn btn-info btn-sm">
-                            <span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span> View</span>
-                        </button>
-                        <button type="submit"
-                                ui-sref="season.edit({id:season.id})"
-                                class="btn btn-primary btn-sm">
-                            <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> Edit</span>
-                        </button>
-                        <button type="submit"
-                                ui-sref="season.delete({id:season.id})"
-                                class="btn btn-danger btn-sm">
-                            <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Delete</span>
-                        </button>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="season.detail({id:season.id})"
+                                    class="btn btn-info btn-sm"> 
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="season.edit({id:season.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="season.delete({id:season.id})"
+                                    class="btn btn-danger btn-sm">                                    
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-xs hidden-sm"></span>
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <nav>
-            <ul class="pagination">
-                <li ng-show="links['first'] >= 0" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
-                <li ng-show="page > 0" ng-click="loadPage(links['prev'] || 0)"><a>&lt;</a></li>
-                <li ng-show="page > 1" ng-click="loadPage(page - 2)"><a>{{page - 1}}</a></li>
-                <li ng-show="page > 0" ng-click="loadPage(page - 1)"><a>{{page}}</a></li>
-                <li class="active"><a>{{page + 1}}</a></li>
-                <li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page + 2}}</a></li>
-                <li ng-show="page < links['last'] - 1" ng-click="loadPage(page + 2)"><a>{{page + 3}}</a></li>
-                <li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
-                <li ng-show="links['last'] > 0" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
-            </ul>
-        </nav>
+    </div>
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
     </div>
 </div>

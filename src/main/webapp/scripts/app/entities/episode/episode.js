@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('episode', {
@@ -44,8 +44,8 @@ angular.module('jTrackSeriesApp')
                 data: {
                     authorities: ['ROLE_USER'],
                 },
-                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
-                    $modal.open({
+                onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                    $uibModal.open({
                         templateUrl: 'scripts/app/entities/episode/episode-dialog.html',
                         controller: 'EpisodeDialogController',
                         size: 'lg',
@@ -73,8 +73,8 @@ angular.module('jTrackSeriesApp')
                 data: {
                     authorities: ['ROLE_USER'],
                 },
-                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
-                    $modal.open({
+                onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                    $uibModal.open({
                         templateUrl: 'scripts/app/entities/episode/episode-dialog.html',
                         controller: 'EpisodeDialogController',
                         size: 'lg',
@@ -96,8 +96,8 @@ angular.module('jTrackSeriesApp')
                 data: {
                     authorities: ['ROLE_USER'],
                 },
-                onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
-                    $modal.open({
+                onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
+                    $uibModal.open({
                         templateUrl: 'scripts/app/entities/episode/episode-delete-dialog.html',
                         controller: 'EpisodeDeleteController',
                         size: 'md',

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .service('ParseLinks', function () {
         this.parse = function (header) {
             if (header.length == 0) {

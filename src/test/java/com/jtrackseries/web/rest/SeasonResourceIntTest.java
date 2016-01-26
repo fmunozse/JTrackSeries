@@ -144,7 +144,7 @@ public class SeasonResourceIntTest {
         seasonRepository.saveAndFlush(season);
 
         // Get all the seasons
-        restSeasonMockMvc.perform(get("/api/seasons"))
+        restSeasonMockMvc.perform(get("/api/seasons?sort=id,desc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(season.getId().intValue())))

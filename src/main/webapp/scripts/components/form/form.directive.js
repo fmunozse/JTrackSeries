@@ -1,7 +1,7 @@
 /* globals $ */
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .directive('showValidation', function() {
         return {
             restrict: 'A',

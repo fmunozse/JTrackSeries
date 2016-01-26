@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .directive('activeLink', function(location) {
         return {
             restrict: 'A',

@@ -26,18 +26,19 @@ public class Episode implements Serializable {
     @NotNull
     @Column(name = "title", nullable = false)
     private String title;
-
-    @Column(name = "date_publish", nullable = false)
+    
+    @Column(name = "date_publish")
     private LocalDate datePublish;
-
+    
     @NotNull
     @Column(name = "viewed", nullable = false)
     private Boolean viewed;
-
+    
     @Column(name = "notes")
     private String notes;
-
+    
     @ManyToOne
+    @JoinColumn(name = "season_id")
     private Season season;
 
     public Long getId() {
@@ -51,7 +52,7 @@ public class Episode implements Serializable {
     public String getTitle() {
         return title;
     }
-
+    
     public void setTitle(String title) {
         this.title = title;
     }
@@ -59,7 +60,7 @@ public class Episode implements Serializable {
     public LocalDate getDatePublish() {
         return datePublish;
     }
-
+    
     public void setDatePublish(LocalDate datePublish) {
         this.datePublish = datePublish;
     }
@@ -67,7 +68,7 @@ public class Episode implements Serializable {
     public Boolean getViewed() {
         return viewed;
     }
-
+    
     public void setViewed(Boolean viewed) {
         this.viewed = viewed;
     }
@@ -75,7 +76,7 @@ public class Episode implements Serializable {
     public String getNotes() {
         return notes;
     }
-
+    
     public void setNotes(String notes) {
         this.notes = notes;
     }
@@ -96,12 +97,11 @@ public class Episode implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         Episode episode = (Episode) o;
-
-        if ( ! Objects.equals(id, episode.id)) return false;
-
-        return true;
+        if(episode.id == null || id == null) {
+            return false;
+        }
+        return Objects.equals(id, episode.id);
     }
 
     @Override

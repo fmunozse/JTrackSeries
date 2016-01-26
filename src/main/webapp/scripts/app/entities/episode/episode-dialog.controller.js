@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('jTrackSeriesApp').controller('EpisodeDialogController',
-    ['$scope', '$stateParams', '$modalInstance', 'entity', 'Episode', 'Season',
-        function($scope, $stateParams, $modalInstance, entity, Episode, Season) {
+angular.module('jtrackseriesApp').controller('EpisodeDialogController',
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Episode', 'Season',
+        function($scope, $stateParams, $uibModalInstance, entity, Episode, Season) {
 
         $scope.episode = entity;
         $scope.seasons = Season.query();
@@ -13,8 +13,8 @@ angular.module('jTrackSeriesApp').controller('EpisodeDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('jTrackSeriesApp:episodeUpdate', result);
-            $modalInstance.close(result);
+            $scope.$emit('jtrackseriesApp:episodeUpdate', result);
+            $uibModalInstance.close(result);
             $scope.isSaving = false;
         };
 
@@ -32,6 +32,15 @@ angular.module('jTrackSeriesApp').controller('EpisodeDialogController',
         };
 
         $scope.clear = function() {
-            $modalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss('cancel');
+        };
+        $scope.datePickerForDatePublish = {};
+
+        $scope.datePickerForDatePublish.status = {
+            opened: false
+        };
+
+        $scope.datePickerForDatePublishOpen = function($event) {
+            $scope.datePickerForDatePublish.status.opened = true;
         };
 }]);

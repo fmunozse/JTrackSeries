@@ -30,10 +30,10 @@ import java.util.Optional;
 public class SeasonResource {
 
     private final Logger log = LoggerFactory.getLogger(SeasonResource.class);
-
+        
     @Inject
     private SeasonRepository seasonRepository;
-
+    
     /**
      * POST  /seasons -> Create a new season.
      */
@@ -44,7 +44,7 @@ public class SeasonResource {
     public ResponseEntity<Season> createSeason(@Valid @RequestBody Season season) throws URISyntaxException {
         log.debug("REST request to save Season : {}", season);
         if (season.getId() != null) {
-            return ResponseEntity.badRequest().header("Failure", "A new season cannot already have an ID").body(null);
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("season", "idexists", "A new season cannot already have an ID")).body(null);
         }
         Season result = seasonRepository.save(season);
         return ResponseEntity.created(new URI("/api/seasons/" + result.getId()))
@@ -79,7 +79,8 @@ public class SeasonResource {
     @Timed
     public ResponseEntity<List<Season>> getAllSeasons(Pageable pageable)
         throws URISyntaxException {
-        Page<Season> page = seasonRepository.findAll(pageable);
+        log.debug("REST request to get a page of Seasons");
+        Page<Season> page = seasonRepository.findAll(pageable); 
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/seasons");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -93,9 +94,10 @@ public class SeasonResource {
     @Timed
     public ResponseEntity<Season> getSeason(@PathVariable Long id) {
         log.debug("REST request to get Season : {}", id);
-        return Optional.ofNullable(seasonRepository.findOne(id))
-            .map(season -> new ResponseEntity<>(
-                season,
+        Season season = seasonRepository.findOne(id);
+        return Optional.ofNullable(season)
+            .map(result -> new ResponseEntity<>(
+                result,
                 HttpStatus.OK))
             .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

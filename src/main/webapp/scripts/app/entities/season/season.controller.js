@@ -1,13 +1,16 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
-    .controller('SeasonController', function ($scope, $state, $modal, Season, ParseLinks) {
-      
+angular.module('jtrackseriesApp')
+    .controller('SeasonController', function ($scope, $state, Season, ParseLinks) {
+
         $scope.seasons = [];
-        $scope.page = 0;
+        $scope.predicate = 'id';
+        $scope.reverse = true;
+        $scope.page = 1;
         $scope.loadAll = function() {
-            Season.query({page: $scope.page, size: 20}, function(result, headers) {
+            Season.query({page: $scope.page - 1, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
+                $scope.totalItems = headers('X-Total-Count');
                 $scope.seasons = result;
             });
         };

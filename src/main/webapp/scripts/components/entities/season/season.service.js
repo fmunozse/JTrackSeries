@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .factory('Season', function ($resource, DateUtils) {
         return $resource('api/seasons/:id', {}, {
             'query': { method: 'GET', isArray: true},

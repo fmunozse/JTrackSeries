@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
-    .controller('HealthModalController', function($scope, $modalInstance, currentHealth, baseName, subSystemName) {
+angular.module('jtrackseriesApp')
+    .controller('HealthModalController', function($scope, $uibModalInstance, currentHealth, baseName, subSystemName) {
 
         $scope.currentHealth = currentHealth;
         $scope.baseName = baseName, $scope.subSystemName = subSystemName;
 
         $scope.cancel = function() {
-            $modalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss('cancel');
         };
     });

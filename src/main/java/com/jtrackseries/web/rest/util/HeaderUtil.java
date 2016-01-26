@@ -10,8 +10,8 @@ public class HeaderUtil {
 
     public static HttpHeaders createAlert(String message, String param) {
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-jTrackSeriesApp-alert", message);
-        headers.add("X-jTrackSeriesApp-params", param);
+        headers.add("X-jtrackseriesApp-alert", message);
+        headers.add("X-jtrackseriesApp-params", param);
         return headers;
     }
 
@@ -25,5 +25,12 @@ public class HeaderUtil {
 
     public static HttpHeaders createEntityDeletionAlert(String entityName, String param) {
         return createAlert("A " + entityName + " is deleted with identifier " + param, param);
+    }
+
+    public static HttpHeaders createFailureAlert(String entityName, String errorKey, String defaultMessage) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("X-jtrackseriesApp-error", defaultMessage);
+        headers.add("X-jtrackseriesApp-params", entityName);
+        return headers;
     }
 }

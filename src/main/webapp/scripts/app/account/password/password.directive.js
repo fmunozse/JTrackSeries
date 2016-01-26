@@ -1,7 +1,7 @@
 /* globals $ */
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .directive('passwordStrengthBar', function () {
         return {
             replace: true,
@@ -71,9 +71,9 @@ angular.module('jTrackSeriesApp')
                         var c = strength.getColor(strength.mesureStrength(password));
                         iElement.removeClass('ng-hide');
                         iElement.find('ul').children('li')
-                            .css({ 'background': '#DDD' })
+                            .css({ 'background-color': '#DDD' })
                             .slice(0, c.idx)
-                            .css({ 'background': c.col });
+                            .css({ 'background-color': c.col });
                     }
                 });
             }

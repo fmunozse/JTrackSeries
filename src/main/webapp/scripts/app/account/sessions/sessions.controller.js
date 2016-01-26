@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .controller('SessionsController', function ($scope, Sessions, Principal) {
         Principal.identity().then(function(account) {
             $scope.account = account;

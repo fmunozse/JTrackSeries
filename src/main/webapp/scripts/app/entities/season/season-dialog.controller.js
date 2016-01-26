@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('jTrackSeriesApp').controller('SeasonDialogController',
-    ['$scope', '$stateParams', '$modalInstance', 'entity', 'Season', 'Serie', 'Episode',
-        function($scope, $stateParams, $modalInstance, entity, Season, Serie, Episode) {
+angular.module('jtrackseriesApp').controller('SeasonDialogController',
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Season', 'Serie', 'Episode',
+        function($scope, $stateParams, $uibModalInstance, entity, Season, Serie, Episode) {
 
         $scope.season = entity;
         $scope.series = Serie.query();
@@ -14,8 +14,8 @@ angular.module('jTrackSeriesApp').controller('SeasonDialogController',
         };
 
         var onSaveSuccess = function (result) {
-            $scope.$emit('jTrackSeriesApp:seasonUpdate', result);
-            $modalInstance.close(result);
+            $scope.$emit('jtrackseriesApp:seasonUpdate', result);
+            $uibModalInstance.close(result);
             $scope.isSaving = false;
         };
 
@@ -33,6 +33,6 @@ angular.module('jTrackSeriesApp').controller('SeasonDialogController',
         };
 
         $scope.clear = function() {
-            $modalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss('cancel');
         };
 }]);

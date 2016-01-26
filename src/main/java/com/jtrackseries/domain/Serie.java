@@ -26,16 +26,16 @@ public class Serie implements Serializable {
     @NotNull
     @Column(name = "title", nullable = false)
     private String title;
-
+    
     @Column(name = "external_link")
     private String externalLink;
-
+    
     @Column(name = "description")
     private String description;
-
+    
     @Column(name = "notes")
     private String notes;
-
+    
     @OneToMany(mappedBy = "serie")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -52,7 +52,7 @@ public class Serie implements Serializable {
     public String getTitle() {
         return title;
     }
-
+    
     public void setTitle(String title) {
         this.title = title;
     }
@@ -60,7 +60,7 @@ public class Serie implements Serializable {
     public String getExternalLink() {
         return externalLink;
     }
-
+    
     public void setExternalLink(String externalLink) {
         this.externalLink = externalLink;
     }
@@ -68,7 +68,7 @@ public class Serie implements Serializable {
     public String getDescription() {
         return description;
     }
-
+    
     public void setDescription(String description) {
         this.description = description;
     }
@@ -76,7 +76,7 @@ public class Serie implements Serializable {
     public String getNotes() {
         return notes;
     }
-
+    
     public void setNotes(String notes) {
         this.notes = notes;
     }
@@ -97,12 +97,11 @@ public class Serie implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-
         Serie serie = (Serie) o;
-
-        if ( ! Objects.equals(id, serie.id)) return false;
-
-        return true;
+        if(serie.id == null || id == null) {
+            return false;
+        }
+        return Objects.equals(id, serie.id);
     }
 
     @Override

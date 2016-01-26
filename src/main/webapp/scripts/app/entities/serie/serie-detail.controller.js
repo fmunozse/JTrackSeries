@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .controller('SerieDetailController', function ($scope, $rootScope, $stateParams, entity, Serie, Season) {
         $scope.serie = entity;
         $scope.load = function (id) {
@@ -8,7 +8,7 @@ angular.module('jTrackSeriesApp')
                 $scope.serie = result;
             });
         };
-        var unsubscribe = $rootScope.$on('jTrackSeriesApp:serieUpdate', function(event, result) {
+        var unsubscribe = $rootScope.$on('jtrackseriesApp:serieUpdate', function(event, result) {
             $scope.serie = result;
         });
         $scope.$on('$destroy', unsubscribe);

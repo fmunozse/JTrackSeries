@@ -151,7 +151,7 @@ public class EpisodeResourceIntTest {
         episodeRepository.saveAndFlush(episode);
 
         // Get all the episodes
-        restEpisodeMockMvc.perform(get("/api/episodes"))
+        restEpisodeMockMvc.perform(get("/api/episodes?sort=id,desc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(episode.getId().intValue())))

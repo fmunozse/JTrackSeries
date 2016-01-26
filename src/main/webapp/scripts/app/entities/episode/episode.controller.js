@@ -1,13 +1,16 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
-    .controller('EpisodeController', function ($scope, $state, $modal, Episode, ParseLinks) {
-      
+angular.module('jtrackseriesApp')
+    .controller('EpisodeController', function ($scope, $state, Episode, ParseLinks) {
+
         $scope.episodes = [];
-        $scope.page = 0;
+        $scope.predicate = 'id';
+        $scope.reverse = true;
+        $scope.page = 1;
         $scope.loadAll = function() {
-            Episode.query({page: $scope.page, size: 20}, function(result, headers) {
+            Episode.query({page: $scope.page - 1, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
                 $scope.links = ParseLinks.parse(headers('link'));
+                $scope.totalItems = headers('X-Total-Count');
                 $scope.episodes = result;
             });
         };

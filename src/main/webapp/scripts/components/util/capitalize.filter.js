@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .filter('capitalize', function () {
         return function (input, scope) {
             if (input != null)

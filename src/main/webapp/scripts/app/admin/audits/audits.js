@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('audits', {

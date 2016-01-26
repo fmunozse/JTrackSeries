@@ -1,14 +1,14 @@
 'use strict';
 
-angular.module('jTrackSeriesApp').controller('UserManagementDialogController',
-    ['$scope', '$stateParams', '$modalInstance', 'entity', 'User', 
-        function($scope, $stateParams, $modalInstance, entity, User) {
+angular.module('jtrackseriesApp').controller('UserManagementDialogController',
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'User', 
+        function($scope, $stateParams, $uibModalInstance, entity, User) {
 
         $scope.user = entity;
         $scope.authorities = ["ROLE_USER", "ROLE_ADMIN"];
         var onSaveSuccess = function (result) {
             $scope.isSaving = false;
-            $modalInstance.close(result);
+            $uibModalInstance.close(result);
         };
 
         var onSaveError = function (result) {
@@ -20,11 +20,12 @@ angular.module('jTrackSeriesApp').controller('UserManagementDialogController',
             if ($scope.user.id != null) {
                 User.update($scope.user, onSaveSuccess, onSaveError);
             } else {
+                $scope.user.langKey = 'en';
                 User.save($scope.user, onSaveSuccess, onSaveError);
             }
         };
 
         $scope.clear = function() {
-            $modalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss('cancel');
         };
 }]);

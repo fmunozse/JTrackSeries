@@ -1,16 +1,16 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
-	.controller('SerieDeleteController', function($scope, $modalInstance, entity, Serie) {
+angular.module('jtrackseriesApp')
+	.controller('SerieDeleteController', function($scope, $uibModalInstance, entity, Serie) {
 
         $scope.serie = entity;
         $scope.clear = function() {
-            $modalInstance.dismiss('cancel');
+            $uibModalInstance.dismiss('cancel');
         };
         $scope.confirmDelete = function (id) {
             Serie.delete({id: id},
                 function () {
-                    $modalInstance.close(true);
+                    $uibModalInstance.close(true);
                 });
         };
 

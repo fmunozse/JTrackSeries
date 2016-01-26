@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .directive('jhAlert', function(AlertService) {
         return {
             restrict: 'E',
             template: '<div class="alerts" ng-cloak="">' +
                             '<div ng-repeat="alert in alerts" ng-class="[alert.position, {\'toast\': alert.toast}]">' +
-                                '<alert ng-cloak="" type="{{alert.type}}" close="alert.close()"><pre>{{ alert.msg }}</pre></alert>' +
+                                '<uib-alert ng-cloak="" type="{{alert.type}}" close="alert.close()"><pre>{{ alert.msg }}</pre></uib-alert>' +
                             '</div>' +
                       '</div>',
             controller: ['$scope',
@@ -24,7 +24,7 @@ angular.module('jTrackSeriesApp')
             restrict: 'E',
             template: '<div class="alerts" ng-cloak="">' +
                             '<div ng-repeat="alert in alerts" ng-class="[alert.position, {\'toast\': alert.toast}]">' +
-                                '<alert ng-cloak="" type="{{alert.type}}" close="alert.close(alerts)"><pre>{{ alert.msg }}</pre></alert>' +
+                                '<uib-alert ng-cloak="" type="{{alert.type}}" close="alert.close(alerts)"><pre>{{ alert.msg }}</pre></uib-alert>' +
                             '</div>' +
                       '</div>',
             controller: ['$scope',
@@ -32,17 +32,22 @@ angular.module('jTrackSeriesApp')
 
                     $scope.alerts = [];
 
-                    var cleanHttpErrorListener = $rootScope.$on('jTrackSeriesApp.httpError', function (event, httpResponse) {
+                    var cleanHttpErrorListener = $rootScope.$on('jtrackseriesApp.httpError', function (event, httpResponse) {
                         var i;
                         event.stopPropagation();
                         switch (httpResponse.status) {
                             // connection refused, server not reachable
                             case 0:
-                                addErrorAlert("Server not reachable",'error.serverNotReachable');
+                                addErrorAlert("Server not reachable",'error.server.not.reachable');
                                 break;
 
                             case 400:
-                                if (httpResponse.data && httpResponse.data.fieldErrors) {
+                                var errorHeader = httpResponse.headers('X-jtrackseriesApp-error');
+                                var entityKey = httpResponse.headers('X-jtrackseriesApp-params');
+                                if (errorHeader) {
+                                    var entityName = entityKey;
+                                    addErrorAlert(errorHeader, errorHeader, {entityName: entityName});
+                                } else if (httpResponse.data && httpResponse.data.fieldErrors) {
                                     for (i = 0; i < httpResponse.data.fieldErrors.length; i++) {
                                         var fieldError = httpResponse.data.fieldErrors[i];
                                         // convert 'something[14].other[4].id' to 'something[].other[].id' so translations can be written to it

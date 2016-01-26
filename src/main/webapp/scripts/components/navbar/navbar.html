@@ -17,6 +17,7 @@
                         <span class="hidden-sm">Home</span>
                     </a>
                 </li>
+                <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
                 <li ui-sref-active="active" ng-switch-when="true" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
                         <span>
@@ -29,16 +30,16 @@
                     </a>
                     <ul class="dropdown-menu">
                         <li ui-sref-active="active" ><a ui-sref="serie" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span >serie</span></a></li>
+                        &#xA0;<span >Serie</span></a></li>
                         <li ui-sref-active="active" ><a ui-sref="season" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span >season</span></a></li>
+                        &#xA0;<span >Season</span></a></li>
                         <li ui-sref-active="active" ><a ui-sref="episode" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-asterisk"></span>
-                        &#xA0;<span >episode</span></a></li>
-                        <!-- JHipster will add entities to the menu here -->
+                        &#xA0;<span >Episode</span></a></li>
+                        <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
                     </ul>
                 </li>
                 <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="" id="account-menu">
                         <span>
                             <span class="glyphicon glyphicon-user"></span>
                             <span class="hidden-sm">
@@ -54,7 +55,7 @@
                             &#xA0;<span>Password</span></a></li>
                         <li ui-sref-active="active" ng-switch-when="true"><a ui-sref="sessions" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-cloud"></span>
                             &#xA0;<span>Sessions</span></a></li>
-                        <li ui-sref-active="active" ng-switch-when="true"><a href="" ng-click="logout()" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-log-out"></span>
+                        <li ui-sref-active="active" ng-switch-when="true"><a href="" ng-click="logout()" id="logout" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-log-out"></span>
                             &#xA0;<span>Sign out</span></a></li>
                         <li ui-sref-active="active" ng-switch-when="false"><a ui-sref="login" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-log-in"></span>
                             &#xA0;<span>Sign in</span></a></li>
@@ -63,7 +64,7 @@
                     </ul>
                 </li>
                 <li ng-class="{active: $state.includes('admin')}"  ng-switch-when="true" has-authority="ROLE_ADMIN" class="dropdown pointer">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="" id="admin-menu">
                         <span>
                             <span class="glyphicon glyphicon-tower"></span>
                             <span class="hidden-sm">Administration</span>
@@ -85,6 +86,7 @@
                             &#xA0;<span>Logs</span></a></li>
                         <li ng-hide="inProduction" ui-sref-active="active"><a ui-sref="docs" data-toggle="collapse" data-target=".navbar-collapse.in"><span class="glyphicon glyphicon-book"></span>
                             &#xA0;<span>API</span></a></li>
+                        <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
                     </ul>
                 </li>
             </ul>

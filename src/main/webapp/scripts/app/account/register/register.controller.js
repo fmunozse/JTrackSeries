@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('jTrackSeriesApp')
+angular.module('jtrackseriesApp')
     .controller('RegisterController', function ($scope, $timeout, Auth) {
         $scope.success = null;
         $scope.error = null;
