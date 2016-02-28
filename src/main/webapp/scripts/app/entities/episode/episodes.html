@@ -24,6 +24,8 @@
                     <th jh-sort-by="viewed"><span>Viewed</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="notes"><span>Notes</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="season.title"><span>season</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="season.serie.title"><span>serie</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    
                     <th></th>
                 </tr>
             </thead>
@@ -36,6 +38,9 @@
                     <td>{{episode.notes}}</td>
                     <td>
                         <a ui-sref="season.detail({id:episode.season.id})">{{episode.season.title}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="serie.detail({id:episode.season.serie.id})">{{episode.season.serie.title}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

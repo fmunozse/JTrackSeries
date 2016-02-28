@@ -363,6 +363,13 @@
             <version>${metrics-spark-reporter.version}</version>
         </dependency>
         <!-- jhipster-needle-maven-add-dependency -->
+        
+		<dependency>
+			<groupId>com.omertron</groupId>
+			<artifactId>thetvdbapi</artifactId>
+			<version>1.8</version>
+		</dependency>
+        
     </dependencies>
     <build>
         <defaultGoal>spring-boot:run</defaultGoal>
