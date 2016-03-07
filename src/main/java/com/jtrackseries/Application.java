@@ -100,16 +100,13 @@ public class Application {
 
 			Series series = tvDB.getSeries("269613", "en");
 			log.info("Series : {} ", series);
-
 			List<Episode> lEpisodes = tvDB.getAllEpisodes("269613", null);
 			for (Episode s : lEpisodes) {
 				log.info("Episode : {} ", s);
 			}
-
 		} catch (TvDbException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/**

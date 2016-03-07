@@ -2,8 +2,8 @@
     "relationships": [
         {
             "relationshipId": 1,
-            "relationshipName": "season",
-            "otherEntityName": "season",
+            "relationshipName": "serie",
+            "otherEntityName": "serie",
             "relationshipType": "many-to-one",
             "otherEntityField": "title"
         }
@@ -19,11 +19,27 @@
         },
         {
             "fieldId": 2,
+            "fieldName": "season",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]            
+        }, 
+        {
+            "fieldId": 3,
+            "fieldName": "episodeNumber",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },                 
+        {
+            "fieldId": 4,
             "fieldName": "datePublish",
             "fieldType": "LocalDate"
         },
         {
-            "fieldId": 3,
+            "fieldId": 5,
             "fieldName": "viewed",
             "fieldType": "Boolean",
             "fieldValidateRules": [
@@ -31,7 +47,17 @@
             ]
         },
         {
-            "fieldId": 4,
+            "fieldId": 6,
+            "fieldName": "externalId",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 7,
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 8,
             "fieldName": "notes",
             "fieldType": "String"
         }        

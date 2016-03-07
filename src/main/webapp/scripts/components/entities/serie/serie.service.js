@@ -8,9 +8,23 @@ angular.module('jtrackseriesApp')
                 method: 'GET',
                 transformResponse: function (data) {
                     data = angular.fromJson(data);
+                    data.firstAired = DateUtils.convertLocaleDateFromServer(data.firstAired);
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': {
+                method: 'PUT',
+                transformRequest: function (data) {
+                    data.firstAired = DateUtils.convertLocaleDateToServer(data.firstAired);
+                    return angular.toJson(data);
+                }
+            },
+            'save': {
+                method: 'POST',
+                transformRequest: function (data) {
+                    data.firstAired = DateUtils.convertLocaleDateToServer(data.firstAired);
+                    return angular.toJson(data);
+                }
+            }
         });
     });

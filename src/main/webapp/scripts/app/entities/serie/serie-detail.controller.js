@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('jtrackseriesApp')
-    .controller('SerieDetailController', function ($scope, $rootScope, $stateParams, entity, Serie, Season) {
+    .controller('SerieDetailController', function ($scope, $rootScope, $stateParams, entity, Serie, Episode) {
         $scope.serie = entity;
         $scope.load = function (id) {
             Serie.get({id: id}, function(result) {

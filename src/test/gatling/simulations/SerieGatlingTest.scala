@@ -67,7 +67,7 @@ class SerieGatlingTest extends Simulation {
             .exec(http("Create new serie")
             .post("/api/series")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "title":"SAMPLE_TEXT", "externalLink":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "notes":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "title":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "externalLink":"SAMPLE_TEXT", "externalId":"SAMPLE_TEXT", "imdbId":"SAMPLE_TEXT", "status":"SAMPLE_TEXT", "firstAired":"2020-01-01T00:00:00.000Z", "notes":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_serie_url")))
             .pause(10)

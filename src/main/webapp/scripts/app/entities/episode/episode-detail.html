@@ -20,6 +20,22 @@
             </tr>
             <tr>
                 <td>
+                    <span>Season</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{episode.season}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>EpisodeNumber</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{episode.episodeNumber}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <span>DatePublish</span>
                 </td>
                 <td>
@@ -36,6 +52,22 @@
             </tr>
             <tr>
                 <td>
+                    <span>ExternalId</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{episode.externalId}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Description</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{episode.description}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <span>Notes</span>
                 </td>
                 <td>
@@ -44,10 +76,10 @@
             </tr>
             <tr>
                 <td>
-                    <span>season</span>
+                    <span>serie</span>
                 </td>
                 <td>
-                    <a class="form-control-static" ui-sref="season.detail({id:episode.season.id})">{{episode.season.title}}</a>
+                    <a class="form-control-static" ui-sref="serie.detail({id:episode.serie.id})">{{episode.serie.title}}</a>
                 </td>
             </tr>
             </tbody>

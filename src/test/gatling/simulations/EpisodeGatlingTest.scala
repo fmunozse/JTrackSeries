@@ -67,7 +67,7 @@ class EpisodeGatlingTest extends Simulation {
             .exec(http("Create new episode")
             .post("/api/episodes")
             .headers(headers_http_authenticated)
-            .body(StringBody("""{"id":null, "title":"SAMPLE_TEXT", "datePublish":"2020-01-01T00:00:00.000Z", "viewed":null, "notes":"SAMPLE_TEXT"}""")).asJSON
+            .body(StringBody("""{"id":null, "title":"SAMPLE_TEXT", "season":"SAMPLE_TEXT", "episodeNumber":"0", "datePublish":"2020-01-01T00:00:00.000Z", "viewed":null, "externalId":"SAMPLE_TEXT", "description":"SAMPLE_TEXT", "notes":"SAMPLE_TEXT"}""")).asJSON
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_episode_url")))
             .pause(10)

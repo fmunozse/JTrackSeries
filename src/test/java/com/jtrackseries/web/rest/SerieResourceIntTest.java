@@ -23,6 +23,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -43,10 +45,19 @@ public class SerieResourceIntTest {
 
     private static final String DEFAULT_TITLE = "AAAAA";
     private static final String UPDATED_TITLE = "BBBBB";
-    private static final String DEFAULT_EXTERNAL_LINK = "AAAAA";
-    private static final String UPDATED_EXTERNAL_LINK = "BBBBB";
     private static final String DEFAULT_DESCRIPTION = "AAAAA";
     private static final String UPDATED_DESCRIPTION = "BBBBB";
+    private static final String DEFAULT_EXTERNAL_LINK = "AAAAA";
+    private static final String UPDATED_EXTERNAL_LINK = "BBBBB";
+    private static final String DEFAULT_EXTERNAL_ID = "AAAAA";
+    private static final String UPDATED_EXTERNAL_ID = "BBBBB";
+    private static final String DEFAULT_IMDB_ID = "AAAAA";
+    private static final String UPDATED_IMDB_ID = "BBBBB";
+    private static final String DEFAULT_STATUS = "AAAAA";
+    private static final String UPDATED_STATUS = "BBBBB";
+
+    private static final LocalDate DEFAULT_FIRST_AIRED = LocalDate.ofEpochDay(0L);
+    private static final LocalDate UPDATED_FIRST_AIRED = LocalDate.now(ZoneId.systemDefault());
     private static final String DEFAULT_NOTES = "AAAAA";
     private static final String UPDATED_NOTES = "BBBBB";
 
@@ -77,8 +88,12 @@ public class SerieResourceIntTest {
     public void initTest() {
         serie = new Serie();
         serie.setTitle(DEFAULT_TITLE);
-        serie.setExternalLink(DEFAULT_EXTERNAL_LINK);
         serie.setDescription(DEFAULT_DESCRIPTION);
+        serie.setExternalLink(DEFAULT_EXTERNAL_LINK);
+        serie.setExternalId(DEFAULT_EXTERNAL_ID);
+        serie.setImdbId(DEFAULT_IMDB_ID);
+        serie.setStatus(DEFAULT_STATUS);
+        serie.setFirstAired(DEFAULT_FIRST_AIRED);
         serie.setNotes(DEFAULT_NOTES);
     }
 
@@ -99,8 +114,12 @@ public class SerieResourceIntTest {
         assertThat(series).hasSize(databaseSizeBeforeCreate + 1);
         Serie testSerie = series.get(series.size() - 1);
         assertThat(testSerie.getTitle()).isEqualTo(DEFAULT_TITLE);
-        assertThat(testSerie.getExternalLink()).isEqualTo(DEFAULT_EXTERNAL_LINK);
         assertThat(testSerie.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
+        assertThat(testSerie.getExternalLink()).isEqualTo(DEFAULT_EXTERNAL_LINK);
+        assertThat(testSerie.getExternalId()).isEqualTo(DEFAULT_EXTERNAL_ID);
+        assertThat(testSerie.getImdbId()).isEqualTo(DEFAULT_IMDB_ID);
+        assertThat(testSerie.getStatus()).isEqualTo(DEFAULT_STATUS);
+        assertThat(testSerie.getFirstAired()).isEqualTo(DEFAULT_FIRST_AIRED);
         assertThat(testSerie.getNotes()).isEqualTo(DEFAULT_NOTES);
     }
 
@@ -134,8 +153,12 @@ public class SerieResourceIntTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(serie.getId().intValue())))
                 .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE.toString())))
-                .andExpect(jsonPath("$.[*].externalLink").value(hasItem(DEFAULT_EXTERNAL_LINK.toString())))
                 .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
+                .andExpect(jsonPath("$.[*].externalLink").value(hasItem(DEFAULT_EXTERNAL_LINK.toString())))
+                .andExpect(jsonPath("$.[*].externalId").value(hasItem(DEFAULT_EXTERNAL_ID.toString())))
+                .andExpect(jsonPath("$.[*].imdbId").value(hasItem(DEFAULT_IMDB_ID.toString())))
+                .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
+                .andExpect(jsonPath("$.[*].firstAired").value(hasItem(DEFAULT_FIRST_AIRED.toString())))
                 .andExpect(jsonPath("$.[*].notes").value(hasItem(DEFAULT_NOTES.toString())));
     }
 
@@ -151,8 +174,12 @@ public class SerieResourceIntTest {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON))
             .andExpect(jsonPath("$.id").value(serie.getId().intValue()))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE.toString()))
-            .andExpect(jsonPath("$.externalLink").value(DEFAULT_EXTERNAL_LINK.toString()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
+            .andExpect(jsonPath("$.externalLink").value(DEFAULT_EXTERNAL_LINK.toString()))
+            .andExpect(jsonPath("$.externalId").value(DEFAULT_EXTERNAL_ID.toString()))
+            .andExpect(jsonPath("$.imdbId").value(DEFAULT_IMDB_ID.toString()))
+            .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
+            .andExpect(jsonPath("$.firstAired").value(DEFAULT_FIRST_AIRED.toString()))
             .andExpect(jsonPath("$.notes").value(DEFAULT_NOTES.toString()));
     }
 
@@ -174,8 +201,12 @@ public class SerieResourceIntTest {
 
         // Update the serie
         serie.setTitle(UPDATED_TITLE);
-        serie.setExternalLink(UPDATED_EXTERNAL_LINK);
         serie.setDescription(UPDATED_DESCRIPTION);
+        serie.setExternalLink(UPDATED_EXTERNAL_LINK);
+        serie.setExternalId(UPDATED_EXTERNAL_ID);
+        serie.setImdbId(UPDATED_IMDB_ID);
+        serie.setStatus(UPDATED_STATUS);
+        serie.setFirstAired(UPDATED_FIRST_AIRED);
         serie.setNotes(UPDATED_NOTES);
 
         restSerieMockMvc.perform(put("/api/series")
@@ -188,8 +219,12 @@ public class SerieResourceIntTest {
         assertThat(series).hasSize(databaseSizeBeforeUpdate);
         Serie testSerie = series.get(series.size() - 1);
         assertThat(testSerie.getTitle()).isEqualTo(UPDATED_TITLE);
-        assertThat(testSerie.getExternalLink()).isEqualTo(UPDATED_EXTERNAL_LINK);
         assertThat(testSerie.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
+        assertThat(testSerie.getExternalLink()).isEqualTo(UPDATED_EXTERNAL_LINK);
+        assertThat(testSerie.getExternalId()).isEqualTo(UPDATED_EXTERNAL_ID);
+        assertThat(testSerie.getImdbId()).isEqualTo(UPDATED_IMDB_ID);
+        assertThat(testSerie.getStatus()).isEqualTo(UPDATED_STATUS);
+        assertThat(testSerie.getFirstAired()).isEqualTo(UPDATED_FIRST_AIRED);
         assertThat(testSerie.getNotes()).isEqualTo(UPDATED_NOTES);
     }
 

@@ -20,6 +20,14 @@
             </tr>
             <tr>
                 <td>
+                    <span>Description</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{serie.description}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
                     <span>ExternalLink</span>
                 </td>
                 <td>
@@ -28,10 +36,34 @@
             </tr>
             <tr>
                 <td>
-                    <span>Description</span>
+                    <span>ExternalId</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{serie.description}}</span>
+                    <span class="form-control-static">{{serie.externalId}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>ImdbId</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{serie.imdbId}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Status</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{serie.status}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>FirstAired</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{serie.firstAired | date:'mediumDate'}}</span>
                 </td>
             </tr>
             <tr>

@@ -3,6 +3,7 @@ package com.jtrackseries.domain;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import java.time.LocalDate;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
@@ -27,11 +28,23 @@ public class Serie implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
     
+    @Column(name = "description")
+    private String description;
+    
     @Column(name = "external_link")
     private String externalLink;
     
-    @Column(name = "description")
-    private String description;
+    @Column(name = "external_id")
+    private String externalId;
+    
+    @Column(name = "imdb_id")
+    private String imdbId;
+    
+    @Column(name = "status")
+    private String status;
+    
+    @Column(name = "first_aired")
+    private LocalDate firstAired;
     
     @Column(name = "notes")
     private String notes;
@@ -39,7 +52,7 @@ public class Serie implements Serializable {
     @OneToMany(mappedBy = "serie")
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Season> seasons = new HashSet<>();
+    private Set<Episode> episodes = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -57,6 +70,14 @@ public class Serie implements Serializable {
         this.title = title;
     }
 
+    public String getDescription() {
+        return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getExternalLink() {
         return externalLink;
     }
@@ -65,12 +86,36 @@ public class Serie implements Serializable {
         this.externalLink = externalLink;
     }
 
-    public String getDescription() {
-        return description;
+    public String getExternalId() {
+        return externalId;
     }
     
-    public void setDescription(String description) {
-        this.description = description;
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+    
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDate getFirstAired() {
+        return firstAired;
+    }
+    
+    public void setFirstAired(LocalDate firstAired) {
+        this.firstAired = firstAired;
     }
 
     public String getNotes() {
@@ -81,12 +126,12 @@ public class Serie implements Serializable {
         this.notes = notes;
     }
 
-    public Set<Season> getSeasons() {
-        return seasons;
+    public Set<Episode> getEpisodes() {
+        return episodes;
     }
 
-    public void setSeasons(Set<Season> seasons) {
-        this.seasons = seasons;
+    public void setEpisodes(Set<Episode> episodes) {
+        this.episodes = episodes;
     }
 
     @Override
@@ -114,8 +159,12 @@ public class Serie implements Serializable {
         return "Serie{" +
             "id=" + id +
             ", title='" + title + "'" +
-            ", externalLink='" + externalLink + "'" +
             ", description='" + description + "'" +
+            ", externalLink='" + externalLink + "'" +
+            ", externalId='" + externalId + "'" +
+            ", imdbId='" + imdbId + "'" +
+            ", status='" + status + "'" +
+            ", firstAired='" + firstAired + "'" +
             ", notes='" + notes + "'" +
             '}';
     }

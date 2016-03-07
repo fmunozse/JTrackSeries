@@ -62,7 +62,7 @@ angular.module('jtrackseriesApp')
                         var transformEventCalendar = function (episode) {
                         	var eventCalendar = new Object();
                         	eventCalendar.id = episode.id;
-                        	eventCalendar.title = episode.season.serie.title + " :: " + episode.title;
+                        	eventCalendar.title = episode.serie.title + " :: " + episode.title;
                         	eventCalendar.start = DateUtils.convertLocaleDateToServer(episode.datePublish); 
                         	eventCalendar.allDay=true;
                         	return eventCalendar;

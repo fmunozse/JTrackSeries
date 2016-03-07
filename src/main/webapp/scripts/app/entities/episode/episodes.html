@@ -20,12 +20,14 @@
                 <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
                     <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="title"><span>Title</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="season"><span>Season</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="episodeNumber"><span>EpisodeNumber</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="datePublish"><span>DatePublish</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="viewed"><span>Viewed</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="externalId"><span>ExternalId</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="description"><span>Description</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="notes"><span>Notes</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="season.title"><span>season</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="season.serie.title"><span>serie</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    
+                    <th jh-sort-by="serie.title"><span>serie</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -33,14 +35,15 @@
                 <tr ng-repeat="episode in episodes track by episode.id">
                     <td><a ui-sref="episode.detail({id:episode.id})">{{episode.id}}</a></td>
                     <td>{{episode.title}}</td>
+                    <td>{{episode.season}}</td>
+                    <td>{{episode.episodeNumber}}</td>
                         <td>{{episode.datePublish | date:'mediumDate'}}</td>
                     <td>{{episode.viewed}}</td>
+                    <td>{{episode.externalId}}</td>
+                    <td>{{episode.description}}</td>
                     <td>{{episode.notes}}</td>
                     <td>
-                        <a ui-sref="season.detail({id:episode.season.id})">{{episode.season.title}}</a>
-                    </td>
-                    <td>
-                        <a ui-sref="serie.detail({id:episode.season.serie.id})">{{episode.season.serie.title}}</a>
+                        <a ui-sref="serie.detail({id:episode.serie.id})">{{episode.serie.title}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

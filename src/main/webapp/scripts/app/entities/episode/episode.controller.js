@@ -29,8 +29,12 @@ angular.module('jtrackseriesApp')
         $scope.clear = function () {
             $scope.episode = {
                 title: null,
+                season: null,
+                episodeNumber: null,
                 datePublish: null,
                 viewed: false,
+                externalId: null,
+                description: null,
                 notes: null,
                 id: null
             };

@@ -25,23 +25,35 @@
                 <constraints nullable="false" />
             </column>
             
+            <column name="season" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            
+            <column name="episode_number" type="integer">
+                <constraints nullable="false" />
+            </column>
+            
             <column name="date_publish" type="date"/>
             
             <column name="viewed" type="bit">
                 <constraints nullable="false" />
             </column>
             
+            <column name="external_id" type="varchar(255)"/>
+            
+            <column name="description" type="varchar(255)"/>
+            
             <column name="notes" type="varchar(255)"/>
             
-            <column name="season_id" type="bigint"/>
+            <column name="serie_id" type="bigint"/>
             <!-- jhipster-needle-liquibase-add-column - Jhipster will add columns here, do not remove-->
         </createTable>
         
-        <addForeignKeyConstraint baseColumnNames="season_id"
+        <addForeignKeyConstraint baseColumnNames="serie_id"
                                  baseTableName="episode"
-                                 constraintName="fk_episode_season_id"
+                                 constraintName="fk_episode_serie_id"
                                  referencedColumnNames="id"
-                                 referencedTableName="season"/>
+                                 referencedTableName="serie"/>
 
     </changeSet>
 </databaseChangeLog>

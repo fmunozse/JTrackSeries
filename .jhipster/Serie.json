@@ -2,8 +2,8 @@
     "relationships": [
         {
             "relationshipId": 1,
-            "relationshipName": "season",
-            "otherEntityName": "season",
+            "relationshipName": "episode",
+            "otherEntityName": "episode",
             "relationshipType": "one-to-many",
             "otherEntityRelationshipName": "serie"
         }
@@ -19,16 +19,36 @@
         },
         {
             "fieldId": 2,
-            "fieldName": "externalLink",
-            "fieldType": "String"
-        },
-        {
-            "fieldId": 3,
             "fieldName": "description",
             "fieldType": "String"
         },
         {
+            "fieldId": 3,
+            "fieldName": "externalLink",
+            "fieldType": "String"
+        },
+        {
             "fieldId": 4,
+            "fieldName": "externalId",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 5,
+            "fieldName": "imdbId",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 6,
+            "fieldName": "status",
+            "fieldType": "String"
+        },
+        {
+            "fieldId": 7,
+            "fieldName": "firstAired",
+            "fieldType": "LocalDate"
+        },         
+        {
+            "fieldId": 8,
             "fieldName": "notes",
             "fieldType": "String"
         }

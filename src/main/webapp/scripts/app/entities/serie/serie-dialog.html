@@ -26,16 +26,44 @@
             </div>
         </div>
         <div class="form-group">
+            <label class="control-label" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="serie.description"
+                     />
+        </div>
+        <div class="form-group">
             <label class="control-label" for="field_externalLink">ExternalLink</label>
             <input type="text" class="form-control" name="externalLink" id="field_externalLink"
                     ng-model="serie.externalLink"
                      />
         </div>
         <div class="form-group">
-            <label class="control-label" for="field_description">Description</label>
-            <input type="text" class="form-control" name="description" id="field_description"
-                    ng-model="serie.description"
+            <label class="control-label" for="field_externalId">ExternalId</label>
+            <input type="text" class="form-control" name="externalId" id="field_externalId"
+                    ng-model="serie.externalId"
                      />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_imdbId">ImdbId</label>
+            <input type="text" class="form-control" name="imdbId" id="field_imdbId"
+                    ng-model="serie.imdbId"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_status">Status</label>
+            <input type="text" class="form-control" name="status" id="field_status"
+                    ng-model="serie.status"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_firstAired">FirstAired</label>
+                <div class="input-group">
+                    <input id="field_firstAired" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="serie.firstAired" is-open="datePickerForFirstAired.status.opened"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="datePickerForFirstAiredOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
         </div>
         <div class="form-group">
             <label class="control-label" for="field_notes">Notes</label>

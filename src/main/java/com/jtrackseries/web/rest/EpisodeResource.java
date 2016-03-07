@@ -75,21 +75,6 @@ public class EpisodeResource {
 	}
 
 	/**
-	 * GET /episodesByDates/{fromDate}/{toDate} -> get all the episodes by range
-	 * of from to date
-	 */
-	@RequestMapping(value = "/episodesByDates/{fromDate}/{toDate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Timed
-	public List<Episode> getByDates(
-			@PathVariable(value = "fromDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
-			@PathVariable(value = "toDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate) {
-
-		log.debug("REST request to get a page of Episodes by Range from {} to {} ", fromDate, toDate);
-
-		return episodeRepository.findAllByDatePublishBetween(fromDate, toDate);
-	}
-
-	/**
 	 * GET /episodes -> get all the episodes.
 	 */
 	@RequestMapping(value = "/episodes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -122,5 +107,20 @@ public class EpisodeResource {
 		log.debug("REST request to delete Episode : {}", id);
 		episodeRepository.delete(id);
 		return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("episode", id.toString())).build();
+	}
+
+	/**
+	 * GET /episodesByDates/{fromDate}/{toDate} -> get all the episodes by range
+	 * of from to date
+	 */
+	@RequestMapping(value = "/episodesByDates/{fromDate}/{toDate}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public List<Episode> getByDates(
+			@PathVariable(value = "fromDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fromDate,
+			@PathVariable(value = "toDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate toDate) {
+
+		log.debug("REST request to get a page of Episodes by Range from {} to {} ", fromDate, toDate);
+
+		return episodeRepository.findAllByDatePublishBetween(fromDate, toDate);
 	}
 }

@@ -1,11 +1,11 @@
 'use strict';
 
 angular.module('jtrackseriesApp').controller('EpisodeDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Episode', 'Season',
-        function($scope, $stateParams, $uibModalInstance, entity, Episode, Season) {
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Episode', 'Serie',
+        function($scope, $stateParams, $uibModalInstance, entity, Episode, Serie) {
 
         $scope.episode = entity;
-        $scope.seasons = Season.query();
+        $scope.series = Serie.query();
         $scope.load = function(id) {
             Episode.get({id : id}, function(result) {
                 $scope.episode = result;

@@ -27,6 +27,14 @@ public class Episode implements Serializable {
     @Column(name = "title", nullable = false)
     private String title;
     
+    @NotNull
+    @Column(name = "season", nullable = false)
+    private String season;
+    
+    @NotNull
+    @Column(name = "episode_number", nullable = false)
+    private Integer episodeNumber;
+    
     @Column(name = "date_publish")
     private LocalDate datePublish;
     
@@ -34,12 +42,18 @@ public class Episode implements Serializable {
     @Column(name = "viewed", nullable = false)
     private Boolean viewed;
     
+    @Column(name = "external_id")
+    private String externalId;
+    
+    @Column(name = "description")
+    private String description;
+    
     @Column(name = "notes")
     private String notes;
     
     @ManyToOne
-    @JoinColumn(name = "season_id")
-    private Season season;
+    @JoinColumn(name = "serie_id")
+    private Serie serie;
 
     public Long getId() {
         return id;
@@ -55,6 +69,22 @@ public class Episode implements Serializable {
     
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getSeason() {
+        return season;
+    }
+    
+    public void setSeason(String season) {
+        this.season = season;
+    }
+
+    public Integer getEpisodeNumber() {
+        return episodeNumber;
+    }
+    
+    public void setEpisodeNumber(Integer episodeNumber) {
+        this.episodeNumber = episodeNumber;
     }
 
     public LocalDate getDatePublish() {
@@ -73,6 +103,22 @@ public class Episode implements Serializable {
         this.viewed = viewed;
     }
 
+    public String getExternalId() {
+        return externalId;
+    }
+    
+    public void setExternalId(String externalId) {
+        this.externalId = externalId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getNotes() {
         return notes;
     }
@@ -81,12 +127,12 @@ public class Episode implements Serializable {
         this.notes = notes;
     }
 
-    public Season getSeason() {
-        return season;
+    public Serie getSerie() {
+        return serie;
     }
 
-    public void setSeason(Season season) {
-        this.season = season;
+    public void setSerie(Serie serie) {
+        this.serie = serie;
     }
 
     @Override
@@ -114,8 +160,12 @@ public class Episode implements Serializable {
         return "Episode{" +
             "id=" + id +
             ", title='" + title + "'" +
+            ", season='" + season + "'" +
+            ", episodeNumber='" + episodeNumber + "'" +
             ", datePublish='" + datePublish + "'" +
             ", viewed='" + viewed + "'" +
+            ", externalId='" + externalId + "'" +
+            ", description='" + description + "'" +
             ", notes='" + notes + "'" +
             '}';
     }

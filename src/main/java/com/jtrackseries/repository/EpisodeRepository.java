@@ -10,7 +10,7 @@ import com.jtrackseries.domain.Episode;
 /**
  * Spring Data JPA repository for the Episode entity.
  */
-public interface EpisodeRepository extends JpaRepository<Episode, Long> {
+public interface EpisodeRepository extends JpaRepository<Episode,Long> {
 
 	List<Episode> findAllByDatePublishBetween(LocalDate fromDate, LocalDate toDate);
 

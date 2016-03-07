@@ -53,8 +53,12 @@ angular.module('jtrackseriesApp')
                             entity: function () {
                                 return {
                                     title: null,
+                                    season: null,
+                                    episodeNumber: null,
                                     datePublish: null,
                                     viewed: false,
+                                    externalId: null,
+                                    description: null,
                                     notes: null,
                                     id: null
                                 };
