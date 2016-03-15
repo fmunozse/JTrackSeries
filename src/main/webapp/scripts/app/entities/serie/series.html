@@ -21,12 +21,9 @@
                     <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="title"><span>Title</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span>Description</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="externalLink"><span>ExternalLink</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="externalId"><span>ExternalId</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="imdbId"><span>ImdbId</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="status"><span>Status</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="firstAired"><span>FirstAired</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="notes"><span>Notes</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -35,12 +32,16 @@
                     <td><a ui-sref="serie.detail({id:serie.id})">{{serie.id}}</a></td>
                     <td>{{serie.title}}</td>
                     <td>{{serie.description}}</td>
-                    <td>{{serie.externalLink}}</td>
-                    <td>{{serie.externalId}}</td>
-                    <td>{{serie.imdbId}}</td>
+                    <td>
+	                    <a	class="btn btn-default btn-sm"
+	                        target="_new"
+	                        uib-tooltip="See in IMDB page"
+	                        ng-href="http://www.imdb.com/title/{{serie.imdbId}}"> 
+	                        	<span class="glyphicon glyphicon-link"></span>
+	                    </a>                    
+                    </td>
                     <td>{{serie.status}}</td>
-                        <td>{{serie.firstAired | date:'mediumDate'}}</td>
-                    <td>{{serie.notes}}</td>
+                    <td>{{serie.firstAired | date:'mediumDate'}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

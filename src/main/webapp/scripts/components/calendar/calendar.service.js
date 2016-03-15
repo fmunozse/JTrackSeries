@@ -17,7 +17,7 @@ angular.module('jtrackseriesApp')
                     return dateToFormat;
                 };
 
-                return $http.get('api/episodesByDates/' + formatDate(fromDate) + '/' +  formatDate(toDate)).then(function (response) {
+                return $http.get('api/calendar/episodesByDates/' + formatDate(fromDate) + '/' +  formatDate(toDate)).then(function (response) {
                     return response.data;
                 });
             }

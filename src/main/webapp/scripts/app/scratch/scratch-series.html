@@ -1,0 +1,77 @@
+<div>
+    <h2>Scratch Series</h2>
+     <jh-alert></jh-alert>
+     
+<form name="searchForm" role="form" novalidate ng-submit="search()" show-validation>
+
+        <div class="form-group">
+            <label class="control-label" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="title"
+                    required />
+            <div ng-show="searchForm.title.$invalid">
+                <p class="help-block"
+                    ng-show="searchForm.title.$error.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Search</button>
+        
+        
+</form>
+
+<script type="text/ng-template" id="scratchBannerTooltipTemplate.html">
+  <img ng-src="{{scratchSerie.urlBanner}}" alt="..." class="img-thumbnail">
+</script>
+
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr>
+                    <th><span>ID</span></th>
+                    <th><span>Title</span></th>
+                    <th><span>Overview</span></th>
+                    <th><span>Banner</span></th>
+                    <th><span>imdbId</span></th>                    
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="scratchSerie in scratchSeries track by scratchSerie.id">
+                    <td>{{scratchSerie.id}}</a></td>
+                    <td>{{scratchSerie.title}}</td>
+                    <td>{{scratchSerie.overview}}</td>
+                    <td>
+                    	<button type="button" 
+                    			class="btn btn-default btn-sm"
+                    			uib-tooltip-template="'scratchBannerTooltipTemplate.html'" >                    			
+							<span class="glyphicon glyphicon-eye-open"></span>                    	
+                    	</button>
+                    </td>
+                    <td>
+	                    <a	class="btn btn-default btn-sm"
+	                        target="_new"
+	                        uib-tooltip="See in IMDB page"
+	                        ng-href="http://www.imdb.com/title/{{scratchSerie.imdbId}}"> 
+	                        	<span class="glyphicon glyphicon-link"></span>
+	                    </a>
+                     
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="button"
+                            		ng-click="import(scratchSerie.id)"                                    
+                                    class="btn btn-info btn-sm"> 
+                                <span class="glyphicon glyphicon-import"></span>
+                                <span>Import</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>	
+
+</div>

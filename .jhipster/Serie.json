@@ -14,13 +14,19 @@
             "fieldName": "title",
             "fieldType": "String",
             "fieldValidateRules": [
-                "required"
-            ]
+                "required",
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "2048"
         },
         {
             "fieldId": 2,
             "fieldName": "description",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "2048"
         },
         {
             "fieldId": 3,
@@ -50,7 +56,11 @@
         {
             "fieldId": 8,
             "fieldName": "notes",
-            "fieldType": "String"
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": "2048"
         }
     ],
     "changelogDate": "20151109104410",

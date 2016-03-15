@@ -24,7 +24,8 @@ public class Episode implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "title", nullable = false)
+    @Size(max = 2048)
+    @Column(name = "title", length = 2048, nullable = false)
     private String title;
     
     @NotNull
@@ -45,10 +46,12 @@ public class Episode implements Serializable {
     @Column(name = "external_id")
     private String externalId;
     
-    @Column(name = "description")
+    @Size(max = 2048)
+    @Column(name = "description", length = 2048)
     private String description;
     
-    @Column(name = "notes")
+    @Size(max = 2048)
+    @Column(name = "notes", length = 2048)
     private String notes;
     
     @ManyToOne

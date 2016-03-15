@@ -25,10 +25,12 @@ public class Serie implements Serializable {
     private Long id;
 
     @NotNull
-    @Column(name = "title", nullable = false)
+    @Size(max = 2048)
+    @Column(name = "title", length = 2048, nullable = false)
     private String title;
     
-    @Column(name = "description")
+    @Size(max = 2048)
+    @Column(name = "description", length = 2048)
     private String description;
     
     @Column(name = "external_link")
@@ -46,7 +48,8 @@ public class Serie implements Serializable {
     @Column(name = "first_aired")
     private LocalDate firstAired;
     
-    @Column(name = "notes")
+    @Size(max = 2048)
+    @Column(name = "notes", length = 2048)
     private String notes;
     
     @OneToMany(mappedBy = "serie")

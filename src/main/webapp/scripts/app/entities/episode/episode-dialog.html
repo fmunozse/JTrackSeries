@@ -17,11 +17,15 @@
             <label class="control-label" for="field_title">Title</label>
             <input type="text" class="form-control" name="title" id="field_title"
                     ng-model="episode.title"
-                    required />
+                    required ng-maxlength="2048" />
             <div ng-show="editForm.title.$invalid">
                 <p class="help-block"
                     ng-show="editForm.title.$error.required">
                     This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.title.$error.maxlength" translate-value-max="2048">
+                    This field cannot be longer than 2048 characters.
                 </p>
             </div>
         </div>
@@ -85,13 +89,25 @@
             <label class="control-label" for="field_description">Description</label>
             <input type="text" class="form-control" name="description" id="field_description"
                     ng-model="episode.description"
-                     />
+                    ng-maxlength="2048" />
+            <div ng-show="editForm.description.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.description.$error.maxlength" translate-value-max="2048">
+                    This field cannot be longer than 2048 characters.
+                </p>
+            </div>
         </div>
         <div class="form-group">
             <label class="control-label" for="field_notes">Notes</label>
             <input type="text" class="form-control" name="notes" id="field_notes"
                     ng-model="episode.notes"
-                     />
+                    ng-maxlength="2048" />
+            <div ng-show="editForm.notes.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.notes.$error.maxlength" translate-value-max="2048">
+                    This field cannot be longer than 2048 characters.
+                </p>
+            </div>
         </div>
 
         <div class="form-group">

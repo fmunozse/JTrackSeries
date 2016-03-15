@@ -24,9 +24,7 @@
                     <th jh-sort-by="episodeNumber"><span>EpisodeNumber</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="datePublish"><span>DatePublish</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="viewed"><span>Viewed</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="externalId"><span>ExternalId</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span>Description</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="notes"><span>Notes</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="serie.title"><span>serie</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
@@ -39,9 +37,7 @@
                     <td>{{episode.episodeNumber}}</td>
                         <td>{{episode.datePublish | date:'mediumDate'}}</td>
                     <td>{{episode.viewed}}</td>
-                    <td>{{episode.externalId}}</td>
                     <td>{{episode.description}}</td>
-                    <td>{{episode.notes}}</td>
                     <td>
                         <a ui-sref="serie.detail({id:episode.serie.id})">{{episode.serie.title}}</a>
                     </td>

@@ -5,7 +5,6 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -24,10 +23,6 @@ import org.springframework.core.env.SimpleCommandLinePropertySource;
 
 import com.jtrackseries.config.Constants;
 import com.jtrackseries.config.JHipsterProperties;
-import com.omertron.thetvdbapi.TheTVDBApi;
-import com.omertron.thetvdbapi.TvDbException;
-import com.omertron.thetvdbapi.model.Episode;
-import com.omertron.thetvdbapi.model.Series;
 
 @ComponentScan
 @EnableAutoConfiguration(exclude = { MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class })
@@ -90,23 +85,23 @@ public class Application {
 						+ "External: \thttp://{}:{}\n----------------------------------------------------------",
 				env.getProperty("server.port"), InetAddress.getLocalHost().getHostAddress(),
 				env.getProperty("server.port"));
-
-		TheTVDBApi tvDB = new TheTVDBApi("18C5DB503E5170F2");
-		try {
-			List<Series> results = tvDB.searchSeries("Fargo", "en");
-			for (Series s : results) {
-				log.info("Series : {} ", s);
-			}
-
-			Series series = tvDB.getSeries("269613", "en");
-			log.info("Series : {} ", series);
-			List<Episode> lEpisodes = tvDB.getAllEpisodes("269613", null);
-			for (Episode s : lEpisodes) {
-				log.info("Episode : {} ", s);
-			}
-		} catch (TvDbException e) {
-			e.printStackTrace();
-		}
+		//
+		// TheTVDBApi tvDB = new TheTVDBApi("18C5DB503E5170F2");
+		// try {
+		// List<Series> results = tvDB.searchSeries("Fargo", "en");
+		// for (Series s : results) {
+		// log.info("Series : {} ", s);
+		// }
+		//
+		// Series series = tvDB.getSeries("269613", "en");
+		// log.info("Series : {} ", series);
+		// List<Episode> lEpisodes = tvDB.getAllEpisodes("269613", null);
+		// for (Episode s : lEpisodes) {
+		// log.info("Episode : {} ", s);
+		// }
+		// } catch (TvDbException e) {
+		// e.printStackTrace();
+		// }
 	}
 
 	/**
