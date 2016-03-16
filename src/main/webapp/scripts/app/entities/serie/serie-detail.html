@@ -77,10 +77,43 @@
             </tbody>
         </table>
     </div>
+    
+    <h4 class="text-center"><span>Episodes </span> <span class="badge">{{totalItems}}</span> </h4>
+    
+    
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
+                    <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="title"><span>Title</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="season"><span>Season</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="episodeNumber"><span>EpisodeNumber</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="datePublish"><span>DatePublish</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="viewed"><span>Viewed</span> <span class="glyphicon glyphicon-sort"></span></th>                
+                </tr>
+            </thead>            
+            <tbody>
+                <tr ng-repeat="episode in episodes track by episode.id">
+                    <td><a ui-sref="episode.detail({id:episode.id})">{{episode.id}}</a></td>
+                    <td>{{episode.title}}</td>
+                    <td>{{episode.season}}</td>
+                    <td>{{episode.episodeNumber}}</td>
+                    <td>{{episode.datePublish | date:'yyyy-MM-dd'}}</td>
+                    <td>{{episode.viewed}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>    
+    
+    <div class="text-center">
+        <uib-pagination class="pagination-sm" total-items="totalItems" ng-model="page" ng-change="loadAll()"></uib-pagination>
+    </div>
 
     <button type="submit"
             onclick="window.history.back()"
             class="btn btn-info">
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
+    
 </div>
