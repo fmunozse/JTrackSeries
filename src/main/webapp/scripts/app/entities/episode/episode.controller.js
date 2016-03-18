@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('jtrackseriesApp')
-    .controller('EpisodeController', function ($scope, $state, Episode, ParseLinks) {
+    .controller('EpisodeController', function ($scope, $state, Episode, ParseLinks, EpisodeViewed) {
 
         $scope.episodes = [];
         $scope.predicate = 'id';
@@ -38,5 +38,12 @@ angular.module('jtrackseriesApp')
                 notes: null,
                 id: null
             };
+        };
+        
+        $scope.setViewed = function (id, set) {        	
+        	EpisodeViewed.update({id: id, set:set},
+            	function (result, header) {
+        			//Nothing
+            });            
         };
     });

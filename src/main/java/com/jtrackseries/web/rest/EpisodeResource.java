@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
@@ -54,6 +55,25 @@ public class EpisodeResource {
 		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
 	}
 
+	/**
+	 * GET /episodes/{id}/viewed -> Updates an existing episode.
+	 * 	param:  set
+	 */
+	@RequestMapping(value = "/episodes/{id}/viewed", 
+			params = { "set" }, 
+			method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public ResponseEntity<Episode> updateViewedEpisode(@PathVariable Long id, 
+			@RequestParam(value = "set", required = false) Boolean set ) throws URISyntaxException {
+		log.debug("REST request to update Episode {} with viewed {}",id, set );
+
+		int result = episodeRepository.setViewed(id, set);
+
+		Episode episode = episodeRepository.findOne(id);
+		return Optional.ofNullable(episode).map(resultEp -> new ResponseEntity<>(resultEp,  HttpStatus.OK))
+				.orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));		
+	}
+	
 	/**
 	 * POST /episodes -> Create a new episode.
 	 */

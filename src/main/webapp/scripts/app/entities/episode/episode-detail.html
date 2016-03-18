@@ -47,7 +47,15 @@
                     <span>Viewed</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{episode.viewed}}</span>
+                    <span class="form-control-static">
+			          <toggle-switch
+			            ng-model="episode.viewed"			          	
+			            on-change="setViewed(episode.id, episode.viewed)"
+	              		class="switch-small"			            
+			            on-label="yes"
+	              		off-label="no">
+			          </toggle-switch>                              
+                    </span>
                 </td>
             </tr>
             <tr>

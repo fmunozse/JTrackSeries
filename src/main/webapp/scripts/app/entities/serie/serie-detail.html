@@ -1,6 +1,7 @@
 
 <div>
     <h2><span>Serie</span> {{serie.id}}</h2>
+    
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -78,6 +79,7 @@
         </table>
     </div>
     
+    
     <h4 class="text-center"><span>Episodes </span> <span class="badge">{{totalItems}}</span> </h4>
     
     
@@ -100,7 +102,15 @@
                     <td>{{episode.season}}</td>
                     <td>{{episode.episodeNumber}}</td>
                     <td>{{episode.datePublish | date:'yyyy-MM-dd'}}</td>
-                    <td>{{episode.viewed}}</td>
+                    <td>
+			          <toggle-switch
+			            ng-model="episode.viewed"			          	
+			            on-change="setViewed(episode.id, episode.viewed)"
+	              		class="switch-small"			            
+			            on-label="yes"
+	              		off-label="no">
+			          </toggle-switch>                    
+                    </td>
                 </tr>
             </tbody>
         </table>

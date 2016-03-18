@@ -36,7 +36,15 @@
                     <td>{{episode.season}}</td>
                     <td>{{episode.episodeNumber}}</td>
                         <td>{{episode.datePublish | date:'mediumDate'}}</td>
-                    <td>{{episode.viewed}}</td>
+                    <td>
+			          <toggle-switch
+			            ng-model="episode.viewed"			          	
+			            on-change="setViewed(episode.id, episode.viewed)"
+	              		class="switch-small"			            
+			            on-label="yes"
+	              		off-label="no">
+			          </toggle-switch>
+                    </td>
                     <td>{{episode.description}}</td>
                     <td>
                         <a ui-sref="serie.detail({id:episode.serie.id})">{{episode.serie.title}}</a>

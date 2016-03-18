@@ -28,3 +28,14 @@ angular.module('jtrackseriesApp')
             }
         });
     });
+
+
+angular.module('jtrackseriesApp')
+.factory('EpisodeViewed', function ($resource) {
+    return $resource('api/episodes/:id/viewed', {id:'@id', set:'@set'}, {
+        'update': {
+            method: 'PUT'
+        },    		
+    })
+});
+

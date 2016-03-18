@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('jtrackseriesApp')
-    .controller('SerieDetailController', function ($scope, $rootScope, $stateParams, entity, Serie, Episode, $log,$resource, ParseLinks) {
+    .controller('SerieDetailController', function ($scope, $rootScope, $stateParams, entity, Serie, Episode, $log,$resource, ParseLinks, EpisodeViewed) {
         $scope.serie = entity;
         $scope.episodes = [];
         $scope.serieId = $stateParams.id;
@@ -36,5 +36,12 @@ angular.module('jtrackseriesApp')
             $scope.serie = result;
         });
         $scope.$on('$destroy', unsubscribe);
+        
+        $scope.setViewed = function (id, set) {        	
+        	EpisodeViewed.update({id: id, set:set},
+            	function (result, header) {
+        			//Nothing
+            });            
+        };
 
     });

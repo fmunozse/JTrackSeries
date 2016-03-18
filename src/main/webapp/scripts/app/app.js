@@ -2,9 +2,9 @@
 
 angular.module('jtrackseriesApp', ['LocalStorageModule', 
     'ngResource', 'ngCookies', 'ngAria', 'ngCacheBuster', 'ngFileUpload',
+    'ui.calendar', 'toggle-switch',
     // jhipster-needle-angularjs-add-module JHipster will add new module here
-    'ui.bootstrap', 'ui.router',  'infinite-scroll', 'angular-loading-bar' ,
-    'ui.calendar'])
+    'ui.bootstrap', 'ui.router',  'infinite-scroll', 'angular-loading-bar'])
 
     .run(function ($rootScope, $location, $window, $http, $state,  Auth, Principal, ENV, VERSION) {
         
