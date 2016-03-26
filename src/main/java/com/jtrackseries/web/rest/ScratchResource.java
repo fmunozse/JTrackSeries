@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
 import com.jtrackseries.domain.Serie;
+import com.jtrackseries.repository.SerieRepository;
 import com.jtrackseries.service.TVDBScratchService;
 import com.jtrackseries.web.rest.dto.ScratchSeriesDTO;
 import com.jtrackseries.web.rest.util.HeaderUtil;
@@ -31,6 +32,9 @@ public class ScratchResource {
 
 	@Inject
 	private TVDBScratchService oTVDBScratchService;
+	
+	@Inject
+	private SerieRepository serieRepository;
 
 	/**
 	 * GET /scratch/serie/{title} ->
@@ -58,6 +62,14 @@ public class ScratchResource {
 			@RequestParam(value = "lan", required = false) Optional<String> lan) throws URISyntaxException {
 
 		log.debug("REST request to import series by id {} , using the lan {} ", id, lan);
+
+		if (serieRepository.findOneByExternalId(id).isPresent()) {
+			return ResponseEntity.badRequest()
+					.headers(HeaderUtil.createFailureAlert("scratch-series", "seriesexists", "Series with externalId already in use"))
+	                .body(null);
+		}
+		
+		
 		Serie result = oTVDBScratchService.importSeriesById(id, lan.orElse(null));
 
 		return ResponseEntity.created(new URI("/api/episodes/" + result.getId()))

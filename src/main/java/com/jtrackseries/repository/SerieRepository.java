@@ -1,6 +1,7 @@
 package com.jtrackseries.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,4 +14,6 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 
 	List<Serie> findAllByTitle(String title);
 
+    Optional<Serie> findOneByExternalId(String externalId);
+	
 }

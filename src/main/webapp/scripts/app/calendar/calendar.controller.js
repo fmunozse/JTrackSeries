@@ -1,11 +1,14 @@
 'use strict';
 
 angular.module('jtrackseriesApp')
-    .controller('CalendarController', function ($scope, $state, CalendarService, Episode, ParseLinks, $log, DateUtils, $compile) {
+    .controller('CalendarController', function ($scope, $state, CalendarService, Episode, ParseLinks, $log, DateUtils, $compile, EpisodeViewed, uiCalendarConfig) {
 
         $scope.episode = new Object();
+        $scope.eventDetailSelected = new Object();        
 
         var onSaveSuccess = function (result) {
+			$log.debug("onSaveSuccess - result", result);
+
             $scope.$emit('jtrackseriesApp:episodeUpdate', result);
             $scope.isSaving = false;
         };
@@ -13,9 +16,29 @@ angular.module('jtrackseriesApp')
             $scope.isSaving = false;
         };        
         
+        
+        $scope.pad = function (num, size) {
+            var s = num+"";
+            while (s.length < size) s = "0" + s;
+            return s;
+        }
+        
+ 
+        $scope.setViewed = function (event) {       
+
+        	EpisodeViewed.update({id: event.id, set: !event.episode.viewed},
+            	function (result, onSaveSuccess, onSaveError) {
+        			$log.debug("result", result);
+        			//$log.debug("header", header);
+            		event.color = (result.viewed) ? '#A3A3A3' : "#337ab7";
+            		event.episode=result;
+        			uiCalendarConfig.calendars.calendar.fullCalendar('rerenderEvents')        			
+        		});            
+        };
+        
         //$scope.eventSources = [$scope.events];
         $scope.eventSources = [];
-        
+                
         /* config object */
         $scope.uiConfig = {
           calendar:{
@@ -32,6 +55,9 @@ angular.module('jtrackseriesApp')
             } ,    
             eventClick:  function(event) {
                 $log.debug("eventClick",  event);
+                $scope.setViewed(event);      
+                //$scope.eventClicked = event;
+                //$scope.eventDetailSelected = event;
             } ,
             eventDrop:  function(event) {
                 $log.debug("eventDrop",  event);
@@ -41,12 +67,19 @@ angular.module('jtrackseriesApp')
                     Episode.update($scope.episode, onSaveSuccess, onSaveError);
                 });
             } ,    
-            eventRender:  function(event, element) {
-                //$log.debug("eventRender",  event);                
+            eventMouseover: function(event) {
+                $scope.eventDetailSelected = event;        
+            }, 
+            eventRender:  function(event, element) {            	
                 element.attr({
-                    'uib-tooltip': event.title,
-                    'tooltip-append-to-body': true
+                	'uib-popover-template': "'scripts/app/calendar/eventDetail.html'",
+                    'popover-trigger': 'mouseenter',
+                    'popover-title': event.title,
+                    'tabindex': 0,
+                    
+                    'popover-append-to-body': true
                 });
+                
                 $compile(element)($scope);
             } ,   
             viewRender: function(view, element) {
@@ -62,9 +95,11 @@ angular.module('jtrackseriesApp')
                         var transformEventCalendar = function (episode) {
                         	var eventCalendar = new Object();
                         	eventCalendar.id = episode.id;
-                        	eventCalendar.title = episode.serie.title + " :: " + episode.title;
+                        	eventCalendar.title = episode.serie.title + " :: " + episode.season + "x" + $scope.pad(episode.episodeNumber,2);
                         	eventCalendar.start = DateUtils.convertLocaleDateToServer(episode.datePublish); 
                         	eventCalendar.allDay=true;
+                        	eventCalendar.color = (episode.viewed) ? '#A3A3A3' : "#337ab7";
+                        	eventCalendar.episode=episode;
                         	return eventCalendar;
                         };
                         newArr.push( transformEventCalendar(episode) );
@@ -75,12 +110,5 @@ angular.module('jtrackseriesApp')
             }            
           }
         };
-        
-        /* Render Tooltip */
-//       $scope.eventRender = function( event, element, view ) {
-//           element.attr({'tooltip': event.title,
-//                         'tooltip-append-to-body': true});
-//           $compile(element)($scope);
-//       };
-        
+
     });

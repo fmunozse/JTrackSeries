@@ -60,14 +60,22 @@ public class TVDBScratchService {
 				log.info("Episode : {} ", eTvDb);
 
 				com.jtrackseries.domain.Episode episode = new com.jtrackseries.domain.Episode();
-				episode.setDatePublish(parseLocalDateSafe(eTvDb.getFirstAired()));
+				LocalDate firstAired = parseLocalDateSafe(eTvDb.getFirstAired());
+				episode.setDatePublish(firstAired);
 				episode.setDescription(parseStringSafe(eTvDb.getOverview()));
 				episode.setEpisodeNumber(eTvDb.getEpisodeNumber());
 				episode.setExternalId(parseStringSafe(eTvDb.getId()));
 				episode.setSeason(String.valueOf(eTvDb.getSeasonNumber()));
 				episode.setSerie(serie);
 				episode.setTitle(StringUtils.defaultString(parseStringSafe(eTvDb.getEpisodeName()), "NOT DEFINED"));
-				episode.setViewed(false);
+				
+				LocalDate now = LocalDate.now();
+				if (firstAired != null && firstAired.isBefore(now)) {
+					episode.setViewed(true);
+				} else {
+					episode.setViewed(false);	
+				}
+				
 
 				log.debug("episode to save {}", episode);
 				episodeRepository.save(episode);
