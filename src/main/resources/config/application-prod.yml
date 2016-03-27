@@ -34,13 +34,18 @@ spring:
             hibernate.generate_statistics: false
             hibernate.cache.region.factory_class: org.hibernate.cache.ehcache.SingletonEhCacheRegionFactory
     mail:
-        host: localhost
-        port: 25
-        username:
-        password:
+        host: smtp.sendgrid.net
+        port: 587
+        username: ${SENDGRID_USERNAME}
+        password: ${SENDGRID_PASSWORD}
+        protocol: smtp
+        tls: false
+        auth: true
+        from: no-reply@jtrackseries.com
+
     thymeleaf:
         cache: true
-
+        
 liquibase:
     contexts: prod
 

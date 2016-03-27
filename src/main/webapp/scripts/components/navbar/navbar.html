@@ -7,7 +7,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#/"><span>jhipster</span> <span class="navbar-version">v{{VERSION}}</span></a>
+            <a class="navbar-brand" href="#/"><span>TrackSeries</span> <span class="navbar-version">v{{VERSION}}</span></a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse" ng-switch="isAuthenticated()">
             <ul class="nav navbar-nav navbar-right">
@@ -17,16 +17,16 @@
                         <span class="hidden-sm">Home</span>
                     </a>
                 </li>
-				<li ui-sref-active="active">
+				<li ui-sref-active="active" ng-switch-when="true">
                     <a ui-sref="calendar" data-toggle="collapse" data-target=".navbar-collapse.in">
                         <span class="glyphicon glyphicon-calendar"></span>
                         <span class="hidden-sm">Calendar</span>
                     </a>
                 </li>    
-				<li ui-sref-active="active">
+				<li ui-sref-active="active" ng-switch-when="true">
                     <a ui-sref="scratch" data-toggle="collapse" data-target=".navbar-collapse.in">
                         <span class="glyphicon glyphicon-open-file"></span>
-                        <span class="hidden-sm">Scratch</span>
+                        <span class="hidden-sm">Scratch from TvDB</span>
                     </a>
                 </li> 
                 <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
