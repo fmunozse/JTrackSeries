@@ -9,6 +9,7 @@ angular.module('jtrackseriesApp')
                 transformResponse: function (data) {
                     data = angular.fromJson(data);
                     data.datePublish = DateUtils.convertLocaleDateFromServer(data.datePublish);
+                    data.lastUpdated = DateUtils.convertDateTimeFromServer(data.lastUpdated);
                     return data;
                 }
             },

@@ -1,15 +1,23 @@
 package com.jtrackseries.domain;
 
+import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.ZonedDateTime;
+import java.util.Objects;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import java.time.LocalDate;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Objects;
 
 /**
  * A Episode.
@@ -53,6 +61,9 @@ public class Episode implements Serializable {
     @Size(max = 2048)
     @Column(name = "notes", length = 2048)
     private String notes;
+    
+    @Column(name = "last_updated")
+    private ZonedDateTime lastUpdated;
     
     @ManyToOne
     @JoinColumn(name = "serie_id")
@@ -170,6 +181,15 @@ public class Episode implements Serializable {
             ", externalId='" + externalId + "'" +
             ", description='" + description + "'" +
             ", notes='" + notes + "'" +
+            ", lastUpdated='"+lastUpdated+"'" + 
             '}';
     }
+
+	public ZonedDateTime getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(ZonedDateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
 }

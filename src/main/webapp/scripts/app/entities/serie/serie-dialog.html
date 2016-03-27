@@ -34,7 +34,7 @@
         </div>
         <div class="form-group">
             <label class="control-label" for="field_description">Description</label>
-            <input type="text" class="form-control" name="description" id="field_description"
+            <textarea rows="3" class="form-control" name="description" id="field_description"
                     ng-model="serie.description"
                     ng-maxlength="2048" />
             <div ng-show="editForm.description.$invalid">
@@ -78,9 +78,24 @@
                     </span>
                 </div>
         </div>
+
+        <div class="form-group">
+            <label class="control-label" for="field_lastUpdated">LastUpdated</label>                            
+            <input type="datetime-local" class="form-control" name="lastUpdated" id="field_lastUpdated"
+                    ng-model="serie.lastUpdated" 
+                    placeholder="{{dateTimeformat}}"
+                     />
+			<div ng-show="editForm.lastUpdated.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.lastUpdated.$error.datetimelocal">
+                    Not a valid date time!. Format {{dateTimeformat}}
+                </p>                		
+			</div>
+        </div>
+        
         <div class="form-group">
             <label class="control-label" for="field_notes">Notes</label>
-            <input type="text" class="form-control" name="notes" id="field_notes"
+            <textarea rows="3" class="form-control" name="notes" id="field_notes"
                     ng-model="serie.notes"
                     ng-maxlength="2048" />
             <div ng-show="editForm.notes.$invalid">

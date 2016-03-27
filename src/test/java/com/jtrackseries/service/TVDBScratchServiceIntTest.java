@@ -20,6 +20,9 @@ import com.jtrackseries.Application;
 import com.jtrackseries.domain.Serie;
 import com.jtrackseries.repository.SerieRepository;
 import com.jtrackseries.web.rest.dto.ScratchSeriesDTO;
+import com.omertron.thetvdbapi.TheTVDBApi;
+import com.omertron.thetvdbapi.TvDbException;
+import com.omertron.thetvdbapi.model.Episode;
 
 /**
  * Test class for the UserResource REST controller.
@@ -55,5 +58,16 @@ public class TVDBScratchServiceIntTest {
 		log.info("result {} ", lSeries);
 		assertThat(lSeries).isNotNull();
 
+	}
+	
+	
+	@Test
+	public void assertFindEpisode() throws TvDbException{
+		TheTVDBApi tvDB = new TheTVDBApi("18C5DB503E5170F2");
+		Episode oEpisode = tvDB.getEpisodeById("5440817", "en");
+		log.debug(oEpisode.toString());
+
+		assertThat(oEpisode.getLastUpdated()).isNotNull();
+		log.debug(oEpisode.getLastUpdated());
 	}
 }

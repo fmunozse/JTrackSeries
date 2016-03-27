@@ -2,6 +2,7 @@ package com.jtrackseries.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -12,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -61,6 +64,14 @@ public class Serie implements Serializable {
     @Size(max = 2048)
     @Column(name = "notes", length = 2048)
     private String notes;
+    
+    @Column(name = "last_updated")
+    private ZonedDateTime lastUpdated;
+    
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
     
     @OneToMany(mappedBy = "serie", cascade = CascadeType.REMOVE, orphanRemoval = true )
     @JsonIgnore
@@ -179,6 +190,15 @@ public class Serie implements Serializable {
             ", status='" + status + "'" +
             ", firstAired='" + firstAired + "'" +
             ", notes='" + notes + "'" +
+            ", lastUpdated='"+lastUpdated+"'" +
             '}';
     }
+
+	public ZonedDateTime getLastUpdated() {
+		return lastUpdated;
+	}
+
+	public void setLastUpdated(ZonedDateTime lastUpdated) {
+		this.lastUpdated = lastUpdated;
+	}
 }

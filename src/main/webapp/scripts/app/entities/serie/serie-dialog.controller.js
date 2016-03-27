@@ -1,9 +1,10 @@
 'use strict';
 
 angular.module('jtrackseriesApp').controller('SerieDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Serie', 'Episode',
-        function($scope, $stateParams, $uibModalInstance, entity, Serie, Episode) {
-
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Serie', 'Episode','DateUtils',
+        function($scope, $stateParams, $uibModalInstance, entity, Serie, Episode, DateUtils) {
+    	
+    	$scope.dateTimeformat = DateUtils.dateTimeformat();    	
         $scope.serie = entity;
         $scope.episodes = Episode.query();
         $scope.load = function(id) {
@@ -35,12 +36,11 @@ angular.module('jtrackseriesApp').controller('SerieDialogController',
             $uibModalInstance.dismiss('cancel');
         };
         $scope.datePickerForFirstAired = {};
-
         $scope.datePickerForFirstAired.status = {
             opened: false
         };
-
         $scope.datePickerForFirstAiredOpen = function($event) {
             $scope.datePickerForFirstAired.status.opened = true;
         };
+        
 }]);

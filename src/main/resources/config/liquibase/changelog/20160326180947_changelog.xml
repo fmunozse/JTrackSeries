@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+   <changeSet author="paco (generated)" id="1459015799025-1">
+      <addColumn tableName="episode">
+         <column name="last_updated" type="timestamp"/>
+      </addColumn>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1459015799025-2">
+      <addColumn tableName="serie">
+         <column name="last_updated" type="timestamp"/>
+      </addColumn>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1459015799025-3">
+      <addColumn tableName="serie">
+         <column name="user_id" type="int8"/>
+      </addColumn>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1459015799025-4">
+      <addForeignKeyConstraint baseColumnNames="user_id"
+                               baseTableName="serie"
+                               constraintName="FK_jxkk2xci5jwokn1n0m12x9h3c"
+                               deferrable="false"
+                               initiallyDeferred="false"
+                               referencedColumnNames="id"
+                               referencedTableName="jhi_user"/>
+   </changeSet>
+</databaseChangeLog>

@@ -31,4 +31,9 @@ angular.module('jtrackseriesApp')
     this.dateformat = function() {
         return 'yyyy-MM-dd';
     }
+    
+    // common date format for all date input fields
+    this.dateTimeformat = function() {
+        return 'yyyy-MM-ddTHH:mm:ss';
+    }
 });
