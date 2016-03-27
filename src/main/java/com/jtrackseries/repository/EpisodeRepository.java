@@ -18,13 +18,21 @@ import com.jtrackseries.domain.Episode;
  */
 public interface EpisodeRepository extends JpaRepository<Episode, Long> {
 
+	@Query("select episode from Episode episode where episode.datePublish>=?1 and episode.datePublish<=?2 and episode.serie.user.login = ?#{principal.username}")
+	List<Episode> findAllByDatePublishBetweenAndUserIsCurrentUser(LocalDate fromDate, LocalDate toDate);
+		
+	@Query("select episode from Episode episode where episode.serie.user.login = ?#{principal.username}")
+	Page<Episode> findByUserIsCurrentUser(Pageable pageable);
+	
 	List<Episode> findAllByDatePublishBetween(LocalDate fromDate, LocalDate toDate);
 
 	Page<Episode> findAllBySerieId(Long serieId, Pageable pageable);
-
+    
 	@Transactional
 	@Modifying
 	@Query("update Episode e set e.viewed = ?2 where e.id = ?1")
 	int setViewed(Long id, Boolean viewed);
+
+
 
 }

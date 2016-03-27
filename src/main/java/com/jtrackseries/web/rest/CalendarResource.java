@@ -42,6 +42,6 @@ public class CalendarResource {
 
 		log.debug("REST request to get a page of Episodes by Range from {} to {} ", fromDate, toDate);
 
-		return episodeRepository.findAllByDatePublishBetween(fromDate, toDate);
+		return episodeRepository.findAllByDatePublishBetweenAndUserIsCurrentUser(fromDate, toDate);
 	}
 }

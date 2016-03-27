@@ -113,11 +113,11 @@ public class EpisodeResource {
 	@Timed
 	public ResponseEntity<List<Episode>> getAllEpisodes(Pageable pageable) throws URISyntaxException {
 		log.debug("REST request to get a page of Episodes");
-		Page<Episode> page = episodeRepository.findAll(pageable);
+		Page<Episode> page = episodeRepository.findByUserIsCurrentUser(pageable);
 		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/episodes");
 		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
 	}
-
+ 
 	/**
 	 * GET /episodes/:id -> get the "id" episode.
 	 */

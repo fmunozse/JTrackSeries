@@ -23,6 +23,8 @@ import com.codahale.metrics.annotation.Timed;
 import com.jtrackseries.domain.Serie;
 import com.jtrackseries.repository.EpisodeRepository;
 import com.jtrackseries.repository.SerieRepository;
+import com.jtrackseries.repository.UserRepository;
+import com.jtrackseries.security.SecurityUtils;
 import com.jtrackseries.web.rest.dto.ScratchSeriesDTO;
 import com.omertron.thetvdbapi.TheTVDBApi;
 import com.omertron.thetvdbapi.TvDbException;
@@ -40,6 +42,9 @@ public class TVDBScratchService {
 
 	@Inject
 	EpisodeRepository episodeRepository;
+	
+	@Inject
+	UserRepository userRepository;
 
 	@Timed
 	public Serie importSeriesById(String id, String language) {
@@ -59,7 +64,9 @@ public class TVDBScratchService {
 			serie.setStatus(parseStringSafe(series.getStatus()));
 			serie.setTitle(parseStringSafe(series.getSeriesName()));			
 			serie.setLastUpdated(convertUnixDateTimeToLastUpdated (series.getLastUpdated()));
-
+						
+			serie.setUser(userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get() );
+			
 			log.debug("serie to save {}", serie);
 			serieRepository.save(serie);
 

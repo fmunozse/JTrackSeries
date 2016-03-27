@@ -63,7 +63,7 @@ public class ScratchResource {
 
 		log.debug("REST request to import series by id {} , using the lan {} ", id, lan);
 
-		if (serieRepository.findOneByExternalId(id).isPresent()) {
+		if (serieRepository.findOneByExternalIdAndUserIsCurrentUser(id).isPresent()) {
 			return ResponseEntity.badRequest()
 					.headers(HeaderUtil.createFailureAlert("scratch-series", "seriesexists", "Series with externalId already in use"))
 	                .body(null);
