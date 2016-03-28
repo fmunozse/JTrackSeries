@@ -1,3 +1,4 @@
+
 <div>
     <h2>Scratch Series</h2>
     
@@ -35,7 +36,7 @@
 </form>
 
 <script type="text/ng-template" id="scratchBannerTooltipTemplate.html">
-  <img ng-src="{{scratchSerie.urlBanner}}" alt="..." class="img-thumbnail">
+  <img src="{{scratchSerie.urlBanner}}" alt="..." class="img-responsive" >
 </script>
 
     <div class="table-responsive">
@@ -61,7 +62,8 @@
                     	<button type="button" 
                     			class="btn btn-default btn-sm"
 	                        	ng-show="scratchSerie.urlBanner"
-                    			uib-tooltip-template="'scratchBannerTooltipTemplate.html'" >                    			
+                    			uib-tooltip-template="'scratchBannerTooltipTemplate.html'" 
+                    			tooltip-placement="top">                    			
 							<span class="glyphicon glyphicon-eye-open"></span>                    	
                     	</button>
                     </td>

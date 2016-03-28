@@ -11,6 +11,12 @@ Hide ng-cloak on page load, https://docs.angularjs.org/api/ng/directive/ngCloak
     display: none !important;
 }
 
+.tooltip-inner {
+    max-width: 350px;
+}
+
+
+
 /* ==========================================================================
 Developement Ribbon
 ========================================================================== */
