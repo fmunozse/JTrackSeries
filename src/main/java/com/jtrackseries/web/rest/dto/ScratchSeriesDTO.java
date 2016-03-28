@@ -7,6 +7,7 @@ public class ScratchSeriesDTO {
 	private String overview;
 	private String urlBanner;
 	private String imdbId;
+	private String firstAired;
 
 	public ScratchSeriesDTO() {
 
@@ -56,6 +57,14 @@ public class ScratchSeriesDTO {
 	public String toString() {
 		return "ScratchSeriesDTO [id=" + id + ", title=" + title + ", overview=" + overview + ", urlBanner=" + urlBanner
 				+ ", imdbId=" + imdbId + "]";
+	}
+
+	public String getFirstAired() {
+		return firstAired;
+	}
+
+	public void setFirstAired(String firstAired) {
+		this.firstAired = firstAired;
 	}
 
 }

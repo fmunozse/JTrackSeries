@@ -44,6 +44,7 @@
                 <tr>
                     <th><span>ID</span></th>
                     <th><span>Title</span></th>
+                    <th><span>FirstAired</span></th>
                     <th><span>Overview</span></th>
                     <th><span>Banner</span></th>
                     <th><span>imdbId</span></th>                    
@@ -54,6 +55,7 @@
                 <tr ng-repeat="scratchSerie in scratchSeries track by scratchSerie.id">
                     <td>{{scratchSerie.id}}</a></td>
                     <td>{{scratchSerie.title}}</td>
+                    <td>{{scratchSerie.firstAired}}</td>
                     <td>{{scratchSerie.overview}}</td>
                     <td>
                     	<button type="button" 

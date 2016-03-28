@@ -157,6 +157,8 @@ public class TVDBScratchService {
 				oScratchSeriesDTO.setOverview(parseStringSafe(s.getOverview()));
 				oScratchSeriesDTO.setTitle(parseStringSafe(s.getSeriesName()));
 				oScratchSeriesDTO.setUrlBanner(parseStringSafe(s.getBanner()));
+				oScratchSeriesDTO.setFirstAired(parseStringSafe(s.getFirstAired()));
+
 				lScratchSeriesDTO.add(oScratchSeriesDTO);
 
 				log.info("oScratchSeriesDTO : {} ", oScratchSeriesDTO);
