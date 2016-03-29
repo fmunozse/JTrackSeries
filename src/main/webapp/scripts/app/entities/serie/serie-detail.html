@@ -107,7 +107,7 @@
                     <th jh-sort-by="season"><span>Season</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="episodeNumber"><span>EpisodeNumber</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="datePublish"><span>DatePublish</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="viewed"><span>Viewed</span> <span class="glyphicon glyphicon-sort"></span></th>                
+                    <th jh-sort-by="viewed"><span>Viewed</span> <span class="glyphicon glyphicon-sort"></span></th>
                 </tr>
             </thead>            
             <tbody>
@@ -140,5 +140,18 @@
             class="btn btn-info">
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
     </button>
+    
+     <button type="submit"
+             ui-sref="serie.edit({id:serie.id})"
+             class="btn btn-primary">
+         <span class="glyphicon glyphicon-pencil"></span>&nbsp;<span> Edit</span>
+     </button>
+
+    <button type="submit"
+            ui-sref="serie.delete({id:serie.id})"
+            class="btn btn-danger">                                    
+        <span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span> Delete</span>
+    </button>
+
     
 </div>
