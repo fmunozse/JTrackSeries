@@ -70,7 +70,6 @@ public class Serie implements Serializable {
     
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonIgnore
     private User user;
     
     @OneToMany(mappedBy = "serie", cascade = CascadeType.REMOVE, orphanRemoval = true )
