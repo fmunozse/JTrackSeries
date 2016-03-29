@@ -75,8 +75,8 @@ angular.module('jtrackseriesApp')
                 	'uib-popover-template': "'scripts/app/calendar/eventDetail.html'",
                     'popover-trigger': 'mouseenter',
                     'popover-title': event.title,
-                    'tabindex': 0,
-                    
+                    'popover-placement':'right',
+                    'popover-popup-close-delay': 700,
                     'popover-append-to-body': true
                 });
                 

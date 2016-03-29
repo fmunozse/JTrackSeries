@@ -2,7 +2,24 @@
 		<p>
 				{{ eventDetailSelected.episode.title}}
 		</p>
-		<p>
-			<small>{{ eventDetailSelected.episode.description}}</small>
-		</p>
+		<div>		
+			<a	class="btn btn-primary btn-xs"
+	          	target="_new"
+	          	ng-show="eventDetailSelected.episode.serie.externalLink"
+	          	ng-href="eventDetailSelected.episode.serie.externalLink"> 
+	          		<span class="glyphicon glyphicon-link"></span> <span>ExternalLink</span>
+	      	</a>
+			<a	class="btn btn-info btn-xs"
+	          	ng-show="eventDetailSelected.episode.serie.id"
+	          	ui-sref="serie.detail({id:eventDetailSelected.episode.serie.id})"> 
+	          		<span class="glyphicon glyphicon-link"></span> <span>Serie</span>
+			</a>	                	
+	
+			<a	class="btn btn-info btn-xs"
+	          	ng-show="eventDetailSelected.episode.id"
+	          	ui-sref="episode.detail({id:eventDetailSelected.episode.id})"> 
+	          		<span class="glyphicon glyphicon-link"></span> <span>Episode</span>
+			</a>
+		</div>
+		
     </div>  
