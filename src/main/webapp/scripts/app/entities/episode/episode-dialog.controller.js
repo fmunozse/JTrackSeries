@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('jtrackseriesApp').controller('EpisodeDialogController',
-    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Episode', 'Serie', 'DateUtil',
-        function($scope, $stateParams, $uibModalInstance, entity, Episode, Serie, DateUtil) {
+    ['$scope', '$stateParams', '$uibModalInstance', 'entity', 'Episode', 'Serie', 'DateUtils',
+        function($scope, $stateParams, $uibModalInstance, entity, Episode, Serie, DateUtils) {
 
     	$scope.dateTimeformat = DateUtils.dateTimeformat();    	
         $scope.episode = entity;
