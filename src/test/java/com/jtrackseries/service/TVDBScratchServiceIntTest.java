@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -44,6 +45,9 @@ public class TVDBScratchServiceIntTest {
 	@Inject
 	private SerieRepository serieRepository;
 
+    @Value("${jtrackseries.tvdb.token}")
+    private String tvdbToken;
+    
 	@Test
 	public void assertFindByTitleIsWorking() {
 		List<ScratchSeriesDTO> lScratchSeriesDTO = service.findByTitle("Fargo", null);
@@ -63,7 +67,7 @@ public class TVDBScratchServiceIntTest {
 	
 	@Test
 	public void assertFindEpisode() throws TvDbException{
-		TheTVDBApi tvDB = new TheTVDBApi("18C5DB503E5170F2");
+		TheTVDBApi tvDB = new TheTVDBApi(tvdbToken);
 		Episode oEpisode = tvDB.getEpisodeById("5440817", "en");
 		log.debug(oEpisode.toString());
 

@@ -59,3 +59,14 @@ jhipster:
         contact:
         license:
         licenseUrl:
+
+
+# ===================================================================
+# JTrackSeries properties
+# ===================================================================
+
+jtrackseries:
+    tvdb:
+        token: PUT_YOUR_TOKEN_IN_TVDB
+
+        

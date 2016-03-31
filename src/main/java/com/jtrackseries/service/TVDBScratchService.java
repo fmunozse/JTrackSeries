@@ -15,6 +15,7 @@ import javax.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,9 +47,13 @@ public class TVDBScratchService {
 	@Inject
 	UserRepository userRepository;
 
+    @Value("${jtrackseries.tvdb.token}")
+    private String tvdbToken;
+	
 	@Timed
 	public Serie importSeriesById(String id, String language) {
-		TheTVDBApi tvDB = new TheTVDBApi("18C5DB503E5170F2");
+		TheTVDBApi tvDB = new TheTVDBApi(tvdbToken);
+
 
 		Serie serie = new Serie();
 
@@ -141,7 +146,9 @@ public class TVDBScratchService {
 	 */
 	@Timed
 	public List<ScratchSeriesDTO> findByTitle(String title, String language) {
-		TheTVDBApi tvDB = new TheTVDBApi("18C5DB503E5170F2");
+		TheTVDBApi tvDB = new TheTVDBApi(tvdbToken);
+		log.info("tvdbToken : {} ", tvdbToken);
+
 
 		List<ScratchSeriesDTO> lScratchSeriesDTO = new LinkedList<>();
 		ScratchSeriesDTO oScratchSeriesDTO = null;
@@ -184,7 +191,7 @@ public class TVDBScratchService {
      * </p>
      * @throws TvDbException 
      */
-	@Scheduled(cron = "0 0 0 * * ?")
+	@Scheduled(cron = "0 0 23 * * ?")
     //@Scheduled(fixedRate = 60000)
     @Timed
     public void synchronizeSeriesAndEpisodes() {
@@ -192,7 +199,7 @@ public class TVDBScratchService {
         
     	try {
     		
-			TheTVDBApi tvDB = new TheTVDBApi("18C5DB503E5170F2");
+			TheTVDBApi tvDB = new TheTVDBApi(tvdbToken);
 	        
 	        List<Serie> lSeries = serieRepository.findAll();      
 	        for (Serie serieLocal : lSeries) {
