@@ -11,10 +11,29 @@ Hide ng-cloak on page load, https://docs.angularjs.org/api/ng/directive/ngCloak
     display: none !important;
 }
 
+
+/*
+	banner in scratch  
+*/
 .tooltip-inner {
     max-width: 350px;
 }
 
+
+/* ==========================================================================
+modalimage (main page)
+========================================================================== */
+.modalImage .image-wrapper {
+    text-align: center;
+}
+.modalImage .image-wrapper img {
+    max-width: 560px;
+    max-height: 560px;
+}
+.modalImage .image-description {
+    text-align: center;
+    margin-top: 10px;
+}
 
 
 /* ==========================================================================
@@ -76,7 +95,7 @@ Browser Upgrade Prompt
 .hipster {
     display: inline-block;
     width: 347px;
-    height: 497px;
+    height: 200px;
     background: url("../images/series.jpg") no-repeat center top;
     background-size: contain;
 }

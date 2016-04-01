@@ -1,5 +1,6 @@
 <div ng-cloak>
-    <div class="row">
+
+    <div class="row">        
         <div class="col-md-4">
             <span class="hipster img-responsive img-rounded"></span>
         </div>
@@ -16,26 +17,63 @@
 
                 <div class="alert alert-warning" ng-switch-when="false">
                     You don't have an account yet? <a class="alert-link" href="#/register">Register a new account</a>
+                    <br/>
+                	If you want to <a class="alert-link" href="#/login">sign in</a>, you can try a user demo account (login="demo" and password="demo").
+                                    
                 </div>
             </div>
 
 			<p>
                 Created using <a href="http://jhipster.github.io/" target="_blank">JHipster</a>. 
-                It's a <a href="http://yeoman.io/" target="_blank">Yeoman generator</a>,  used to create a 
-                <a href="http://projects.spring.io/spring-boot/" target="_blank">Spring Boot</a> + <a href="https://angularjs.org/" target="_blank">AngularJS</a>
-				project. 
-			</p>
-			<p>
-				API's used: 
-				<ul>
-					<li> <a href="https://github.com/Omertron/api-thetvdb" target="_blank">api-thetvdb</a> by Omertron for scratch series from TvDb </li>
-					<li> <a href="http://jumplink.github.io/angular-toggle-switch/" target="_blank">angular-toggle-switch</a> by Matt Lartentis for the toggle-switch</li>
-					<li> <a href="https://github.com/angular-ui/ui-calendar" target="_blank">ui-calendar</a> for the calendar</li>					
-				</ul>
-				
-                        
-			</p>                
-            
+                It's a <a href="http://yeoman.io/" target="_blank">Yeoman generator</a>,  
+                used to create a <a href="http://projects.spring.io/spring-boot/" target="_blank">Spring Boot</a> + 
+                <a href="https://angularjs.org/" target="_blank">AngularJS</a> project. 
+				Used <a href="https://github.com/Omertron/api-thetvdb" target="_blank">api-thetvdb</a> by Omertron for scratch series from 
+				<a href="http://thetvdb.com/" target="_blank">TvDb</a>.			
+			</p>                            
         </div>
     </div>
+    
+    <div class="row">
+			<div class="col-lg-12">
+				<h4>Main enhancements</h4>
+			</div>
+			
+            <div class="col-sm-4 col-xs-6">
+            	<div class="thumbnail">            
+	                <a href="#" ng-click="openModalImage('../assets/images/calendar-month.png', 'Calendar')">
+	                    <img class="img-responsive img-thumbnail" src="../assets/images/calendar-month.png" alt="Calendar">
+	                </a>                	                
+	                <div class="caption">
+	                	<h4>Calendar view</h4>                
+	                	<p>View your series in the calendar view (month and week). Easy "click" on the series</p>
+	                </div>
+                </div>
+            </div>
+
+            <div class="col-sm-4 col-xs-6">
+            	<div class="thumbnail">                        
+	                <a href="#" ng-click="openModalImage('../assets/images/serie-detail.png', 'Serie Details')">
+	                    <img class="img-responsive img-thumbnail" src="../assets/images/serie-detail.png" alt="">
+	                </a>
+	                <div class="caption">
+	                	<h4>Your series</h4>                                
+	                	<p>Keeping series and episodes only for you in a friendly view</p>
+	                </div>
+				</div>                
+            </div>
+
+            <div class="col-sm-4 col-xs-6">
+            	<div class="thumbnail">                        
+	                <a href="#"  ng-click="openModalImage('../assets/images/scratch-search.png', 'Scratch from tvDB')">
+	                    <img class="img-responsive img-thumbnail" src="../assets/images/scratch-search.png" alt="">
+	                </a>
+	                <div class="caption">  
+	                	<h4>Import from TvDB</h4>                              
+                		<p>Easy import from external source TvDB and night update !! </p>
+                	</div>
+                </div>
+            </div>      
+	</div>
+           
 </div>
