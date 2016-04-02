@@ -27,6 +27,7 @@ import com.jtrackseries.repository.SerieRepository;
 import com.jtrackseries.repository.UserRepository;
 import com.jtrackseries.security.SecurityUtils;
 import com.jtrackseries.web.rest.dto.ScratchSeriesDTO;
+import com.jtrackseries.web.rest.dto.StatsSincronyzeDTO;
 import com.omertron.thetvdbapi.TheTVDBApi;
 import com.omertron.thetvdbapi.TvDbException;
 import com.omertron.thetvdbapi.model.Episode;
@@ -50,6 +51,8 @@ public class TVDBScratchService {
     @Value("${jtrackseries.tvdb.token}")
     private String tvdbToken;
 	
+  
+    
 	@Timed
 	public Serie importSeriesById(String id, String language) {
 		TheTVDBApi tvDB = new TheTVDBApi(tvdbToken);
@@ -194,11 +197,21 @@ public class TVDBScratchService {
 	@Scheduled(cron = "0 0 23 * * ?")
     //@Scheduled(fixedRate = 60000)
     @Timed
-    public void synchronizeSeriesAndEpisodes() {
-        ZonedDateTime now = ZonedDateTime.now();
-        
+    public void synchronizeSeriesAndEpisodes() {        
+		StatsSincronyzeDTO stats = synchronizeFromTvDb (serieRepository.findAll());
+    }
+
+    @Timed
+    public StatsSincronyzeDTO synchronizeSeriesAndEpisodesByUserIsCurrentUser() {        
+    	StatsSincronyzeDTO stats = synchronizeFromTvDb (serieRepository.findByUserIsCurrentUser());
+		return stats;
+    }
+	
+    private StatsSincronyzeDTO synchronizeFromTvDb(List<Serie> serieIterator) {
+    	
+    	StatsSincronyzeDTO stats = new StatsSincronyzeDTO();
+            
     	try {
-    		
 			TheTVDBApi tvDB = new TheTVDBApi(tvdbToken);
 	        
 	        List<Serie> lSeries = serieRepository.findAll();      
@@ -210,7 +223,8 @@ public class TVDBScratchService {
 				log.info("Attend to refresh the Serie {} - {}", serieLocal.getId(), serieLocal.getTitle());		
 				Series sTvDB = tvDB.getSeries(serieLocal.getExternalId(), "en");
 				if (needToBeUpdated(serieLocal, sTvDB)) {
-					updateSerieFromTvDB (serieLocal, sTvDB);					
+					updateSerieFromTvDB (serieLocal, sTvDB);	
+					stats.seriesUpdated++;
 					serieRepository.save(serieLocal);
 				}
 				
@@ -237,6 +251,7 @@ public class TVDBScratchService {
 						if (needToBeUpdated(episodeLocal, eTvDb)) {
 							updateEpisodeFromTvDB(episodeLocal,eTvDb);
 							episodeRepository.save(episodeLocal);
+							stats.episodesUpdated++;
 						}
 						
 					} else {
@@ -244,6 +259,7 @@ public class TVDBScratchService {
 						com.jtrackseries.domain.Episode episodeLocal = new com.jtrackseries.domain.Episode();
 						newEpisodeFromTvDB(episodeLocal, eTvDb, serieLocal);
 						episodeRepository.save(episodeLocal);
+						stats.episodesNewed++;
 					}
 				}
 			}
@@ -254,8 +270,10 @@ public class TVDBScratchService {
 			// e.printStackTrace();
 		}
 
-    }
-    
+    	
+    	return stats;
+    }	
+    	
     
     /**
      * Updated Always : imdbId, status and lastUpdated from TvDB.

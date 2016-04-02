@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.codahale.metrics.annotation.Timed;
 import com.jtrackseries.domain.Serie;
 import com.jtrackseries.repository.SerieRepository;
+import com.jtrackseries.service.TVDBScratchService;
+import com.jtrackseries.web.rest.dto.StatsSincronyzeDTO;
 import com.jtrackseries.web.rest.util.HeaderUtil;
 import com.jtrackseries.web.rest.util.PaginationUtil;
 
@@ -40,6 +42,26 @@ public class SerieResource {
     @Inject
     private SerieRepository serieRepository;
     
+    @Inject
+    private TVDBScratchService oTVDBScratchService;
+    
+	/**
+	 * PUT /episodes/{id}/viewed -> Updates an existing episode.
+	 * 	param:  set
+	 */
+	@RequestMapping(value = "/updateAllSeriesFromTvDb", 
+			method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public ResponseEntity<StatsSincronyzeDTO> updateAllSeriesFromTvDb( ) throws URISyntaxException {
+		log.debug("REST request to updateAllSeriesFromTvDb " );
+		StatsSincronyzeDTO stats = oTVDBScratchService.synchronizeSeriesAndEpisodesByUserIsCurrentUser();
+
+        return ResponseEntity.ok()
+                .headers(HeaderUtil.createAlert("Updated your Series From TvDb", "serie"))
+                .body(stats);        
+	}
+	
+	
     /**
      * POST  /series -> Create a new serie.
      */

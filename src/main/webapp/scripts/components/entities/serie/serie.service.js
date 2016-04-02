@@ -2,7 +2,7 @@
 
 angular.module('jtrackseriesApp')
     .factory('Serie', function ($resource, DateUtils) {
-        return $resource('api/series/:id', {}, {
+        return $resource('api/series/:id', {}, {        	
             'query': { method: 'GET', isArray: true},
             'get': {
                 method: 'GET',
@@ -26,6 +26,10 @@ angular.module('jtrackseriesApp')
                     data.firstAired = DateUtils.convertLocaleDateToServer(data.firstAired);
                     return angular.toJson(data);
                 }
+            },
+        	'updateAllSeriesFromTvDb':  {
+                method: 'PUT',
+                url: 'api/updateAllSeriesFromTvDb/'
             }
         });
     });
