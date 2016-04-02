@@ -1,10 +1,10 @@
 'use strict';
 
 angular.module('jtrackseriesApp')
-    .controller('CalendarController', function ($scope, $state, CalendarService, Episode, ParseLinks, $log, DateUtils, $compile, EpisodeViewed, uiCalendarConfig) {
+    .controller('CalendarController', function ($timeout, $scope, $state, CalendarService, Episode, ParseLinks, $log, DateUtils, $compile, EpisodeViewed, uiCalendarConfig) {
 
-        $scope.episode = new Object();
-        $scope.eventDetailSelected = new Object();        
+        $scope.episode = {};
+        $scope.eventDetailSelected = {};        
 
         var onSaveSuccess = function (result) {
 			$log.debug("onSaveSuccess - result", result);
@@ -12,10 +12,14 @@ angular.module('jtrackseriesApp')
             $scope.$emit('jtrackseriesApp:episodeUpdate', result);
             $scope.isSaving = false;
         };
+        
         var onSaveError = function (result) {
             $scope.isSaving = false;
         };        
         
+        $scope.clearEventDetailSelected = function () {
+            $scope.eventDetailSelected = {};        
+        }
         
         $scope.pad = function (num, size) {
             var s = num+"";
@@ -29,10 +33,13 @@ angular.module('jtrackseriesApp')
         	EpisodeViewed.update({id: event.id, set: !event.episode.viewed},
             	function (result, onSaveSuccess, onSaveError) {
         			$log.debug("result", result);
-        			//$log.debug("header", header);
             		event.color = (result.viewed) ? '#A3A3A3' : "#337ab7";
             		event.episode=result;
-        			uiCalendarConfig.calendars.calendar.fullCalendar('rerenderEvents')        			
+            		
+            		$( "#" +event.id ).css( "background-color", event.color )            		
+            		$scope.clearEventDetailSelected();
+            		
+            		//$timeout( function() {uiCalendarConfig.calendars.calendar.fullCalendar('rerenderEvents') } , 3000 );
         		});            
         };
         
@@ -56,8 +63,6 @@ angular.module('jtrackseriesApp')
             eventClick:  function(event) {
                 $log.debug("eventClick",  event);
                 $scope.setViewed(event);      
-                //$scope.eventClicked = event;
-                //$scope.eventDetailSelected = event;
             } ,
             eventDrop:  function(event) {
                 $log.debug("eventDrop",  event);
@@ -66,18 +71,19 @@ angular.module('jtrackseriesApp')
                 	$scope.episode = result;
                     Episode.update($scope.episode, onSaveSuccess, onSaveError);
                 });
-            } ,    
+            } ,            
             eventMouseover: function(event) {
                 $scope.eventDetailSelected = event;        
-            }, 
+            },             
             eventRender:  function(event, element) {            	
                 element.attr({
                 	'uib-popover-template': "'scripts/app/calendar/eventDetail.html'",
-                    'popover-trigger': 'mouseenter',
+                    'popover-trigger': 'none',
                     'popover-title': event.title,
-                    'popover-placement':'right',
-                    'popover-popup-close-delay': 700,
-                    'popover-append-to-body': true
+                    'popover-placement':'right',                    
+                    'popover-append-to-body': true,
+                    'id':event.id,
+                    'popover-is-open' : 'eventDetailSelected.id == ' + event.id                    
                 });
                 
                 $compile(element)($scope);

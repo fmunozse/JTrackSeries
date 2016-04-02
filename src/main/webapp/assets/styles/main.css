@@ -19,6 +19,13 @@ Hide ng-cloak on page load, https://docs.angularjs.org/api/ng/directive/ngCloak
     max-width: 350px;
 }
 
+/*
+	Calendar popover details event
+*/
+.popover {
+    max-width: 450px;
+}
+
 
 /* ==========================================================================
 modalimage (main page)

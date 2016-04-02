@@ -1,13 +1,13 @@
     <div>
 		<p>
-				{{ eventDetailSelected.episode.title}}
+				{{ eventDetailSelected.episode.title}}				
 		</p>
 		<div>		
 			<a	class="btn btn-primary btn-xs"
 	          	target="_new"
 	          	ng-show="eventDetailSelected.episode.serie.externalLink"
 	          	ng-href="eventDetailSelected.episode.serie.externalLink"> 
-	          		<span class="glyphicon glyphicon-link"></span> <span>ExternalLink</span>
+	          		<span class="glyphicon glyphicon-link"></span> <span>External</span>
 	      	</a>
 			<a	class="btn btn-info btn-xs"
 	          	ng-show="eventDetailSelected.episode.serie.id"
@@ -20,6 +20,14 @@
 	          	ui-sref="episode.detail({id:eventDetailSelected.episode.id})"> 
 	          		<span class="glyphicon glyphicon-link"></span> <span>Episode</span>
 			</a>
+			
+            <button 
+                    ng-click="clearEventDetailSelected()"
+                    class="btn btn-danger btn-xs" alt="close">                                    
+                <span class="glyphicon glyphicon-remove-circle" ></span>
+                <span class="hidden-xs hidden-xs">Close</span>
+            </button>			
+			
 		</div>
 		
     </div>  
