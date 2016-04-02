@@ -22,5 +22,8 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 
     @Query("select serie from Serie serie where serie.user.login = ?#{principal.username}")
 	Page<Serie> findByUserIsCurrentUser(Pageable pageable);
-	
+
+    @Query("select serie from Serie serie where serie.user.login = ?#{principal.username}")
+	List<Serie> findByUserIsCurrentUser();
+    
 }

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('jtrackseriesApp')
-    .controller('SerieController', function ($scope, $state, Serie, ParseLinks) {
+    .controller('SerieController', function ($scope, $state, Serie, ParseLinks, $log) {
 
         $scope.series = [];
         $scope.predicate = 'id';
@@ -39,4 +39,9 @@ angular.module('jtrackseriesApp')
                 id: null
             };
         };
+        
+        $scope.updateFromTvDb = function () {
+        	Serie.updateAllSeriesFromTvDb();
+        	
+        }
     });
