@@ -48,12 +48,11 @@
                     <span>ImdbId</span>
                 </td>
                 <td>
-                    <span class="form-control-static">{{serie.imdbId}}</span>
-                   	<a	class="btn btn-default btn-sm"
+                   	<a	class="btn btn-default btn-xs"
                         target="_new"
                         ng-show="serie.imdbId"
                         uib-tooltip="See in IMDB page"
-                        ng-href="http://www.imdb.com/title/{{scratchSerie.imdbId}}"> 
+                        ng-href="http://www.imdb.com/title/{{serie.imdbId}}"> 
                         	<span class="glyphicon glyphicon-link"></span>
                     </a>
                 </td>
