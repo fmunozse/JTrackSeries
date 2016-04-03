@@ -64,13 +64,13 @@ public class TVDBScratchService {
 			Series series = tvDB.getSeries(id, language);
 			log.info("Series : {} ", series);
 
-			serie.setDescription(parseStringSafe(series.getOverview()));
+			serie.setDescription(StringUtils.left(parseStringSafe(series.getOverview()),2048));
 			serie.setExternalId(parseStringSafe(series.getId()));
 			// serie.setExternalLink(externalLink);
 			serie.setFirstAired(parseLocalDateSafe(series.getFirstAired()));
 			serie.setImdbId(parseStringSafe(series.getImdbId()));
 			serie.setStatus(parseStringSafe(series.getStatus()));
-			serie.setTitle(parseStringSafe(series.getSeriesName()));			
+			serie.setTitle(StringUtils.left(parseStringSafe(series.getSeriesName()),2048));			
 			serie.setLastUpdated(convertUnixDateTimeToLastUpdated (series.getLastUpdated()));
 						
 			serie.setUser(userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get() );
@@ -85,12 +85,12 @@ public class TVDBScratchService {
 				com.jtrackseries.domain.Episode episode = new com.jtrackseries.domain.Episode();
 				LocalDate firstAired = parseLocalDateSafe(eTvDb.getFirstAired());
 				episode.setDatePublish(firstAired);
-				episode.setDescription(parseStringSafe(eTvDb.getOverview()));
+				episode.setDescription(StringUtils.left(parseStringSafe(eTvDb.getOverview()),2048));
 				episode.setEpisodeNumber(eTvDb.getEpisodeNumber());
 				episode.setExternalId(parseStringSafe(eTvDb.getId()));
 				episode.setSeason(String.valueOf(eTvDb.getSeasonNumber()));
 				episode.setSerie(serie);
-				episode.setTitle(StringUtils.defaultString(parseStringSafe(eTvDb.getEpisodeName()), "NOT DEFINED"));				
+				episode.setTitle(StringUtils.left(StringUtils.defaultString(parseStringSafe(eTvDb.getEpisodeName()), "NOT DEFINED"),2048));				
 				episode.setLastUpdated(convertUnixDateTimeToLastUpdated (eTvDb.getLastUpdated()));
 
 				LocalDate now = LocalDate.now();
@@ -285,7 +285,7 @@ public class TVDBScratchService {
     private void updateSerieFromTvDB (Serie serieLocal, Series sTvDB) {
     	
     	if (serieLocal.getDescription() == null) {
-    		serieLocal.setDescription(parseStringSafe(sTvDB.getOverview()));	
+    		serieLocal.setDescription(StringUtils.left(parseStringSafe(sTvDB.getOverview()),2048));	
     	}
 
     	serieLocal.setImdbId(parseStringSafe(sTvDB.getImdbId()));
@@ -338,7 +338,7 @@ public class TVDBScratchService {
 		episodeLocal.setDatePublish(parseLocalDateSafe(eTvDB.getFirstAired()));
 		episodeLocal.setEpisodeNumber(eTvDB.getEpisodeNumber());		
 		episodeLocal.setSeason(String.valueOf(eTvDB.getSeasonNumber()));
-		episodeLocal.setTitle(StringUtils.defaultString(parseStringSafe(eTvDB.getEpisodeName()), "NOT DEFINED"));				
+		episodeLocal.setTitle(StringUtils.left(StringUtils.defaultString(parseStringSafe(eTvDB.getEpisodeName()), "NOT DEFINED"),2048));				
 		episodeLocal.setLastUpdated(convertUnixDateTimeToLastUpdated (eTvDB.getLastUpdated()));
 
 		log.info("episode to update {}", episodeLocal);
@@ -349,12 +349,12 @@ public class TVDBScratchService {
 
 		LocalDate firstAired = parseLocalDateSafe(eTvDB.getFirstAired());
 		episodeLocal.setDatePublish(firstAired);
-		episodeLocal.setDescription(parseStringSafe(eTvDB.getOverview()));
+		episodeLocal.setDescription(StringUtils.left(parseStringSafe(eTvDB.getOverview()),2048));
 		episodeLocal.setEpisodeNumber(eTvDB.getEpisodeNumber());
 		episodeLocal.setExternalId(parseStringSafe(eTvDB.getId()));
 		episodeLocal.setSeason(String.valueOf(eTvDB.getSeasonNumber()));
 		episodeLocal.setSerie(serieLocal);
-		episodeLocal.setTitle(StringUtils.defaultString(parseStringSafe(eTvDB.getEpisodeName()), "NOT DEFINED"));				
+		episodeLocal.setTitle(StringUtils.left(StringUtils.defaultString(parseStringSafe(eTvDB.getEpisodeName()), "NOT DEFINED"),2048));				
 		episodeLocal.setLastUpdated(convertUnixDateTimeToLastUpdated (eTvDB.getLastUpdated()));
 
 		LocalDate now = LocalDate.now();
