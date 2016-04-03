@@ -4,6 +4,6 @@ angular.module('jtrackseriesApp')
 
 .constant('ENV', 'dev')
 
-.constant('VERSION', '0.0.4-SNAPSHOT')
+.constant('VERSION', '0.0.4')
 
 ;
