@@ -10,5 +10,6 @@
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     
     <include file="classpath:config/liquibase/changelog/20160326180947_changelog.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20160403195546_added_intexed_to_episode.xml" relativeToChangelogFile="false"/>
         
 </databaseChangeLog>
