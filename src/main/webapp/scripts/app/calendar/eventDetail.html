@@ -1,33 +1,68 @@
+<div>    
     <div>
-		<p>
-				{{ eventDetailSelected.episode.title}}				
-		</p>
-		<div>		
-			<a	class="btn btn-primary btn-xs"
-	          	target="_new"
-	          	ng-show="eventDetailSelected.episode.serie.externalLink"
-	          	ng-href="eventDetailSelected.episode.serie.externalLink"> 
-	          		<span class="glyphicon glyphicon-link"></span> <span>External</span>
-	      	</a>
-			<a	class="btn btn-info btn-xs"
-	          	ng-show="eventDetailSelected.episode.serie.id"
-	          	ui-sref="serie.detail({id:eventDetailSelected.episode.serie.id})"> 
-	          		<span class="glyphicon glyphicon-link"></span> <span>Serie</span>
-			</a>	                	
-	
-			<a	class="btn btn-info btn-xs"
-	          	ng-show="eventDetailSelected.episode.id"
-	          	ui-sref="episode.detail({id:eventDetailSelected.episode.id})"> 
-	          		<span class="glyphicon glyphicon-link"></span> <span>Episode</span>
-			</a>
-			
-            <button 
-                    ng-click="clearEventDetailSelected()"
-                    class="btn btn-danger btn-xs" alt="close">                                    
-                <span class="glyphicon glyphicon-remove-circle" ></span>
-                <span class="hidden-xs hidden-xs">Close</span>
-            </button>			
-			
-		</div>
+    
+    	<div class="modal-header">
+    		<button type="button" class="close" ng-click="$dismiss()" aria-hidden="true">&times;</button>
+			<h4 class="modal-title text-center">{{ eventDetailSelected.title}}</h4>
+    	</div>
+    	
+    	<div class="modal-body">
+    	
+			<div>
+				<p class="lead text-center">
+					{{ eventDetailSelected.episode.title}}
+				</p>
+
+				<p ng-show="eventDetailSelected.episode.description">
+					{{ eventDetailSelected.episode.description}}				
+					<br/><br/>	
+				</p>
+								
+				<p>
+					<span>Viewed: </span>
+					<toggle-switch
+			            ng-model="eventDetailSelected.episode.viewed"			          	
+			            on-change="setViewed(eventDetailSelected.episode.id, eventDetailSelected.episode.viewed)"
+	              		class="switch-mini"			            
+			            on-label="yes"
+	              		off-label="no">
+			          </toggle-switch>  
+				</p>
+				<p>&nbsp; </p>
+										
+			</div>
+			<div class="text-center">		
+				<a	class="btn btn-primary btn-xs"
+		          	target="_new"
+		          	ng-show="eventDetailSelected.episode.serie.externalLink"
+		          	ng-href="{{eventDetailSelected.episode.serie.externalLink}}"> 
+		          		<span class="glyphicon glyphicon-link"></span> <span>External</span>
+		      	</a>
+				<a	class="btn btn-info btn-xs"
+		          	ng-show="eventDetailSelected.episode.serie.id"
+		          	ng-click="goSerie(eventDetailSelected.episode.serie.id)"> 
+		          		<span class="glyphicon glyphicon-link"></span> <span>Serie</span>
+				</a>	                	
 		
-    </div>  
+				<a	class="btn btn-info btn-xs"
+		          	ng-show="eventDetailSelected.episode.id"
+		          	ng-click="goEpisode(eventDetailSelected.episode.id)"> 
+		          		<span class="glyphicon glyphicon-link"></span> <span>Episode</span>
+				</a>
+				
+	            <button 
+	                    ng-click="$dismiss()"
+	                    class="btn btn-danger btn-xs" alt="close">                                    
+	                <span class="glyphicon glyphicon-remove-circle" ></span>
+	                <span class="hidden-xs hidden-xs">Close</span>
+	            </button>			
+				
+				
+			</div>
+			
+			<div>
+			</div>
+					
+		</div>
+    </div>
+</div>  

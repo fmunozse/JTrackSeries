@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('jtrackseriesApp')
-    .controller('CalendarController', function ($timeout, $scope, $state, CalendarService, Episode, ParseLinks, $log, DateUtils, $compile, EpisodeViewed, uiCalendarConfig) {
+    .controller('CalendarController', function ($timeout, $scope, $state, CalendarService, Episode, ParseLinks, $log, DateUtils, $compile, EpisodeViewed, uiCalendarConfig, $uibModal) {
 
         $scope.episode = {};
         $scope.eventDetailSelected = {};        
@@ -17,9 +17,52 @@ angular.module('jtrackseriesApp')
             $scope.isSaving = false;
         };        
         
-        $scope.clearEventDetailSelected = function () {
-            $scope.eventDetailSelected = {};        
-        }
+
+
+        $scope.open = function (event) {
+          var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'scripts/app/calendar/eventDetail.html',
+            controller: [
+                         "$scope", "eventDetailSelected", "EpisodeViewed", "$uibModalInstance", "$state", "$timeout",  
+                         function ($scope, eventDetailSelected, EpisodeViewed, $uibModalInstance, $state, $timeout) {
+                         	$scope.eventDetailSelected = eventDetailSelected;
+                         	$scope.goSerie = function (id) {            	            	
+                         		$uibModalInstance.close();                                
+                                $timeout( function() { $state.go('serie.detail',{id:id}); } , 500 );
+                         	}
+                         	$scope.goEpisode = function (id) {            	            	
+                         		$uibModalInstance.close();                                
+                                $timeout( function() { $state.go('episode.detail',{id:id}); } , 500 );
+                         	}
+                            $scope.setViewed = function (id, set) {        	
+                            	EpisodeViewed.update({id: id, set:set}, function (result, header) {
+                            		
+                            		event.color = (result.viewed) ? '#A3A3A3' : "#337ab7";
+                            		event.episode=result;                            		
+                            		$( "#" +event.id ).css( "background-color", event.color )
+                                });            
+                            };
+                            
+                          }
+                       ],
+            size: 'md',
+            resolve: {
+            	eventDetailSelected: function () {
+            		return $scope.eventDetailSelected
+              }
+            }
+          });
+
+          modalInstance.result.then(function (selectedItem) {
+            $scope.selected = selectedItem;                        
+          }, function () {
+            $log.info('Modal dismissed at: ' + new Date());
+            
+          });
+        };
+        
+       
         
         $scope.pad = function (num, size) {
             var s = num+"";
@@ -37,7 +80,6 @@ angular.module('jtrackseriesApp')
             		event.episode=result;
             		
             		$( "#" +event.id ).css( "background-color", event.color )            		
-            		$scope.clearEventDetailSelected();
             		
             		//$timeout( function() {uiCalendarConfig.calendars.calendar.fullCalendar('rerenderEvents') } , 3000 );
         		});            
@@ -62,7 +104,7 @@ angular.module('jtrackseriesApp')
             } ,    
             eventClick:  function(event) {
                 $log.debug("eventClick",  event);
-                $scope.setViewed(event);      
+                $scope.open(event)
             } ,
             eventDrop:  function(event) {
                 $log.debug("eventDrop",  event);
@@ -77,15 +119,14 @@ angular.module('jtrackseriesApp')
             },             
             eventRender:  function(event, element) {            	
                 element.attr({
-                	'uib-popover-template': "'scripts/app/calendar/eventDetail.html'",
-                    'popover-trigger': 'none',
-                    'popover-title': event.title,
-                    'popover-placement':'right',                    
-                    'popover-append-to-body': true,
-                    'id':event.id,
-                    'popover-is-open' : 'eventDetailSelected.id == ' + event.id                    
-                });
-                
+                	//'uib-popover-template': "'scripts/app/calendar/eventDetail.html'",
+                    //'popover-trigger': 'none',
+                    //'popover-title': event.title,
+                    //'popover-placement':'right',                    
+                    //'popover-append-to-body': true,
+                    'id':event.id
+                    //'popover-is-open' : 'eventDetailSelected.id == ' + event.id                    
+                });                
                 $compile(element)($scope);
             } ,   
             viewRender: function(view, element) {
