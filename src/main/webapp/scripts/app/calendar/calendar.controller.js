@@ -5,6 +5,7 @@ angular.module('jtrackseriesApp')
 
         $scope.episode = {};
         $scope.eventDetailSelected = {};        
+        $scope.eventSources = [];
 
         var onSaveSuccess = function (result) {
 			$log.debug("onSaveSuccess - result", result);
@@ -17,8 +18,6 @@ angular.module('jtrackseriesApp')
             $scope.isSaving = false;
         };        
         
-
-
         $scope.open = function (event) {
           var modalInstance = $uibModal.open({
             animation: $scope.animationsEnabled,
@@ -41,6 +40,7 @@ angular.module('jtrackseriesApp')
                             		event.color = (result.viewed) ? '#A3A3A3' : "#337ab7";
                             		event.episode=result;                            		
                             		$( "#" +event.id ).css( "background-color", event.color )
+                            		$timeout( function() { $uibModalInstance.close(event); } , 750 );                            		
                                 });            
                             };
                             
@@ -61,37 +61,11 @@ angular.module('jtrackseriesApp')
             
           });
         };
-        
-       
-        
-        $scope.pad = function (num, size) {
-            var s = num+"";
-            while (s.length < size) s = "0" + s;
-            return s;
-        }
-        
- 
-        $scope.setViewed = function (event) {       
-
-        	EpisodeViewed.update({id: event.id, set: !event.episode.viewed},
-            	function (result, onSaveSuccess, onSaveError) {
-        			$log.debug("result", result);
-            		event.color = (result.viewed) ? '#A3A3A3' : "#337ab7";
-            		event.episode=result;
-            		
-            		$( "#" +event.id ).css( "background-color", event.color )            		
-            		
-            		//$timeout( function() {uiCalendarConfig.calendars.calendar.fullCalendar('rerenderEvents') } , 3000 );
-        		});            
-        };
-        
-        //$scope.eventSources = [$scope.events];
-        $scope.eventSources = [];
                 
         /* config object */
         $scope.uiConfig = {
           calendar:{
-            height: 450,
+            height: 500,
             editable: true,
             firstDay:1, 
             header:{
@@ -104,6 +78,7 @@ angular.module('jtrackseriesApp')
             } ,    
             eventClick:  function(event) {
                 $log.debug("eventClick",  event);
+                $scope.eventDetailSelected = event;
                 $scope.open(event)
             } ,
             eventDrop:  function(event) {
@@ -113,19 +88,12 @@ angular.module('jtrackseriesApp')
                 	$scope.episode = result;
                     Episode.update($scope.episode, onSaveSuccess, onSaveError);
                 });
-            } ,            
-            eventMouseover: function(event) {
-                $scope.eventDetailSelected = event;        
-            },             
+            } ,                        
             eventRender:  function(event, element) {            	
                 element.attr({
-                	//'uib-popover-template': "'scripts/app/calendar/eventDetail.html'",
-                    //'popover-trigger': 'none',
-                    //'popover-title': event.title,
-                    //'popover-placement':'right',                    
-                    //'popover-append-to-body': true,
+                    'uib-tooltip': event.title + " - " + event.episode.title,
+                    'tooltip-append-to-body': true,
                     'id':event.id
-                    //'popover-is-open' : 'eventDetailSelected.id == ' + event.id                    
                 });                
                 $compile(element)($scope);
             } ,   
@@ -157,5 +125,12 @@ angular.module('jtrackseriesApp')
             }            
           }
         };
+        
+        $scope.pad = function (num, size) {
+            var s = num+"";
+            while (s.length < size) s = "0" + s;
+            return s;
+        }
+       
 
     });
