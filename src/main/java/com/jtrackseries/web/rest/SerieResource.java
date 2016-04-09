@@ -57,7 +57,7 @@ public class SerieResource {
 		StatsSincronyzeDTO stats = oTVDBScratchService.synchronizeSeriesAndEpisodesByUserIsCurrentUser();
 
         return ResponseEntity.ok()
-                .headers(HeaderUtil.createAlert("Updated your Series From TvDb", "serie"))
+                .headers(HeaderUtil.createAlert("Updated your Series From TvDb. " + stats.toString(), "serie"))
                 .body(stats);        
 	}
 	

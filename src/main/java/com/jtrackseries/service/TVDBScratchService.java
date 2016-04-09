@@ -207,6 +207,13 @@ public class TVDBScratchService {
 		return stats;
     }
 	
+    
+    /**
+     * Do the synchronization of a list of series
+     * 
+     * @param serieIterator
+     * @return
+     */
     private StatsSincronyzeDTO synchronizeFromTvDb(List<Serie> serieIterator) {
     	
     	StatsSincronyzeDTO stats = new StatsSincronyzeDTO();
@@ -240,11 +247,10 @@ public class TVDBScratchService {
 				log.debug("mSerieLocal : {} ", mSerieLocal);
 
 				
-				//Episodes from TvDb
+				//Iterate the episodes from TvDb and remove from local in case
 				List<Episode> lEpisodesTvDB = tvDB.getAllEpisodes(serieLocal.getExternalId(), "en");
 				for (Episode eTvDb : lEpisodesTvDB) {
-					log.info("Episode : {} ", eTvDb);
-					
+					log.info("Episode : {} ", eTvDb);					
 					if(mSerieLocal != null && mSerieLocal.containsKey(eTvDb.getId()) ) {
 						//Check if necessary to update
 						com.jtrackseries.domain.Episode episodeLocal = mSerieLocal.get(eTvDb.getId());
@@ -254,13 +260,23 @@ public class TVDBScratchService {
 							stats.episodesUpdated++;
 						}
 						
+						//remove from local list to evict remove in the phase of purge orphans
+						mSerieLocal.remove(eTvDb.getId());
+
 					} else {
 						//New Episode to insert in the ddbb
 						com.jtrackseries.domain.Episode episodeLocal = new com.jtrackseries.domain.Episode();
 						newEpisodeFromTvDB(episodeLocal, eTvDb, serieLocal);
 						episodeRepository.save(episodeLocal);
 						stats.episodesNewed++;
+						
 					}
+				}
+				
+				//phase of purge orphans (when in tvDB has been removed, also need to remove in the local ddbb)
+				for (com.jtrackseries.domain.Episode episodeLocal : mSerieLocal.values()){
+					episodeRepository.delete(episodeLocal);
+					stats.episodesRemoved ++;
 				}
 			}
     	
