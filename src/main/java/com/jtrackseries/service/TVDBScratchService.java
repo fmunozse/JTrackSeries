@@ -217,79 +217,85 @@ public class TVDBScratchService {
     private StatsSincronyzeDTO synchronizeFromTvDb(List<Serie> serieIterator) {
     	
     	StatsSincronyzeDTO stats = new StatsSincronyzeDTO();
-            
-    	try {
-			TheTVDBApi tvDB = new TheTVDBApi(tvdbToken);
-	        
-	        List<Serie> lSeries = serieRepository.findAll();      
-	        for (Serie serieLocal : lSeries) {
-				if (StringUtils.isBlank(serieLocal.getExternalId())) {
-					continue;
-				}
+    	TheTVDBApi tvDB = new TheTVDBApi(tvdbToken);
+	    
+	    List<Serie> lSeries = serieRepository.findAll();      
+	    for (Serie serieLocal : lSeries) {
+			if (StringUtils.isBlank(serieLocal.getExternalId())) {
+				continue;
+			}
+			
+			log.info("Attend to refresh the Serie {} - {}", serieLocal.getId(), serieLocal.getTitle());		
+			Series sTvDB = null;
+			try {
+				sTvDB = tvDB.getSeries(serieLocal.getExternalId(), "en");
+			} catch (TvDbException e) {
+				log.error("Error happen when access TvDb to get serie ", e.getCause());		
+				continue;
+			}
+			
+			if (needToBeUpdated(serieLocal, sTvDB)) {
+				updateSerieFromTvDB (serieLocal, sTvDB);	
+				stats.seriesUpdated++;
+				serieRepository.save(serieLocal);
+			}
 				
-				log.info("Attend to refresh the Serie {} - {}", serieLocal.getId(), serieLocal.getTitle());		
-				Series sTvDB = tvDB.getSeries(serieLocal.getExternalId(), "en");
-				if (needToBeUpdated(serieLocal, sTvDB)) {
-					updateSerieFromTvDB (serieLocal, sTvDB);	
-					stats.seriesUpdated++;
-					serieRepository.save(serieLocal);
-				}
+			//Prepare map of Local Series -  externalId, Episodes  (in case duplicates, just take the first)
+			Map<String, com.jtrackseries.domain.Episode> mSerieLocal =
+				   serieLocal.getEpisodes().stream()
+				   .filter(episode -> episode.getExternalId() != null  )
+				   .collect(Collectors.toMap(com.jtrackseries.domain.Episode::getExternalId,
+				                             Function.identity(),
+				                             (episode1, episode2) -> { return episode1; } )
+						   );
 				
-				//Prepare map of Local Series -  externalId, Episodes  (in case duplicates, just take the first)
-				Map<String, com.jtrackseries.domain.Episode> mSerieLocal =
-					   serieLocal.getEpisodes().stream()
-					   .filter(episode -> episode.getExternalId() != null  )
-					   .collect(Collectors.toMap(com.jtrackseries.domain.Episode::getExternalId,
-					                             Function.identity(),
-					                             (episode1, episode2) -> { return episode1; } )
-							   );
+			log.debug("mSerieLocal : {} ", mSerieLocal);
+	
 				
-				log.debug("mSerieLocal : {} ", mSerieLocal);
-
-				
-				//Iterate the episodes from TvDb and remove from local in case
-				List<Episode> lEpisodesTvDB = tvDB.getAllEpisodes(serieLocal.getExternalId(), "en");
-				for (Episode eTvDb : lEpisodesTvDB) {
-					log.info("Episode : {} ", eTvDb);					
-					if(mSerieLocal != null && mSerieLocal.containsKey(eTvDb.getId()) ) {
-						//Check if necessary to update
-						com.jtrackseries.domain.Episode episodeLocal = mSerieLocal.get(eTvDb.getId());
-						if (needToBeUpdated(episodeLocal, eTvDb)) {
-							updateEpisodeFromTvDB(episodeLocal,eTvDb);
-							episodeRepository.save(episodeLocal);
-							stats.episodesUpdated++;
-						}
-						
-						//remove from local list to evict remove in the phase of purge orphans
-						mSerieLocal.remove(eTvDb.getId());
-
-					} else {
-						//New Episode to insert in the ddbb
-						com.jtrackseries.domain.Episode episodeLocal = new com.jtrackseries.domain.Episode();
-						newEpisodeFromTvDB(episodeLocal, eTvDb, serieLocal);
+			//Iterate the episodes from TvDb and remove from local in case
+			List<Episode> lEpisodesTvDB = null;
+			
+			try {
+				lEpisodesTvDB = tvDB.getAllEpisodes(serieLocal.getExternalId(), "en");
+			} catch (TvDbException e) {
+				log.error("Error happen when access TvDb to getall episodes by Id " + serieLocal.getExternalId(), e.getCause());
+				continue;
+			}
+			
+			for (Episode eTvDb : lEpisodesTvDB) {
+				log.info("Episode : {} ", eTvDb);					
+				if(mSerieLocal != null && mSerieLocal.containsKey(eTvDb.getId()) ) {
+					//Check if necessary to update
+					com.jtrackseries.domain.Episode episodeLocal = mSerieLocal.get(eTvDb.getId());
+					if (needToBeUpdated(episodeLocal, eTvDb)) {
+						updateEpisodeFromTvDB(episodeLocal,eTvDb);
 						episodeRepository.save(episodeLocal);
-						stats.episodesNewed++;
-						
+						stats.episodesUpdated++;
 					}
-				}
-				
-				//phase of purge orphans (when in tvDB has been removed, also need to remove in the local ddbb)
-				for (com.jtrackseries.domain.Episode episodeLocal : mSerieLocal.values()){
-					episodeRepository.delete(episodeLocal);
-					stats.episodesRemoved ++;
+					
+					//remove from local list to evict remove in the phase of purge orphans
+					mSerieLocal.remove(eTvDb.getId());
+
+				} else {
+					//New Episode to insert in the ddbb
+					com.jtrackseries.domain.Episode episodeLocal = new com.jtrackseries.domain.Episode();
+					newEpisodeFromTvDB(episodeLocal, eTvDb, serieLocal);
+					episodeRepository.save(episodeLocal);
+					stats.episodesNewed++;
+					
 				}
 			}
-    	
-		} catch (TvDbException e) {
-			log.error("Error happen when access TvDb",
-					e.getCause());
-			// e.printStackTrace();
+			
+			//phase of purge orphans (when in tvDB has been removed, also need to remove in the local ddbb)
+			for (com.jtrackseries.domain.Episode episodeLocal : mSerieLocal.values()){
+				episodeRepository.delete(episodeLocal);
+				stats.episodesRemoved ++;
+			}
 		}
-
-    	
+	    
     	return stats;
     }	
-    	
+    
     
     /**
      * Updated Always : imdbId, status and lastUpdated from TvDB.
