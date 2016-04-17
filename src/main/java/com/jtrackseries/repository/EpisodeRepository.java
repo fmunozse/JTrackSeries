@@ -34,5 +34,4 @@ public interface EpisodeRepository extends JpaRepository<Episode, Long> {
 	int setViewed(Long id, Boolean viewed);
 
 
-
 }

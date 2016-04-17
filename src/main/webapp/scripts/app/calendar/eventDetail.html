@@ -6,8 +6,7 @@
 			<h4 class="modal-title text-center">{{ eventDetailSelected.title}}</h4>
     	</div>
     	
-    	<div class="modal-body">
-    	
+    	<div class="modal-body">    	    	
 			<div>
 				<p class="lead text-center">
 					{{ eventDetailSelected.episode.title}}
@@ -26,10 +25,17 @@
 	              		class="switch-mini"			            
 			            on-label="yes"
 	              		off-label="no">
-			          </toggle-switch>  
+			        </toggle-switch>
+			        
 				</p>
-				<p>&nbsp; </p>
-										
+<!-- 				<p>&nbsp; </p> -->
+	    	    <div>
+	    	    	<uib-progressbar class="progress-striped active"
+	    	    		max="statSerieBySeasonAndSerieId.totalEpisodes" 
+	    	    		value="statSerieBySeasonAndSerieId.totalViewed" >
+	    	    		<i> Season {{statSerieBySeasonAndSerieId.season}} - Viewed {{statSerieBySeasonAndSerieId.totalViewed}} / {{statSerieBySeasonAndSerieId.totalEpisodes}}</i>
+	    	    	</uib-progressbar>
+	    	    </div>
 			</div>
 			<div class="text-center">		
 				<a	class="btn btn-primary btn-xs"
@@ -51,13 +57,10 @@
 				</a>
 				
 	            <button 
-	                    ng-click="$dismiss()"
-	                    class="btn btn-danger btn-xs" alt="close">                                    
-	                <span class="glyphicon glyphicon-remove-circle" ></span>
-	                <span class="hidden-xs hidden-xs">Close</span>
-	            </button>			
-				
-				
+                    ng-click="$dismiss()"
+                    class="btn btn-danger btn-xs" alt="close">                                    
+		                <span class="glyphicon glyphicon-remove-circle"></span> <span>Close</span>	                
+	            </button>
 			</div>
 			
 			<div>

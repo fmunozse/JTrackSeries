@@ -30,6 +30,16 @@ angular.module('jtrackseriesApp')
         	'updateAllSeriesFromTvDb':  {
                 method: 'PUT',
                 url: 'api/updateAllSeriesFromTvDb/'
+            },
+            'getStatSerieBySeasonAndSerieId': {
+            	method: 'GET',
+            	url:'api/serie/statsviewed/:id',
+                transformResponse: function (data) {
+                    data = angular.fromJson(data);
+                    data.serie.firstAired = DateUtils.convertLocaleDateFromServer(data.serie.firstAired);
+                    data.serie.lastUpdated = DateUtils.convertDateTimeFromServer(data.serie.lastUpdated);
+                    return data;
+                }            	
             }
         });
     });

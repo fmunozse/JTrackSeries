@@ -96,6 +96,13 @@
     
     <h4 class="text-center"><span>Episodes </span> <span class="badge">{{totalItems}}</span> </h4>
     
+    <div>
+    	<uib-progressbar class="progress-striped active"
+    		max="statSerieBySeasonAndSerieId.totalEpisodes" 
+    		value="statSerieBySeasonAndSerieId.totalViewed" >
+    		<i> Season {{statSerieBySeasonAndSerieId.season}} - Viewed {{statSerieBySeasonAndSerieId.totalViewed}} / {{statSerieBySeasonAndSerieId.totalEpisodes}}</i>
+    	</uib-progressbar>
+    </div>
     
     <div class="table-responsive">
         <table class="jh-table table table-striped">

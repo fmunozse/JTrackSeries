@@ -101,6 +101,14 @@
             </tbody>
         </table>
     </div>
+    
+   <div>
+    	<uib-progressbar class="progress-striped active"
+    		max="statSerieBySeasonAndSerieId.totalEpisodes" 
+    		value="statSerieBySeasonAndSerieId.totalViewed" >
+    		<i> Season {{statSerieBySeasonAndSerieId.season}} - Viewed {{statSerieBySeasonAndSerieId.totalViewed}} / {{statSerieBySeasonAndSerieId.totalEpisodes}}</i>
+    	</uib-progressbar>
+    </div>
 
     <button type="submit"
             onclick="window.history.back()"

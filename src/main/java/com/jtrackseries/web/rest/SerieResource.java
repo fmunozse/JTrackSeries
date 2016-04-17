@@ -20,12 +20,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
 import com.jtrackseries.domain.Serie;
 import com.jtrackseries.repository.SerieRepository;
 import com.jtrackseries.service.TVDBScratchService;
+import com.jtrackseries.web.rest.dto.StatsSerieSeasonViewedDTO;
 import com.jtrackseries.web.rest.dto.StatsSincronyzeDTO;
 import com.jtrackseries.web.rest.util.HeaderUtil;
 import com.jtrackseries.web.rest.util.PaginationUtil;
@@ -44,6 +46,36 @@ public class SerieResource {
     
     @Inject
     private TVDBScratchService oTVDBScratchService;
+    
+
+    /**
+     * GET  /serie/statsviewed/{id} -> get all the series.
+     */
+    @RequestMapping(value = "/serie/statsviewed/{id}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<StatsSerieSeasonViewedDTO> getStatSerieBySeasonAndSerieId(
+    		@PathVariable Long id,
+    		@RequestParam(value = "season", required = false) Optional<String> season)
+    	throws URISyntaxException {
+    	
+        log.debug("REST request to get stats of Series {} of season {} ", id, season);
+        
+        StatsSerieSeasonViewedDTO stats = null;
+        if (season.isPresent()) {
+        	 stats = serieRepository.findOneStatsBySeasonAndSerieId(season.get(), id);        	
+        } else {
+        	String s = String.valueOf(serieRepository.getMaxSeasonBySerieId(id));
+            log.debug("REST max season {} get it", s);
+            stats = serieRepository.findOneStatsBySeasonAndSerieId(s, id);    
+        }
+        
+        
+        return Optional.ofNullable(stats)
+                .map(result -> new ResponseEntity<>(result,HttpStatus.OK))
+                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
     
 	/**
 	 * PUT /episodes/{id}/viewed -> Updates an existing episode.

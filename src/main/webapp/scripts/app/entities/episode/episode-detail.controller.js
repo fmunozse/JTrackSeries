@@ -3,10 +3,22 @@
 angular.module('jtrackseriesApp')
     .controller('EpisodeDetailController', function ($scope, $rootScope, $stateParams, entity, Episode, Serie, EpisodeViewed, $log) {
         $scope.episode = entity;
+     	$scope.statSerieBySeasonAndSerieId = {
+     			totalViewed:0,
+     			totalEpisodes:1
+     			}; 
+     	
+     	$scope.episode.$promise.then(function(episode) {     		
+            Serie.getStatSerieBySeasonAndSerieId(
+            		{id : episode.serie.id, season: episode.season}, function (result, header) {
+            			$scope.statSerieBySeasonAndSerieId = result;
+            	});
+        })
+     	
         $scope.load = function (id) {
             Episode.get({id: id}, function(result) {
-                $scope.episode = result;
-            });
+                $scope.episode = result;                
+            });            
         };
         var unsubscribe = $rootScope.$on('jtrackseriesApp:episodeUpdate', function(event, result) {
             $scope.episode = result;
@@ -20,7 +32,11 @@ angular.module('jtrackseriesApp')
         	EpisodeViewed.update({id: id, set:viewed},
             	function (result, header) {
         			$log.debug ("result", result);
-        			//$log.debug ("header", header);
+        			if (result.viewed) {
+        				$scope.statSerieBySeasonAndSerieId.totalViewed ++
+        			} else {
+        				$scope.statSerieBySeasonAndSerieId.totalViewed --
+        			}
             });            
         };
         

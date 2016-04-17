@@ -10,7 +10,16 @@ angular.module('jtrackseriesApp')
         $scope.reverse = false;
         $scope.page = 1;
         $scope.totalItems=0;
-
+        
+     	$scope.statSerieBySeasonAndSerieId = {
+     			totalViewed:0,
+     			totalEpisodes:1
+     			}; 
+        Serie.getStatSerieBySeasonAndSerieId(
+        		{id : $scope.serieId}, function (result, header) {
+        			$scope.statSerieBySeasonAndSerieId = result;
+        	});
+     	
         $scope.loadAll = function () {
             var EpisodesBySerieId = $resource('/api/serie/:id/episodes');
             EpisodesBySerieId.query({id: $scope.serieId, page: $scope.page - 1, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
@@ -40,7 +49,15 @@ angular.module('jtrackseriesApp')
         $scope.setViewed = function (id, set) {        	
         	EpisodeViewed.update({id: id, set:set},
             	function (result, header) {
-        			//Nothing
+        			//Only update when is updated whe match the season of the episode selected with the stats
+        			if ($scope.statSerieBySeasonAndSerieId.season == result.season) {
+            			if (result.viewed) {
+            				$scope.statSerieBySeasonAndSerieId.totalViewed ++
+            			} else {
+            				$scope.statSerieBySeasonAndSerieId.totalViewed --
+            			}        				
+        			}
+
             });            
         };
 

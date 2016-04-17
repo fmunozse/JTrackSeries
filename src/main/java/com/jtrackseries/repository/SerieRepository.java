@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.jtrackseries.domain.Serie;
+import com.jtrackseries.web.rest.dto.StatsSerieSeasonViewedDTO;
 
 /**
  * Spring Data JPA repository for the Serie entity.
@@ -26,4 +27,18 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
     @Query("select serie from Serie serie where serie.user.login = ?#{principal.username}")
 	List<Serie> findByUserIsCurrentUser();
     
+	@Query(value = 
+			"SELECT new com.jtrackseries.web.rest.dto.StatsSerieSeasonViewedDTO "
+			+ "(ep.serie,"
+			+ " ep.season,"
+			+ " SUM(CASE WHEN ep.viewed = true THEN 1 ELSE 0 END) AS totalViewed, "
+			+ " count(ep) as totalEpisodes ) " 
+		    + "FROM Episode ep "
+		    + "WHERE ep.serie.id = ?2 AND ep.season=?1 "
+		    + "GROUP BY ep.serie, ep.season"
+		  )
+	StatsSerieSeasonViewedDTO findOneStatsBySeasonAndSerieId(String season, Long serieId);
+		
+	@Query("SELECT max(ep.season) FROM Episode ep WHERE ep.serie.id = ?1 ")
+	Integer getMaxSeasonBySerieId(Long serieId);
 }

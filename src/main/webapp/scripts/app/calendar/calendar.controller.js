@@ -23,9 +23,21 @@ angular.module('jtrackseriesApp')
             animation: $scope.animationsEnabled,
             templateUrl: 'scripts/app/calendar/eventDetail.html',
             controller: [
-                         "$scope", "eventDetailSelected", "EpisodeViewed", "$uibModalInstance", "$state", "$timeout",  
-                         function ($scope, eventDetailSelected, EpisodeViewed, $uibModalInstance, $state, $timeout) {
+                         "$scope", "Serie", "eventDetailSelected", "EpisodeViewed", "$uibModalInstance", "$state", "$timeout",  
+                         function ($scope, Serie,  eventDetailSelected, EpisodeViewed, $uibModalInstance, $state, $timeout) {
                          	$scope.eventDetailSelected = eventDetailSelected;
+                         	$scope.statSerieBySeasonAndSerieId = {
+                         			totalViewed:0,
+                         			totalEpisodes:1
+                         			};
+                            Serie.getStatSerieBySeasonAndSerieId(
+                            		{season: eventDetailSelected.episode.season, 
+                            		 id :eventDetailSelected.episode.serie.id
+                            		}, function (result, header) {
+                            			$scope.statSerieBySeasonAndSerieId = result;
+                            		});
+                            
+                            
                          	$scope.goSerie = function (id) {            	            	
                          		$uibModalInstance.close();                                
                                 $timeout( function() { $state.go('serie.detail',{id:id}); } , 500 );
@@ -37,7 +49,14 @@ angular.module('jtrackseriesApp')
                             $scope.setViewed = function (id, set) {        	
                             	EpisodeViewed.update({id: id, set:set}, function (result, header) {
                             		
-                            		event.color = (result.viewed) ? '#A3A3A3' : "#337ab7";
+                            		if (result.viewed) {
+                                		event.color = '#A3A3A3';
+                                		$scope.statSerieBySeasonAndSerieId.totalViewed ++
+                            		} else {
+                            			event.color = "#337ab7";
+                            			$scope.statSerieBySeasonAndSerieId.totalViewed --
+                            		}
+                            		
                             		event.episode=result;                            		
                             		$( "#" +event.id ).css( "background-color", event.color )
                             		$timeout( function() { $uibModalInstance.close(event); } , 750 );                            		
