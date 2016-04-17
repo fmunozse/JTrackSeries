@@ -194,7 +194,7 @@ public class TVDBScratchService {
      * </p>
      * @throws TvDbException 
      */
-	@Scheduled(cron = "0 0 23 * * ?")
+	@Scheduled(cron = "0 0 22 * * ?")
     //@Scheduled(fixedRate = 60000)
     @Timed
     public void synchronizeSeriesAndEpisodes() {        
