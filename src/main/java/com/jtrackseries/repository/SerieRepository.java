@@ -41,4 +41,5 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 		
 	@Query("SELECT max(ep.season) FROM Episode ep WHERE ep.serie.id = ?1 ")
 	Integer getMaxSeasonBySerieId(Long serieId);
+
 }

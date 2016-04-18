@@ -5,6 +5,7 @@ public class StatsSincronyzeDTO {
 	public int seriesUpdated = 0;
 	public int episodesUpdated = 0;
 	public int episodesNewed = 0;
+<<<<<<< HEAD
 	public int episodesRemoved = 0;
 	
 	public String toString() {
@@ -15,6 +16,8 @@ public class StatsSincronyzeDTO {
                 ", episodes removed='" + episodesRemoved + "'" +
                 '}';
 	}
+=======
+>>>>>>> 274f1678b1ceff64c0d07526cab34322f2cd5ca3
 	
 	public int getSeriesUpdated() {
 		return seriesUpdated;
@@ -34,12 +37,15 @@ public class StatsSincronyzeDTO {
 	public void setEpisodesNewed(int episodesNewed) {
 		this.episodesNewed = episodesNewed;
 	}
+<<<<<<< HEAD
 	public int getEpisodesRemoved() {
 		return episodesRemoved;
 	}
 	public void setEpisodesRemoved(int episodesRemoved) {
 		this.episodesRemoved = episodesRemoved;
 	}
+=======
+>>>>>>> 274f1678b1ceff64c0d07526cab34322f2cd5ca3
 	
 	
 }
