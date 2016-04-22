@@ -42,4 +42,28 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 	@Query("SELECT max(ep.season) FROM Episode ep WHERE ep.serie.id = ?1 ")
 	Integer getMaxSeasonBySerieId(Long serieId);
 
+	
+	
+	@Query(value = 
+			"SELECT new com.jtrackseries.web.rest.dto.StatsSerieSeasonViewedDTO "
+			+ "(ep.serie,"
+			+ " ep.season,"
+			+ " SUM(CASE WHEN ep.viewed = true THEN 1 ELSE 0 END) AS totalViewed, "
+			+ " count(ep) as totalEpisodes ) " 
+		    + "FROM Episode ep "
+		    + "WHERE "
+		    + " ep.serie.user.login = ?#{principal.username} "
+			+ " AND ep.season in ( " 
+		    + "   SELECT epInternal.season " 
+	        + "     FROM Episode epInternal "
+			+ "    WHERE epInternal.serie=ep.serie "
+			+ "	     AND epInternal.season=ep.season "
+			+ "	     AND epInternal.datePublish > CURRENT_DATE"
+	        + "   ) "  			
+		    + "GROUP BY ep.serie, ep.season "
+		    + "ORDER BY ep.serie, ep.season "
+		  )	
+	public List<StatsSerieSeasonViewedDTO> findLastSeriesStats();
+			
+	
 }

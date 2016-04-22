@@ -48,6 +48,23 @@ public class SerieResource {
     private TVDBScratchService oTVDBScratchService;
     
 
+
+    /**
+     * GET  /serie/statsviewed -> get all the series.
+     */
+    @RequestMapping(value = "/serie/statsviewed",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<StatsSerieSeasonViewedDTO>>  getStatSeries()
+    	throws URISyntaxException {
+    	
+        log.debug("REST request to last stats of Series");        
+        List<StatsSerieSeasonViewedDTO> stats = serieRepository.findLastSeriesStats();   
+        
+        return new ResponseEntity<>(stats,HttpStatus.OK);
+    }
+    
     /**
      * GET  /serie/statsviewed/{id} -> get all the series.
      */

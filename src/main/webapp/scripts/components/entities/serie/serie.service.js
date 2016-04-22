@@ -40,6 +40,11 @@ angular.module('jtrackseriesApp')
                     data.serie.lastUpdated = DateUtils.convertDateTimeFromServer(data.serie.lastUpdated);
                     return data;
                 }            	
-            }
+            },
+            'getStatSeries': {
+            	method: 'GET',
+            	url:'api/serie/statsviewed',
+            	isArray: true	
+            }            
         });
     });

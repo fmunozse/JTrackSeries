@@ -1,6 +1,16 @@
-<div ng-cloak>
+<div ng-cloak ng-switch="isAuthenticated()">
 
-    <div class="row">        
+    <div class="row" ng-switch-when="true">
+
+		<center>
+			<h3> Hello {{account.login}}! <small>this is your current situation</small> </h3>
+		</center>
+		                       
+	    <nvd3 options="options" data="data"></nvd3>
+	    
+	</div>
+
+    <div class="row" ng-switch-when="false">        
         <div class="col-md-4">
             <span class="hipster img-responsive img-rounded"></span>
         </div>
@@ -10,18 +20,13 @@
                 Application created to keep the tracking of your favorites series.
             </p>
             
-            <div ng-switch="isAuthenticated()">
-                <div class="alert alert-success" ng-switch-when="true">
-                    You are logged in as user "{{account.login}}".
-                </div>
-
-                <div class="alert alert-warning" ng-switch-when="false">
-                    You don't have an account yet? <a class="alert-link" href="#/register">Register a new account</a>
-                    <br/>
-                	If you want to <a class="alert-link" href="#/login">sign in</a>, you can try a user demo account (login="demo" and password="password").
-                                    
-                </div>
+            <div class="alert alert-warning">
+                You don't have an account yet? <a class="alert-link" href="#/register">Register a new account</a>
+                <br/>
+            	If you want to <a class="alert-link" href="#/login">sign in</a>, you can try a user demo account (login="demo" and password="password").
+                                
             </div>
+            
 
 			<p>
                 Created using <a href="http://jhipster.github.io/" target="_blank">JHipster</a>. 
@@ -34,7 +39,7 @@
         </div>
     </div>
     
-    <div class="row">
+    <div class="row" ng-switch-when="false">
 			<div class="col-lg-12">
 				<h4>Main enhancements</h4>
 			</div>

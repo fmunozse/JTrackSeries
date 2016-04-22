@@ -31,6 +31,9 @@ module.exports = function (config) {
             'main/webapp/bower_components/fullcalendar/dist/fullcalendar.js',
             'main/webapp/bower_components/angular-ui-calendar/src/calendar.js',
             'main/webapp/bower_components/angular-bootstrap-toggle-switch/angular-toggle-switch.js',
+            'main/webapp/bower_components/d3/d3.js',
+            'main/webapp/bower_components/nvd3/build/nv.d3.js',
+            'main/webapp/bower_components/angular-nvd3/dist/angular-nvd3.js',
             'main/webapp/bower_components/angular-mocks/angular-mocks.js',
             // endbower
             'main/webapp/scripts/app/app.js',
