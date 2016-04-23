@@ -42,7 +42,8 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 	@Query("SELECT max(ep.season) FROM Episode ep WHERE ep.serie.id = ?1 ")
 	Integer getMaxSeasonBySerieId(Long serieId);
 
-	
+	@Query("SELECT case when (count(ep) > 0)  then true else false end  FROM Episode ep WHERE ep.serie.id = ?1 and ep.season > ?2 ")
+	Boolean hasMoreSeason (Long serieId, String season);
 	
 	@Query(value = 
 			"SELECT new com.jtrackseries.web.rest.dto.StatsSerieSeasonViewedDTO "

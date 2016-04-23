@@ -2,7 +2,9 @@ package com.jtrackseries.web.rest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -48,6 +50,26 @@ public class SerieResource {
     private TVDBScratchService oTVDBScratchService;
     
 
+
+    /**
+     * GET  /serie/{id}/hasMoreSeasonThan/{season}
+     */
+    @RequestMapping(value = "/serie/{id}/hasMoreSeasonThan/{season}",
+        method = RequestMethod.GET,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<Map<String, Boolean>> hasMoreSeasons(
+    		@PathVariable Long id,
+    		@PathVariable String season)
+    	throws URISyntaxException {
+    	
+        log.debug("REST request to get if has more season of Series {} of season {} ", id, season);
+        Boolean hasSeasson = serieRepository.hasMoreSeason(id,season);
+        Map<String, Boolean> m =  Collections.singletonMap("hasSeasson", hasSeasson);
+
+        return new ResponseEntity<>(m,HttpStatus.OK);
+    }
+    
 
     /**
      * GET  /serie/statsviewed -> get all the series.

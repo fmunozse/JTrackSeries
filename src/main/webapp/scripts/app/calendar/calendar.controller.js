@@ -8,8 +8,6 @@ angular.module('jtrackseriesApp')
         $scope.eventSources = [];
 
         var onSaveSuccess = function (result) {
-			$log.debug("onSaveSuccess - result", result);
-
             $scope.$emit('jtrackseriesApp:episodeUpdate', result);
             $scope.isSaving = false;
         };
@@ -30,13 +28,19 @@ angular.module('jtrackseriesApp')
                          			totalViewed:0,
                          			totalEpisodes:1
                          			};
+                         	$scope.hasSeasson = false;
                             Serie.getStatSerieBySeasonAndSerieId(
                             		{season: eventDetailSelected.episode.season, 
-                            		 id :eventDetailSelected.episode.serie.id
-                            		}, function (result, header) {
+                            		 id :eventDetailSelected.episode.serie.id}, function (result, header) {
                             			$scope.statSerieBySeasonAndSerieId = result;
                             		});
                             
+                            Serie.hasMoreSeasonThan(
+                            		{season: eventDetailSelected.episode.season, 
+                               		 id :eventDetailSelected.episode.serie.id}, function (result, header) {
+                               			$scope.hasSeasson = result.hasSeasson;
+                               		});
+                               
                             
                          	$scope.goSerie = function (id) {            	            	
                          		$uibModalInstance.close();                                
@@ -76,7 +80,7 @@ angular.module('jtrackseriesApp')
           modalInstance.result.then(function (selectedItem) {
             $scope.selected = selectedItem;                        
           }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
+            // $log.info('Modal dismissed at: ' + new Date());
             
           });
         };
@@ -93,15 +97,15 @@ angular.module('jtrackseriesApp')
               right: 'today prev,next'
             },
             dayClick: function(event) {
-                $log.debug("dayClick" , event);
+                //$log.debug("dayClick" , event);
             } ,    
             eventClick:  function(event) {
-                $log.debug("eventClick",  event);
+                //$log.debug("eventClick",  event);
                 $scope.eventDetailSelected = event;
                 $scope.open(event)
             } ,
             eventDrop:  function(event) {
-                $log.debug("eventDrop",  event);
+                //$log.debug("eventDrop",  event);
                 Episode.get({id : event.id}, function(result) {
                     result.datePublish = event._start;
                 	$scope.episode = result;
@@ -117,7 +121,7 @@ angular.module('jtrackseriesApp')
                 $compile(element)($scope);
             } ,   
             viewRender: function(view, element) {
-                $log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
+                //$log.debug("View Changed: ", view.visStart, view.visEnd, view.start, view.end);
                 
                 var fromDate = DateUtils.convertLocaleDateToServer(view.start._d) ;
                 var toDate = DateUtils.convertLocaleDateToServer(view.end._d); 
@@ -125,7 +129,7 @@ angular.module('jtrackseriesApp')
                 CalendarService.episodesByDates(fromDate, toDate).then(function (episodes) {
                     var newArr = [];
                     angular.forEach(episodes, function (episode) {
-                        $log.debug("episode:: ", episode );
+                        //$log.debug("episode:: ", episode );
                         var transformEventCalendar = function (episode) {
                         	var eventCalendar = new Object();
                         	eventCalendar.id = episode.id;

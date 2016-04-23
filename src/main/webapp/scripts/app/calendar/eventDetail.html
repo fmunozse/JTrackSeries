@@ -16,6 +16,15 @@
 					{{ eventDetailSelected.episode.description}}				
 					<br/><br/>	
 				</p>
+
+				<p>
+					<div ng-show="hasSeasson">
+						<i uib-tooltip="This series has more season apart of {{eventDetailSelected.episode.season}}" class="fa fa-bell" aria-hidden="true"></i> Has more season !! 
+					</div>					
+					<div ng-show="eventDetailSelected.episode.serie.status">
+						<i uib-tooltip="Status" class="fa fa-info-circle" aria-hidden="true"></i> {{ eventDetailSelected.episode.serie.status}}
+					</div>
+				</p>
 								
 				<p>
 					<span>Viewed: </span>
@@ -26,6 +35,7 @@
 			            on-label="yes"
 	              		off-label="no">
 			        </toggle-switch>
+			        as
 			        
 				</p>
 <!-- 				<p>&nbsp; </p> -->

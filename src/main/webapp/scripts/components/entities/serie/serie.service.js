@@ -45,6 +45,10 @@ angular.module('jtrackseriesApp')
             	method: 'GET',
             	url:'api/serie/statsviewed',
             	isArray: true	
-            }            
+            },
+            'hasMoreSeasonThan': {
+            	method: 'GET',
+            	url:'api/serie/:id/hasMoreSeasonThan/:season'       	
+            }
         });
     });

@@ -33,5 +33,6 @@ public interface EpisodeRepository extends JpaRepository<Episode, Long> {
 	@Query("update Episode e set e.viewed = ?2 where e.id = ?1")
 	int setViewed(Long id, Boolean viewed);
 
+	
 
 }
