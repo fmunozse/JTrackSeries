@@ -33,7 +33,7 @@ angular.module('jtrackseriesApp')
             },
             'getStatSerieBySeasonAndSerieId': {
             	method: 'GET',
-            	url:'api/serie/statsviewed/:id',
+            	url:'api/series/:id/statsviewed',
                 transformResponse: function (data) {
                     data = angular.fromJson(data);
                     data.serie.firstAired = DateUtils.convertLocaleDateFromServer(data.serie.firstAired);
@@ -43,12 +43,12 @@ angular.module('jtrackseriesApp')
             },
             'getStatSeries': {
             	method: 'GET',
-            	url:'api/serie/statsviewed',
+            	url:'api/series/statsviewed',
             	isArray: true	
             },
             'hasMoreSeasonThan': {
             	method: 'GET',
-            	url:'api/serie/:id/hasMoreSeasonThan/:season'       	
+            	url:'api/series/:id/hasMoreSeasonThan/:season'       	
             }
         });
     });

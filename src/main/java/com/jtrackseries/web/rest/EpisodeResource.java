@@ -42,20 +42,6 @@ public class EpisodeResource {
 	private EpisodeRepository episodeRepository;
 
 	/**
-	 * GET /episodes -> get all the episodes.
-	 */
-	@RequestMapping(value = "/serie/{idSerie}/episodes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Timed
-	public ResponseEntity<List<Episode>> getAllEpisodesByIdSerie(@PathVariable Long idSerie, Pageable pageable)
-			throws URISyntaxException {
-		log.debug("REST request to get all of Episodes by Serie Id {}", idSerie);
-		Page<Episode> page = episodeRepository.findAllBySerieId(idSerie, pageable);
-
-		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/serie/" + idSerie + "/episodes");
-		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
-	}
-
-	/**
 	 * GET /episodes/{id}/viewed -> Updates an existing episode.
 	 * 	param:  set
 	 */

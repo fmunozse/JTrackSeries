@@ -26,7 +26,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
+import com.jtrackseries.domain.Episode;
 import com.jtrackseries.domain.Serie;
+import com.jtrackseries.repository.EpisodeRepository;
 import com.jtrackseries.repository.SerieRepository;
 import com.jtrackseries.service.TVDBScratchService;
 import com.jtrackseries.web.rest.dto.StatsSerieSeasonViewedDTO;
@@ -49,12 +51,27 @@ public class SerieResource {
     @Inject
     private TVDBScratchService oTVDBScratchService;
     
+    @Inject 
+    private EpisodeRepository episodeRepository; 
 
+	/**
+	 * GET /series/{id}/episodes -> get all the episodes by Serie
+	 */
+	@RequestMapping(value = "/series/{id}/episodes", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public ResponseEntity<List<Episode>> getAllEpisodesByIdSerie(@PathVariable Long id, Pageable pageable)
+			throws URISyntaxException {
+		log.debug("REST request to get all of Episodes by Serie Id {}", id);
+		Page<Episode> page = episodeRepository.findAllBySerieId(id, pageable);
 
+		HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/series/" + id + "/episodes");
+		return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+	}
+	
     /**
-     * GET  /serie/{id}/hasMoreSeasonThan/{season}
+     * GET  /series/{id}/hasMoreSeasonThan/{season} -> return if serie has more greater season than "season"
      */
-    @RequestMapping(value = "/serie/{id}/hasMoreSeasonThan/{season}",
+    @RequestMapping(value = "/series/{id}/hasMoreSeasonThan/{season}",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -72,9 +89,9 @@ public class SerieResource {
     
 
     /**
-     * GET  /serie/statsviewed -> get all the series.
+     * GET  /series/statsviewed -> get stats for all the series (from episodes of today in advance)
      */
-    @RequestMapping(value = "/serie/statsviewed",
+    @RequestMapping(value = "/series/statsviewed",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
@@ -88,9 +105,9 @@ public class SerieResource {
     }
     
     /**
-     * GET  /serie/statsviewed/{id} -> get all the series.
+     * GET  /series/{id}/statsviewed -> get stats viewed vs total per serie.
      */
-    @RequestMapping(value = "/serie/statsviewed/{id}",
+    @RequestMapping(value = "/series/{id}/statsviewed",
         method = RequestMethod.GET,
         produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed

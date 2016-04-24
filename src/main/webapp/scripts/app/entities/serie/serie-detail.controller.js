@@ -21,7 +21,7 @@ angular.module('jtrackseriesApp')
         	});
      	
         $scope.loadAll = function () {
-            var EpisodesBySerieId = $resource('/api/serie/:id/episodes');
+            var EpisodesBySerieId = $resource('/api/series/:id/episodes');
             EpisodesBySerieId.query({id: $scope.serieId, page: $scope.page - 1, size: 20, sort: [$scope.predicate + ',' + ($scope.reverse ? 'asc' : 'desc'), 'id']}, function(result, headers) {
             	$scope.links = ParseLinks.parse(headers('link'));
                 $scope.totalItems = headers('X-Total-Count');
