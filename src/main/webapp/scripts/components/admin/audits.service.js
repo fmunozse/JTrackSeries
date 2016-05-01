@@ -3,6 +3,11 @@
 angular.module('jtrackseriesApp')
     .factory('AuditsService', function ($http) {
         return {
+            getStatsRecordsByYearMonth:  function () {
+                return $http.get('api/audits/statsRecordsByYearMonth').then(function (response) {
+                    return response.data;
+                });	
+            },        	
             findAll: function () {
                 return $http.get('api/audits/').then(function (response) {
                     return response.data;

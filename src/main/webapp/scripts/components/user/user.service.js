@@ -13,6 +13,11 @@ angular.module('jtrackseriesApp')
                 },
                 'save': { method:'POST' },
                 'update': { method:'PUT' },
-                'delete':{ method:'DELETE'}
+                'delete':{ method:'DELETE'},
+                'getStatsRecordsByYearMonth': {
+                	method: 'GET',
+                	url:'api/users/statsRecordsByYearMonth',
+                	isArray: true	
+                }
             });
         });

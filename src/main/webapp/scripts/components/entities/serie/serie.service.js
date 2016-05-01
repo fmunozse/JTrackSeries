@@ -49,6 +49,11 @@ angular.module('jtrackseriesApp')
             'hasMoreSeasonThan': {
             	method: 'GET',
             	url:'api/series/:id/hasMoreSeasonThan/:season'       	
+            },
+            'getStatsRecordsByYearMonth': {
+            	method: 'GET',
+            	url:'api/series/statsRecordsByYearMonth',
+            	isArray: true	
             }
         });
     });

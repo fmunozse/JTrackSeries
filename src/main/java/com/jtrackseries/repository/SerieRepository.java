@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.jtrackseries.domain.Serie;
+import com.jtrackseries.web.rest.dto.StatsRecordsByCreateDate;
 import com.jtrackseries.web.rest.dto.StatsSerieSeasonViewedDTO;
 
 /**
@@ -65,6 +66,13 @@ public interface SerieRepository extends JpaRepository<Serie, Long> {
 		    + "ORDER BY ep.serie, ep.season "
 		  )	
 	public List<StatsSerieSeasonViewedDTO> findLastSeriesStats();
-			
-	
+				
+	@Query(value = 
+			"SELECT new com.jtrackseries.web.rest.dto.StatsRecordsByCreateDate "
+			+ "(FUNCTION('YEAR', se.createdDate) , FUNCTION('MONTH', se.createdDate) , count(se) as total ) " 
+		    + "FROM Serie se "
+		    + "GROUP BY FUNCTION('YEAR', se.createdDate) , FUNCTION('MONTH', se.createdDate) "
+		    + "ORDER BY FUNCTION('YEAR', se.createdDate) , FUNCTION('MONTH', se.createdDate) "
+		  )		
+	public List<StatsRecordsByCreateDate> findStatsRecordsCreateDate();
 }

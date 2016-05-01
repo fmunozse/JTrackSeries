@@ -1,17 +1,15 @@
 package com.jtrackseries.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.jtrackseries.domain.Authority;
-import com.jtrackseries.domain.User;
-import com.jtrackseries.repository.AuthorityRepository;
-import com.jtrackseries.repository.UserRepository;
-import com.jtrackseries.security.AuthoritiesConstants;
-import com.jtrackseries.service.MailService;
-import com.jtrackseries.service.UserService;
-import com.jtrackseries.web.rest.dto.ManagedUserDTO;
-import com.jtrackseries.web.rest.dto.UserDTO;
-import com.jtrackseries.web.rest.util.HeaderUtil;
-import com.jtrackseries.web.rest.util.PaginationUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -22,14 +20,24 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.inject.Inject;
-import java.net.URI;
-import java.net.URISyntaxException;
-import javax.servlet.http.HttpServletRequest;
-import java.util.*;
-import java.util.stream.Collectors;
+import com.codahale.metrics.annotation.Timed;
+import com.jtrackseries.domain.Authority;
+import com.jtrackseries.domain.User;
+import com.jtrackseries.repository.AuthorityRepository;
+import com.jtrackseries.repository.UserRepository;
+import com.jtrackseries.security.AuthoritiesConstants;
+import com.jtrackseries.service.MailService;
+import com.jtrackseries.service.UserService;
+import com.jtrackseries.web.rest.dto.ManagedUserDTO;
+import com.jtrackseries.web.rest.dto.StatsRecordsByCreateDate;
+import com.jtrackseries.web.rest.util.HeaderUtil;
+import com.jtrackseries.web.rest.util.PaginationUtil;
 
 /**
  * REST controller for managing users.
@@ -74,6 +82,20 @@ public class UserResource {
     @Inject
     private UserService userService;
 
+	/**
+	 * GET /users/statsRecordsByYearMonth -> get num of records per YearMonth
+	 */    
+    @RequestMapping(value = "/users/statsRecordsByYearMonth",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<StatsRecordsByCreateDate>>  getStatsRecordsByYearMonth()
+    		throws URISyntaxException {
+    	log.debug("REST request  to get stats of number of records by CreateDate");        
+        List<StatsRecordsByCreateDate> stats = userRepository.findStatsRecordsCreateDate();   
+        return new ResponseEntity<>(stats,HttpStatus.OK);
+    }
+    
     /**
      * POST  /users -> Creates a new user.
      * <p>

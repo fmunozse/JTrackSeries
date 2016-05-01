@@ -11,5 +11,6 @@
     
     <include file="classpath:config/liquibase/changelog/20160326180947_changelog.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160403195546_added_intexed_to_episode.xml" relativeToChangelogFile="false"/>
-        
+	<include file="classpath:config/liquibase/changelog/20160426192644_added_audits_for_Serie_Episode.xml" relativeToChangelogFile="false"/>
+
 </databaseChangeLog>

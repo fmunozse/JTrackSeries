@@ -26,6 +26,11 @@ angular.module('jtrackseriesApp')
                     data.datePublish = DateUtils.convertLocaleDateToServer(data.datePublish);
                     return angular.toJson(data);
                 }
+            },
+            'getStatsRecordsByYearMonth': {
+            	method: 'GET',
+            	url:'api/episodes/statsRecordsByYearMonth',
+            	isArray: true	
             }
         });
     });

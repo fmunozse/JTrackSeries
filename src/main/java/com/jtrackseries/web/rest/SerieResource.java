@@ -31,6 +31,7 @@ import com.jtrackseries.domain.Serie;
 import com.jtrackseries.repository.EpisodeRepository;
 import com.jtrackseries.repository.SerieRepository;
 import com.jtrackseries.service.TVDBScratchService;
+import com.jtrackseries.web.rest.dto.StatsRecordsByCreateDate;
 import com.jtrackseries.web.rest.dto.StatsSerieSeasonViewedDTO;
 import com.jtrackseries.web.rest.dto.StatsSincronyzeDTO;
 import com.jtrackseries.web.rest.util.HeaderUtil;
@@ -54,6 +55,21 @@ public class SerieResource {
     @Inject 
     private EpisodeRepository episodeRepository; 
 
+	/**
+	 * GET /series/statsRecordsByYearMonth -> get num of records per YearMonth
+	 */    
+    @RequestMapping(value = "/series/statsRecordsByYearMonth",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<StatsRecordsByCreateDate>>  getStatsRecordsByYearMonth()
+    		throws URISyntaxException {
+    	log.debug("REST request  to get stats of number of records by CreateDate for all the series (from episodes of today in advance)");        
+        List<StatsRecordsByCreateDate> stats = serieRepository.findStatsRecordsCreateDate();   
+        return new ResponseEntity<>(stats,HttpStatus.OK);
+    }
+    
+    
 	/**
 	 * GET /series/{id}/episodes -> get all the episodes by Serie
 	 */
@@ -87,7 +103,6 @@ public class SerieResource {
         return new ResponseEntity<>(m,HttpStatus.OK);
     }
     
-
     /**
      * GET  /series/statsviewed -> get stats for all the series (from episodes of today in advance)
      */

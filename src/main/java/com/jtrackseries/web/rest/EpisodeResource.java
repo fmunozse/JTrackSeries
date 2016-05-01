@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.codahale.metrics.annotation.Timed;
 import com.jtrackseries.domain.Episode;
 import com.jtrackseries.repository.EpisodeRepository;
+import com.jtrackseries.web.rest.dto.StatsRecordsByCreateDate;
 import com.jtrackseries.web.rest.util.HeaderUtil;
 import com.jtrackseries.web.rest.util.PaginationUtil;
 
@@ -41,6 +42,20 @@ public class EpisodeResource {
 	@Inject
 	private EpisodeRepository episodeRepository;
 
+	/**
+	 * GET /episodes/statsRecordsByYearMonth -> get num of records per YearMonth
+	 */    
+    @RequestMapping(value = "/episodes/statsRecordsByYearMonth",
+            method = RequestMethod.GET,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    public ResponseEntity<List<StatsRecordsByCreateDate>>  getStatsRecordsByYearMonth()
+    		throws URISyntaxException {
+    	log.debug("REST request  to get stats of number of records by CreateDate");        
+        List<StatsRecordsByCreateDate> stats = episodeRepository.findStatsRecordsCreateDate();   
+        return new ResponseEntity<>(stats,HttpStatus.OK);
+    }
+    
 	/**
 	 * GET /episodes/{id}/viewed -> Updates an existing episode.
 	 * 	param:  set

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+   <changeSet author="paco (generated)" id="1461698819490-1">
+      <addColumn tableName="episode">
+         <column name="created_by" type="varchar(50)">
+            <constraints nullable="true"/>
+         </column>
+      </addColumn>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1461698819490-2">
+      <addColumn tableName="serie">
+         <column name="created_by" type="varchar(50)">
+            <constraints nullable="true"/>
+         </column>
+      </addColumn>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1461698819490-3">
+      <addColumn tableName="episode">
+         <column name="created_date" type="timestamp">
+            <constraints nullable="true"/>
+         </column>
+      </addColumn>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1461698819490-4">
+      <addColumn tableName="serie">
+         <column name="created_date" type="timestamp">
+            <constraints nullable="true"/>
+         </column>
+      </addColumn>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1461698819490-5">
+      <addColumn tableName="episode">
+         <column name="last_modified_by" type="varchar(50)"/>
+      </addColumn>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1461698819490-6">
+      <addColumn tableName="serie">
+         <column name="last_modified_by" type="varchar(50)"/>
+      </addColumn>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1461698819490-7">
+      <addColumn tableName="episode">
+         <column name="last_modified_date" type="timestamp"/>
+      </addColumn>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1461698819490-8">
+      <addColumn tableName="serie">
+         <column name="last_modified_date" type="timestamp"/>
+      </addColumn>
+   </changeSet>
+   
+   <changeSet author="paco (manually)" id="1461698819490-9">
+	  <update tableName="serie">
+      	<column name="last_modified_date" valueDate="2016-05-01" />
+      	<column name="created_date" 	  valueDate="2016-05-01" />
+        <column name="last_modified_by"   value="system"/>
+      	<column name="created_by"  		  value="system"/>      	
+      </update>
+   </changeSet>
+
+  <changeSet author="paco (manually)" id="1461698819490-10">
+	  <update tableName="episode">
+      	<column name="last_modified_date" valueDate="2016-05-01" />
+      	<column name="created_date" 	  valueDate="2016-05-01" />
+        <column name="last_modified_by"   value="system"/>
+      	<column name="created_by"  		  value="system"/>      	
+      </update>
+   </changeSet>   
+   
+   <changeSet author="paco (generated)" id="1461698819490-11">
+	    <addNotNullConstraint 
+	            columnName="created_by"
+	            tableName="episode"/>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1461698819490-12">
+	    <addNotNullConstraint 
+	            columnName="created_by"
+	            tableName="serie"/>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1461698819490-13">
+	    <addNotNullConstraint 
+	            columnName="created_date"
+	            tableName="episode"/>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1461698819490-14">
+	    <addNotNullConstraint 
+	            columnName="created_date"
+	            tableName="serie"/>      
+   </changeSet>   
+   
+</databaseChangeLog>

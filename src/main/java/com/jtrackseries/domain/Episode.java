@@ -30,7 +30,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
        			 }
 		)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class Episode implements Serializable {
+public class Episode extends AbstractAuditingEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

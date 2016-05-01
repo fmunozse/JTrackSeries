@@ -12,6 +12,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import com.jtrackseries.domain.Episode;
+import com.jtrackseries.web.rest.dto.StatsRecordsByCreateDate;
 
 /**
  * Spring Data JPA repository for the Episode entity.
@@ -33,6 +34,12 @@ public interface EpisodeRepository extends JpaRepository<Episode, Long> {
 	@Query("update Episode e set e.viewed = ?2 where e.id = ?1")
 	int setViewed(Long id, Boolean viewed);
 
-	
-
+	@Query(value = 
+			"SELECT new com.jtrackseries.web.rest.dto.StatsRecordsByCreateDate "
+			+ "(FUNCTION('YEAR', ep.createdDate) , FUNCTION('MONTH', ep.createdDate) , count(ep) as total ) " 
+		    + "FROM Episode ep "
+		    + "GROUP BY FUNCTION('YEAR', ep.createdDate) , FUNCTION('MONTH', ep.createdDate) "
+		    + "ORDER BY FUNCTION('YEAR', ep.createdDate) , FUNCTION('MONTH', ep.createdDate) "		    
+		  )		
+	public List<StatsRecordsByCreateDate> findStatsRecordsCreateDate();
 }
