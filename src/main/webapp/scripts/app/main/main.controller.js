@@ -5,24 +5,26 @@ angular.module('jtrackseriesApp')
         Principal.identity().then(function(account) {
             $scope.account = account;
             $scope.isAuthenticated = Principal.isAuthenticated;
-            
-            Serie.getStatSeries( function (result, header) {
-            	angular.forEach(result, function (stat) {
-            		var pending = stat.totalEpisodes - stat.totalViewed;
-                    if (pending > 0) {    
-            			var entryViewed = {
-            					"stat": stat, 
-            					"value": stat.totalViewed 
-            					};
-            			var entryTotal = {
-            					"stat": stat, 
-            					"value": pending 
-            					};            			
-            			$scope.data[0].values.push(entryViewed);            			
-            			$scope.data[1].values.push(entryTotal);
-                    }
-            	});
-            });
+                        
+            if ($scope.isAuthenticated()) { 
+	            Serie.getStatSeries( function (result, header) {
+	            	angular.forEach(result, function (stat) {
+	            		var pending = stat.totalEpisodes - stat.totalViewed;
+	                    if (pending > 0) {    
+	            			var entryViewed = {
+	            					"stat": stat, 
+	            					"value": stat.totalViewed 
+	            					};
+	            			var entryTotal = {
+	            					"stat": stat, 
+	            					"value": pending 
+	            					};            			
+	            			$scope.data[0].values.push(entryViewed);            			
+	            			$scope.data[1].values.push(entryTotal);
+	                    }
+	            	});
+	            }); // end of Serie.getStatSeries
+            }
                         
             $scope.options = {
 	            chart: {
