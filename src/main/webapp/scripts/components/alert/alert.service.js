@@ -2,7 +2,7 @@
 
 angular.module('jtrackseriesApp')
     .provider('AlertService', function () {
-        this.toast = false;
+        this.toast = true;
 
         this.$get = ['$timeout', '$sce', function($timeout, $sce) {
 

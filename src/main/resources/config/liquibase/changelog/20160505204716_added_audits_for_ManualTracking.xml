@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+   <changeSet author="paco (generated)" id="1462481253304-1">
+      <addColumn tableName="manual_tracking">
+         <column name="created_by" type="varchar(50)">
+            <constraints nullable="false"/>
+         </column>
+      </addColumn>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1462481253304-2">
+      <addColumn tableName="manual_tracking">
+         <column name="created_date" type="timestamp">
+            <constraints nullable="false"/>
+         </column>
+      </addColumn>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1462481253304-3">
+      <addColumn tableName="manual_tracking">
+         <column name="last_modified_by" type="varchar(50)"/>
+      </addColumn>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1462481253304-4">
+      <addColumn tableName="manual_tracking">
+         <column name="last_modified_date" type="timestamp"/>
+      </addColumn>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1462481253304-5">
+      <dropSequence sequenceName="episode_id_seq"/>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1462481253304-6">
+      <dropSequence sequenceName="jhi_persistent_audit_event_event_id_seq"/>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1462481253304-7">
+      <dropSequence sequenceName="jhi_user_id_seq"/>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1462481253304-8">
+      <dropSequence sequenceName="manual_tracking_id_seq"/>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1462481253304-9">
+      <dropSequence sequenceName="serie_id_seq"/>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1462481253304-10">
+      <dropIndex indexName="INDX_EPISODE_DATEPUBLISH" tableName="episode"/>
+      <createIndex indexName="INDX_EPISODE_DATEPUBLISH" tableName="episode">
+         <column name="date_publish"/>
+      </createIndex>
+   </changeSet>
+   <changeSet author="paco (generated)" id="1462481253304-11">
+      <dropIndex indexName="INDX_EPISODE_SERIE" tableName="episode"/>
+      <createIndex indexName="INDX_EPISODE_SERIE" tableName="episode">
+         <column name="serie_id"/>
+      </createIndex>
+   </changeSet>
+</databaseChangeLog>

@@ -30,6 +30,8 @@ import com.jtrackseries.domain.Episode;
 import com.jtrackseries.domain.Serie;
 import com.jtrackseries.repository.EpisodeRepository;
 import com.jtrackseries.repository.SerieRepository;
+import com.jtrackseries.repository.UserRepository;
+import com.jtrackseries.security.SecurityUtils;
 import com.jtrackseries.service.TVDBScratchService;
 import com.jtrackseries.web.rest.dto.StatsRecordsByCreateDate;
 import com.jtrackseries.web.rest.dto.StatsSerieSeasonViewedDTO;
@@ -48,6 +50,9 @@ public class SerieResource {
         
     @Inject
     private SerieRepository serieRepository;
+    
+    @Inject 
+    private UserRepository userRepository;
     
     @Inject
     private TVDBScratchService oTVDBScratchService;
@@ -177,6 +182,7 @@ public class SerieResource {
         if (serie.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("serie", "idexists", "A new serie cannot already have an ID")).body(null);
         }
+		serie.setUser(userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get() );
         Serie result = serieRepository.save(serie);
         return ResponseEntity.created(new URI("/api/series/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("serie", result.getId().toString()))

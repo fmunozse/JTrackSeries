@@ -1,0 +1,70 @@
+
+<div>
+    <h2><span>ManualTracking</span> {{manualTracking.id}}</h2>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <span>Title</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{manualTracking.title}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>Season</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{manualTracking.season}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>TotalEpisodes</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{manualTracking.totalEpisodes}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>LastViewed</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{manualTracking.lastViewed}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>DateRemainder</span>
+                </td>
+                <td>
+                    <span class="form-control-static">{{manualTracking.dateRemainder | date:'mediumDate'}}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span>user</span>
+                </td>
+                <td>
+                    {{manualTracking.user.id}}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button type="submit"
+            onclick="window.history.back()"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span> Back</span>
+    </button>
+</div>

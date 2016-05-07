@@ -1,0 +1,70 @@
+
+<form name="editForm" role="form" novalidate ng-submit="save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="clear()">&times;</button>
+        <h4 class="modal-title" id="myManualTrackingLabel">Create or edit a ManualTracking</h4>
+    </div>
+    <div class="modal-body">
+        <jh-alert-error></jh-alert-error>
+        <div class="form-group">
+            <label for="id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="manualTracking.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_title">Title</label>
+            <input type="text" class="form-control" name="title" id="field_title"
+                    ng-model="manualTracking.title"
+                    required ng-maxlength="1000" />
+            <div ng-show="editForm.title.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.title.$error.required">
+                    This field is required.
+                </p>
+                <p class="help-block"
+                    ng-show="editForm.title.$error.maxlength" translate-value-max="1000">
+                    This field cannot be longer than 1000 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_season">Season</label>
+            <input type="text" class="form-control" name="season" id="field_season"
+                    ng-model="manualTracking.season"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_totalEpisodes">TotalEpisodes</label>
+            <input type="number" class="form-control" name="totalEpisodes" id="field_totalEpisodes"
+                    ng-model="manualTracking.totalEpisodes"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_lastViewed">LastViewed</label>
+            <input type="number" class="form-control" name="lastViewed" id="field_lastViewed"
+                    ng-model="manualTracking.lastViewed"
+                     />
+        </div>
+        <div class="form-group">
+            <label class="control-label" for="field_dateRemainder">DateRemainder</label>
+                <div class="input-group">
+                    <input id="field_dateRemainder" type="text" class="form-control" uib-datepicker-popup="{{dateformat}}" ng-model="manualTracking.dateRemainder" is-open="datePickerForDateRemainder.status.opened"
+                    />
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-default" ng-click="datePickerForDateRemainderOpen($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+                </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span>Save</span>
+        </button>
+    </div>
+</form>
