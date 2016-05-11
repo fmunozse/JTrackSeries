@@ -68,6 +68,10 @@ public class Serie extends AbstractAuditingEntity implements Serializable {
     @Column(name = "last_updated")
     private ZonedDateTime lastUpdated;
     
+    @Size(max = 256)
+    @Column(name = "next_season", length = 256)
+    private String nextSeason;
+    
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -207,5 +211,13 @@ public class Serie extends AbstractAuditingEntity implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getNextSeason() {
+		return nextSeason;
+	}
+
+	public void setNextSeason(String nextSeason) {
+		this.nextSeason = nextSeason;
 	}
 }

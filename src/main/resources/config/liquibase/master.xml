@@ -14,5 +14,6 @@
 	<include file="classpath:config/liquibase/changelog/20160426192644_added_audits_for_Serie_Episode.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160505203738_added_entity_ManualTracking.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20160505204716_added_audits_for_ManualTracking.xml" relativeToChangelogFile="false"/>
+	<include file="classpath:config/liquibase/changelog/20160511194220_added_nextseason_to_serie.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

@@ -32,6 +32,21 @@
                 </p>
             </div>
         </div>
+
+        <div class="form-group">
+            <label class="control-label" for="field_nextSeason">Next Season</label>
+            <input type="text" class="form-control" name="nextSeason" id="field_nextSeason"
+                    ng-model="serie.nextSeason"
+                    required ng-maxlength="256" />
+            <div ng-show="editForm.nextSeason.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.nextSeason.$error.maxlength" translate-value-max="256">
+                    This field cannot be longer than 256 characters.
+                </p>
+            </div>
+        </div>        
+        
+        
         <div class="form-group">
             <label class="control-label" for="field_description">Description</label>
             <textarea rows="3" class="form-control" name="description" id="field_description"

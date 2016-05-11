@@ -28,20 +28,11 @@ angular.module('jtrackseriesApp')
                          			totalViewed:0,
                          			totalEpisodes:1
                          			};
-                         	$scope.hasSeasson = false;
                             Serie.getStatSerieBySeasonAndSerieId(
                             		{season: eventDetailSelected.episode.season, 
                             		 id :eventDetailSelected.episode.serie.id}, function (result, header) {
                             			$scope.statSerieBySeasonAndSerieId = result;
                             		});
-                            
-                            Serie.hasMoreSeasonThan(
-                            		{season: eventDetailSelected.episode.season, 
-                               		 id :eventDetailSelected.episode.serie.id}, function (result, header) {
-                               			$scope.hasSeasson = result.hasSeasson;
-                               		});
-                               
-                            
                          	$scope.goSerie = function (id) {            	            	
                          		$uibModalInstance.close();                                
                                 $timeout( function() { $state.go('serie.detail',{id:id}); } , 500 );
