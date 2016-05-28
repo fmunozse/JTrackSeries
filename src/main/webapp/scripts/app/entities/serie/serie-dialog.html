@@ -45,8 +45,22 @@
                 </p>
             </div>
         </div>        
-        
-        
+
+
+
+        <div class="form-group">
+            <label class="control-label" for="field_numEpisodes">num Episodes</label>
+            <input type="number" class="form-control" name="numEpisodes" id="field_numEpisodes"
+                    ng-model="serie.numEpisodes"
+                     />
+            <div ng-show="editForm.numEpisodes.$invalid">               
+                <p class="help-block"
+                    ng-show="editForm.numEpisodes.$error.number">
+                    This field should be a number.
+                </p>
+            </div>                     
+        </div>
+                             
         <div class="form-group">
             <label class="control-label" for="field_description">Description</label>
             <textarea rows="3" class="form-control" name="description" id="field_description"
