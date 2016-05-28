@@ -27,8 +27,9 @@
                 <tr jh-sort="predicate" ascending="reverse" callback="loadAll()">
                     <th jh-sort-by="id"><span>ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="title"><span>Title</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="description"><span>Description</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="imdbId"><span>ImdbId</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="nextSeason"><span>Next Season</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="numEpisodes"><span>Num Episodes</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th> <span>Links</span></th>
                     <th jh-sort-by="status"><span>Status</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="firstAired"><span>FirstAired</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
@@ -37,16 +38,28 @@
             <tbody>
                 <tr ng-repeat="serie in series track by serie.id">
                     <td><a ui-sref="serie.detail({id:serie.id})">{{serie.id}}</a></td>
-                    <td>{{serie.title}}</td>
-                    <td>{{serie.description}}</td>
                     <td>
+                    	{{serie.title}}
+                    	<i uib-tooltip="{{serie.description}}" ng-show="serie.description" 
+                    	   class="fa fa-plus-circle" aria-hidden="true"></i>                     	
+                    </td>
+                    <td>{{serie.nextSeason}}</td>
+                    <td>{{serie.numEpisodes}}</td>
+                    <td>
+						<a	class="btn btn-default btn-sm"
+	                        target="_new"
+	                        uib-tooltip="external link"
+	                        ng-show="serie.externalLink"
+	                        ng-href="{{serie.externalLink}}">
+	                        	<i class="fa fa-external-link" aria-hidden="true"></i>
+	                    </a> 
 	                    <a	class="btn btn-default btn-sm"
 	                        target="_new"
 	                        uib-tooltip="See in IMDB page"
 	                        ng-show="serie.imdbId"
 	                        ng-href="http://www.imdb.com/title/{{serie.imdbId}}"> 
 	                        	<span class="glyphicon glyphicon-link"></span>
-	                    </a>                    
+	                    </a>  	                                      
                     </td>
                     <td>{{serie.status}}</td>
                     <td>{{serie.firstAired | date:'mediumDate'}}</td>

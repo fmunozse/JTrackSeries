@@ -4,7 +4,7 @@ angular.module('jtrackseriesApp')
     .controller('SerieController', function ($scope, $state, Serie, ParseLinks, $log) {
 
         $scope.series = [];
-        $scope.predicate = 'id';
+        $scope.predicate = 'title';
         $scope.reverse = true;
         $scope.page = 1;
         $scope.loadAll = function() {
