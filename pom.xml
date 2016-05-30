@@ -12,7 +12,7 @@
     <groupId>com.jtrackseries</groupId>
     <artifactId>jtrackseries</artifactId>
     <!-- SNAPSHOT -->
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>war</packaging>
     <name>JTrackSeries</name>
 
@@ -712,6 +712,22 @@
                         </executions>
                         <configuration>
                             <yeomanProjectDirectory>${project.basedir}</yeomanProjectDirectory>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.spotify</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.4.5</version>
+                        <configuration>
+                            <imageName>jtrackseries</imageName>
+                            <dockerDirectory>src/main/docker</dockerDirectory>
+                            <resources>
+                                <resource>
+                                    <targetPath>/</targetPath>
+                                    <directory>${project.build.directory}</directory>
+                                    <include>${project.build.finalName}.war</include>
+                                </resource>
+                            </resources>
                         </configuration>
                     </plugin>
                     <plugin>
