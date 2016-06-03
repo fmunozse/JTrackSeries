@@ -1,0 +1,15 @@
+version: '2'
+services:
+    jtrackseries-app:
+        image: jtrackseries
+        external_links:
+            - jtrackseries-postgresql:postgresql
+        environment:
+            - SPRING_PROFILES_ACTIVE=prod
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://postgresql:5432/JTrackSeries
+        ports:
+            - 8080:8080
+    jtrackseries-postgresql:
+        extends:
+            file: postgresql.yml
+            service: jtrackseries-postgresql

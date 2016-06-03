@@ -72,8 +72,8 @@ public class Serie extends AbstractAuditingEntity implements Serializable {
     @Column(name = "next_season", length = 256)
     private String nextSeason;
     
-    @Column(name = "num_episodes")
-    private Integer numEpisodes;
+    @Column(name = "num_episodes", length = 256)
+    private String numEpisodes;
     
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -224,11 +224,11 @@ public class Serie extends AbstractAuditingEntity implements Serializable {
 		this.nextSeason = nextSeason;
 	}
 
-	public Integer getNumEpisodes() {
+	public String getNumEpisodes() {
 		return numEpisodes;
 	}
 
-	public void setNumEpisodes(Integer numEpisodes) {
+	public void setNumEpisodes(String numEpisodes) {
 		this.numEpisodes = numEpisodes;
 	}
 }

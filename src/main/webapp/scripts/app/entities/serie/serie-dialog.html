@@ -47,18 +47,17 @@
         </div>        
 
 
-
         <div class="form-group">
             <label class="control-label" for="field_numEpisodes">num Episodes</label>
-            <input type="number" class="form-control" name="numEpisodes" id="field_numEpisodes"
-                    ng-model="serie.numEpisodes"
+            <input type="text" class="form-control" name="numEpisodes" id="field_numEpisodes"
+                    ng-model="serie.numEpisodes" ng-maxlength="256"
                      />
-            <div ng-show="editForm.numEpisodes.$invalid">               
+            <div ng-show="editForm.numEpisodes.$invalid">
                 <p class="help-block"
-                    ng-show="editForm.numEpisodes.$error.number">
-                    This field should be a number.
+                    ng-show="editForm.numEpisodes.$error.maxlength" translate-value-max="256">
+                    This field cannot be longer than 256 characters.
                 </p>
-            </div>                     
+            </div>
         </div>
                              
         <div class="form-group">
