@@ -197,7 +197,7 @@ public class TVDBScratchService {
 	@Scheduled(cron = "0 0 22 * * ?")
     //@Scheduled(fixedRate = 60000)
     @Timed
-    public void synchronizeSeriesAndEpisodes() {        
+    public void synchronizeSeriesAndEpisodes() {
 		StatsSincronyzeDTO stats = synchronizeFromTvDb (serieRepository.findAll());
     }
 
@@ -215,7 +215,9 @@ public class TVDBScratchService {
      * @return
      */
     private StatsSincronyzeDTO synchronizeFromTvDb(List<Serie> serieIterator) {
-    	
+		serieRepository.flush();
+		episodeRepository.flush();
+		
     	StatsSincronyzeDTO stats = new StatsSincronyzeDTO();
     	TheTVDBApi tvDB = new TheTVDBApi(tvdbToken);
 	    
@@ -240,16 +242,23 @@ public class TVDBScratchService {
 				serieRepository.save(serieLocal);
 			}
 				
-			//Prepare map of Local Series -  externalId, Episodes  (in case duplicates, just take the first)
+			//Prepare map of Local Series -  externalId, Episodes  (in case duplicates, just take the first 
+			// and remove the second just in prune duplicates)
 			Map<String, com.jtrackseries.domain.Episode> mSerieLocal =
 				   serieLocal.getEpisodes().stream()
 				   .filter(episode -> episode.getExternalId() != null  )
 				   .collect(Collectors.toMap(com.jtrackseries.domain.Episode::getExternalId,
 				                             Function.identity(),
-				                             (episode1, episode2) -> { return episode1; } )
+				                             (episode1, episode2) -> 
+				   								{ 
+				             						episodeRepository.delete(episode2);
+				             						stats.episodesRemoved ++;
+				             						return episode1;
+				                             	} 
+				                             )
 						   );
 				
-			log.debug("mSerieLocal : {} ", mSerieLocal);
+			log.trace("mSerieLocal : {} ", mSerieLocal);
 	
 				
 			//Iterate the episodes from TvDb and remove from local in case
@@ -263,8 +272,8 @@ public class TVDBScratchService {
 			}
 			
 			for (Episode eTvDb : lEpisodesTvDB) {
-				log.info("Episode : {} ", eTvDb);					
-				if(mSerieLocal != null && mSerieLocal.containsKey(eTvDb.getId()) ) {
+				log.info("Checking Episode from TvDB : {} ", eTvDb.getEpisodeName());				
+				if(mSerieLocal != null && mSerieLocal.containsKey(parseStringSafe(eTvDb.getId())) ) {
 					//Check if necessary to update
 					com.jtrackseries.domain.Episode episodeLocal = mSerieLocal.get(eTvDb.getId());
 					if (needToBeUpdated(episodeLocal, eTvDb)) {
@@ -314,7 +323,7 @@ public class TVDBScratchService {
     	serieLocal.setStatus(parseStringSafe(sTvDB.getStatus()));
     	serieLocal.setLastUpdated(convertUnixDateTimeToLastUpdated (sTvDB.getLastUpdated()));
 
-		log.info("serie updated {}", serieLocal);		
+		log.debug("serie updated {}", serieLocal);		
     }
     
 
@@ -323,7 +332,7 @@ public class TVDBScratchService {
 		ZonedDateTime lastUpdatedFromTvDB = convertUnixDateTimeToLastUpdated (sTvDB.getLastUpdated());
 		ZonedDateTime lastUpdatedFromLocalServer = serieLocal.getLastUpdated();
 				
-		log.info("needToBeUpdated {} - LastUpdated from localServer {} with TvDB {} ", 
+		log.trace("needToBeUpdated {} - LastUpdated from localServer {} with TvDB {} ", 
 				serieLocal.getTitle(), lastUpdatedFromLocalServer, lastUpdatedFromTvDB);		
 
 		return lastUpdatedFromLocalServer == null ||  lastUpdatedFromLocalServer.isBefore(lastUpdatedFromTvDB);
@@ -337,7 +346,7 @@ public class TVDBScratchService {
 		ZonedDateTime lastUpdatedFromTvDB = convertUnixDateTimeToLastUpdated (eTvDB.getLastUpdated());
 		ZonedDateTime lastUpdatedFromLocalServer = episodeLocal.getLastUpdated();
 				
-		log.info("needToBeUpdated {} - LastUpdated from localServer {} with TvDB {} ", 
+		log.trace("needToBeUpdated {} - LastUpdated from localServer {} with TvDB {} ", 
 				episodeLocal.getTitle(), lastUpdatedFromLocalServer, lastUpdatedFromTvDB);		
 
 		return lastUpdatedFromLocalServer == null ||  lastUpdatedFromLocalServer.isBefore(lastUpdatedFromTvDB);
@@ -363,7 +372,7 @@ public class TVDBScratchService {
 		episodeLocal.setTitle(StringUtils.left(StringUtils.defaultString(parseStringSafe(eTvDB.getEpisodeName()), "NOT DEFINED"),2048));				
 		episodeLocal.setLastUpdated(convertUnixDateTimeToLastUpdated (eTvDB.getLastUpdated()));
 
-		log.info("episode to update {}", episodeLocal);
+		log.debug("episode to update {}", episodeLocal);
 	}
 	
 	
