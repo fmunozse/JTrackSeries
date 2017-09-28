@@ -47,6 +47,10 @@ public class ManualTracking extends AbstractAuditingEntity implements Serializab
     @Column(name = "date_remainder")
     private LocalDate dateRemainder;
     
+	@Size(max = 1000)
+    @Column(name = "external_link", length = 1000)
+    private String externalLink;
+    
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -106,6 +110,14 @@ public class ManualTracking extends AbstractAuditingEntity implements Serializab
     public void setUser(User user) {
         this.user = user;
     }
+    
+    public String getExternalLink() {
+		return externalLink;
+	}
+
+	public void setExternalLink(String externalLink) {
+		this.externalLink = externalLink;
+	}    
 
     @Override
     public boolean equals(Object o) {
@@ -136,6 +148,7 @@ public class ManualTracking extends AbstractAuditingEntity implements Serializab
             ", totalEpisodes='" + totalEpisodes + "'" +
             ", lastViewed='" + lastViewed + "'" +
             ", dateRemainder='" + dateRemainder + "'" +
+            ", externalLink='" + externalLink +"'" +
             '}';
     }
 }
