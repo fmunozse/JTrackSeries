@@ -16,7 +16,6 @@ node {
         sh "npm -v"
         sh "bower -v"
         sh "gulp -v"
-        sh "grunt -v"
     }
 
     stage('checkout') {
